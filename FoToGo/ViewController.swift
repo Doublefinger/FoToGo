@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController {
 
@@ -18,6 +19,22 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if FIRAuth.auth()?.currentUser != nil {
+            let user = FIRAuth.auth()?.currentUser
+            AppState.sharedInstance.displayName = user?.displayName ?? user?.email
+            AppState.sharedInstance.photoURL = user?.photoURL
+            AppState.sharedInstance.signedIn = true
+            
+            
+            
+            let viewController = storyboard?.instantiateViewController(withIdentifier: "mainPage")
+            self.present(viewController!, animated: true, completion: nil)
+        }
     }
 }
 

@@ -23,7 +23,6 @@ public class Manager{
                 return
             }
 //            firUser = user!
-            self.sendEmailVerfication(user!, viewController: viewController)
             self.registerInfo(user!, userInfo, viewController: viewController)
         })
     }
@@ -67,8 +66,7 @@ public class Manager{
                 viewController.finish()
                 return
             }
-            viewController.message = Constants.Messages.success
-            viewController.finish()
+            self.sendEmailVerfication(user, viewController: viewController)
         }
     }
     
@@ -89,6 +87,8 @@ public class Manager{
                 viewController.finish()
                 return
             }
+            viewController.message = Constants.Messages.success
+            viewController.finish()
         })
     }
 }

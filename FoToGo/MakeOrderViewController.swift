@@ -1,5 +1,5 @@
 //
-//  DeliveryMapViewController.swift
+//  MakeOrderViewController.swift
 //  FoToGo
 //
 //  Created by Shitianyu Pan on 21/11/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DeliveryMapViewController: UIViewController {
+class MakeOrderViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -12,7 +12,6 @@
 		75809C8D9C720EBAA55C8CF3 /* Pods_FoToGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1776D4A276C50AB2E74C7D10 /* Pods_FoToGo.framework */; };
 		FE1035801DE0BCDA0053066D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE10357F1DE0BCDA0053066D /* SignInViewController.swift */; };
 		FE1035821DE0D0AF0053066D /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1035811DE0D0AF0053066D /* ResetPasswordViewController.swift */; };
-		FE2C4DCC1DE2CE9D00453CBA /* DeliveryMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2C4DCB1DE2CE9D00453CBA /* DeliveryMapViewController.swift */; };
 		FE3302121DD1405600FB3923 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3302111DD1405600FB3923 /* Helper.swift */; };
 		FE3302141DD187A600FB3923 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3302131DD187A600FB3923 /* UserInfo.swift */; };
 		FE3ECB111DD0487600084144 /* NanumPen.otf in Resources */ = {isa = PBXBuildFile; fileRef = FE3ECB101DD047ED00084144 /* NanumPen.otf */; };
@@ -30,7 +29,8 @@
 		FE5D7D4D1DD0CE6200B14049 /* font-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4C1DD0CE4600B14049 /* font-1.ttf */; };
 		FE5D7D4E1DD0CE6200B14049 /* font-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4B1DD0CE3600B14049 /* font-2.ttf */; };
 		FE5D7D4F1DD0CE6200B14049 /* font-3.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4A1DD0CE1D00B14049 /* font-3.ttf */; };
-		FE7252621DD2A3680009BD0E /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7252611DD2A3680009BD0E /* MainPageViewController.swift */; };
+		FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */; };
+		FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */; };
 		FEB732631DDC030D00720326 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732621DDC030D00720326 /* Manager.swift */; };
 		FEB732651DDC2C1D00720326 /* MeasurementHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732641DDC2C1D00720326 /* MeasurementHelper.swift */; };
 		FEB732671DDC2D4500720326 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732661DDC2D4500720326 /* AppState.swift */; };
@@ -66,7 +66,6 @@
 		C7E9F46DB68CBDA473FF3624 /* Pods_FoToGoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoToGoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE10357F1DE0BCDA0053066D /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		FE1035811DE0D0AF0053066D /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
-		FE2C4DCB1DE2CE9D00453CBA /* DeliveryMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryMapViewController.swift; sourceTree = "<group>"; };
 		FE3302111DD1405600FB3923 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		FE3302131DD187A600FB3923 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		FE3ECB101DD047ED00084144 /* NanumPen.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumPen.otf; sourceTree = "<group>"; };
@@ -90,7 +89,8 @@
 		FE5D7D4A1DD0CE1D00B14049 /* font-3.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-3.ttf"; sourceTree = "<group>"; };
 		FE5D7D4B1DD0CE3600B14049 /* font-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-2.ttf"; sourceTree = "<group>"; };
 		FE5D7D4C1DD0CE4600B14049 /* font-1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-1.ttf"; sourceTree = "<group>"; };
-		FE7252611DD2A3680009BD0E /* MainPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
+		FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMapViewController.swift; sourceTree = "<group>"; };
+		FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOrderViewController.swift; sourceTree = "<group>"; };
 		FEB732621DDC030D00720326 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		FEB732641DDC2C1D00720326 /* MeasurementHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementHelper.swift; sourceTree = "<group>"; };
 		FEB732661DDC2D4500720326 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -191,8 +191,8 @@
 				FE1035811DE0D0AF0053066D /* ResetPasswordViewController.swift */,
 				FE3ECB141DD054A500084144 /* RegisterViewController.swift */,
 				FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */,
-				FE7252611DD2A3680009BD0E /* MainPageViewController.swift */,
-				FE2C4DCB1DE2CE9D00453CBA /* DeliveryMapViewController.swift */,
+				FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */,
+				FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */,
 				FEB732661DDC2D4500720326 /* AppState.swift */,
 				FEB732681DDC2E6D00720326 /* Constants.swift */,
 				FE3302131DD187A600FB3923 /* UserInfo.swift */,
@@ -514,10 +514,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE1035801DE0BCDA0053066D /* SignInViewController.swift in Sources */,
-				FE7252621DD2A3680009BD0E /* MainPageViewController.swift in Sources */,
+				FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */,
 				FE4EE7841DD02E4A0085468E /* ViewController.swift in Sources */,
 				FE4EE7821DD02E4A0085468E /* AppDelegate.swift in Sources */,
-				FE2C4DCC1DE2CE9D00453CBA /* DeliveryMapViewController.swift in Sources */,
 				FEB732671DDC2D4500720326 /* AppState.swift in Sources */,
 				FE3302121DD1405600FB3923 /* Helper.swift in Sources */,
 				FE4EE78A1DD02E4A0085468E /* FoToGo.xcdatamodeld in Sources */,
@@ -527,6 +526,7 @@
 				FE3302141DD187A600FB3923 /* UserInfo.swift in Sources */,
 				FE1035821DE0D0AF0053066D /* ResetPasswordViewController.swift in Sources */,
 				FE3ECB151DD054A500084144 /* RegisterViewController.swift in Sources */,
+				FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */,
 				FEB732631DDC030D00720326 /* Manager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

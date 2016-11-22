@@ -48,5 +48,7 @@
 		<string>font-2.ttf</string>
 		<string>font-3.ttf</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Show your location on the map</string>
 </dict>
 </plist>

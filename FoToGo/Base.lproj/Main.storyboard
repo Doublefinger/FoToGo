@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -67,7 +66,7 @@
                                     <segue destination="4H0-RZ-EuX" kind="show" id="4m4-uP-iyi"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="food_3" translatesAutoresizingMaskIntoConstraints="NO" id="EfR-1Z-rIZ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="food_4" translatesAutoresizingMaskIntoConstraints="NO" id="EfR-1Z-rIZ">
                                 <rect key="frame" x="0.0" y="28" width="375" height="571"/>
                             </imageView>
                         </subviews>
@@ -126,8 +125,8 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Sign In" id="79A-Cq-uyB">
-                                        <barButtonItem key="leftBarButtonItem" image="Back" width="1" id="gq9-tg-k97">
-                                            <inset key="imageInsets" minX="-10" minY="16" maxX="25" maxY="10"/>
+                                        <barButtonItem key="leftBarButtonItem" image="Left-50" width="1" id="gq9-tg-k97">
+                                            <inset key="imageInsets" minX="-16" minY="8" maxX="18" maxY="6"/>
                                             <connections>
                                                 <segue destination="BYZ-38-t0r" kind="show" identifier="toStart" id="yee-0b-sKj"/>
                                             </connections>
@@ -160,7 +159,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="0sa-KG-Ymv" kind="show" identifier="toMain" id="qMC-k4-Mel"/>
+                                    <segue destination="tfT-80-npM" kind="show" identifier="toMain" id="UYI-y0-Xuy"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqS-VZ-pfk">
@@ -218,6 +217,94 @@
             </objects>
             <point key="canvasLocation" x="24.800000000000001" y="749.7751124437782"/>
         </scene>
+        <!--Roll-->
+        <scene sceneID="609-Gv-FYA">
+            <objects>
+                <viewController id="58y-be-sRs" customClass="MakeOrderViewController" customModule="FoToGo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="b7n-gg-q6v"/>
+                        <viewControllerLayoutGuide type="bottom" id="i1G-Kj-MBC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NUw-0k-mWh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Roll" image="Restaurant Filled-30" id="5jt-bf-aF2">
+                        <inset key="imageInsets" minX="0.0" minY="1" maxX="0.0" maxY="-1"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RWU-nd-4rf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1638" y="1469"/>
+        </scene>
+        <!--Pick-->
+        <scene sceneID="kEt-ts-a9K">
+            <objects>
+                <viewController id="Y46-Kh-9Lg" customClass="OrderMapViewController" customModule="FoToGo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hgw-Av-WF8"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mws-z1-S1H"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bV-RG-Qh4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wc1-WZ-COK">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="FoToGo" id="Yu5-0S-syV">
+                                        <barButtonItem key="leftBarButtonItem" image="Menu Filled-30" id="Z99-bO-1HL">
+                                            <inset key="imageInsets" minX="-1" minY="2" maxX="7" maxY="0.0"/>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uXT-HP-D2d" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Wc1-WZ-COK" firstAttribute="top" secondItem="Hgw-Av-WF8" secondAttribute="bottom" id="0LO-4F-qqP"/>
+                            <constraint firstItem="uXT-HP-D2d" firstAttribute="top" secondItem="Wc1-WZ-COK" secondAttribute="bottom" id="2il-hK-u3m"/>
+                            <constraint firstItem="Wc1-WZ-COK" firstAttribute="leading" secondItem="uXT-HP-D2d" secondAttribute="leading" id="6Bl-RC-IaI"/>
+                            <constraint firstItem="Wc1-WZ-COK" firstAttribute="trailing" secondItem="uXT-HP-D2d" secondAttribute="trailing" id="9hC-SC-93U"/>
+                            <constraint firstItem="Wc1-WZ-COK" firstAttribute="leading" secondItem="8bV-RG-Qh4" secondAttribute="leading" id="ZtU-1d-WmB"/>
+                            <constraint firstAttribute="trailing" secondItem="Wc1-WZ-COK" secondAttribute="trailing" id="bu8-hc-wlk"/>
+                            <constraint firstItem="uXT-HP-D2d" firstAttribute="bottom" secondItem="Mws-z1-S1H" secondAttribute="top" id="wGe-a0-5gr"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Pick" image="Track Order Filled-30" id="gvc-0G-vcC">
+                        <inset key="imageInsets" minX="0.0" minY="1" maxX="0.0" maxY="-1"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="mapView" destination="uXT-HP-D2d" id="nTS-Qr-arw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iDe-uI-ueu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1637.5999999999999" y="749.7751124437782"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="nW5-Db-n4L">
+            <objects>
+                <tabBarController storyboardIdentifier="mainPage" id="tfT-80-npM" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="iv7-N7-dtS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Y46-Kh-9Lg" kind="relationship" relationship="viewControllers" id="y2R-PR-ZQw"/>
+                        <segue destination="58y-be-sRs" kind="relationship" relationship="viewControllers" id="ka5-cb-P5C"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NiH-s8-L4C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="828" y="1101"/>
+        </scene>
         <!--Reset Password View Controller-->
         <scene sceneID="Zc1-rr-pYt">
             <objects>
@@ -237,8 +324,8 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Forgot Password" id="8Oo-Eh-Hpw">
-                                        <barButtonItem key="leftBarButtonItem" image="Back" width="1" id="cqU-0B-cbq">
-                                            <inset key="imageInsets" minX="-10" minY="16" maxX="25" maxY="10"/>
+                                        <barButtonItem key="leftBarButtonItem" image="Left-50" width="1" id="cqU-0B-cbq">
+                                            <inset key="imageInsets" minX="-16" minY="8" maxX="18" maxY="6"/>
                                             <connections>
                                                 <segue destination="IzU-zF-fkZ" kind="show" identifier="toSignIn" id="WQi-Ue-z0i"/>
                                             </connections>
@@ -348,8 +435,8 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Register" id="rHc-Be-BYP">
-                                        <barButtonItem key="leftBarButtonItem" image="Back" width="1" id="Jqy-Zd-hvF">
-                                            <inset key="imageInsets" minX="-10" minY="16" maxX="25" maxY="10"/>
+                                        <barButtonItem key="leftBarButtonItem" image="Left-50" width="1" id="Jqy-Zd-hvF">
+                                            <inset key="imageInsets" minX="-16" minY="8" maxX="18" maxY="6"/>
                                             <connections>
                                                 <segue destination="BYZ-38-t0r" kind="show" identifier="toStart" id="jr8-HY-2qn"/>
                                             </connections>
@@ -575,8 +662,8 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Payment" id="JwJ-90-5do">
-                                        <barButtonItem key="leftBarButtonItem" image="Back" id="QOf-8N-IHs">
-                                            <inset key="imageInsets" minX="-10" minY="16" maxX="25" maxY="10"/>
+                                        <barButtonItem key="leftBarButtonItem" image="Left-50" id="QOf-8N-IHs">
+                                            <inset key="imageInsets" minX="-16" minY="8" maxX="18" maxY="6"/>
                                             <connections>
                                                 <segue destination="4H0-RZ-EuX" kind="show" identifier="toRegister" id="ouC-M0-WWL"/>
                                             </connections>
@@ -612,99 +699,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R5d-7V-JVm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1637.5999999999999" y="35.532233883058474"/>
-        </scene>
-        <!--Main Page Controller-->
-        <scene sceneID="31N-Jv-mJk">
-            <objects>
-                <viewController title="Main Page Controller" id="0sa-KG-Ymv" customClass="MainPageViewController" customModule="FoToGo" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="SOm-6Y-VRm"/>
-                        <viewControllerLayoutGuide type="bottom" id="Yt7-Q6-HFI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="PjM-5Z-6Br">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eBH-fs-0qj">
-                                <rect key="frame" x="199" y="607" width="160" height="40"/>
-                                <fontDescription key="fontDescription" name="NanumPenOTF" family="Nanum Pen Script OTF" pointSize="23"/>
-                                <state key="normal" title="Deliver for someone"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgO-gq-ogn">
-                                <rect key="frame" x="16" y="607" width="160" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Zo6-yb-9Et"/>
-                                    <constraint firstAttribute="width" constant="160" id="bdm-R0-tuu"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="NanumPenOTF" family="Nanum Pen Script OTF" pointSize="23"/>
-                                <state key="normal" title="Request a delivery"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="f0S-9X-esq" kind="show" id="aaz-Wk-Jxm"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FoToGo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mlP-Ab-mge">
-                                <rect key="frame" x="126" y="28" width="122" height="39"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="39" id="FSi-Ck-iY1"/>
-                                    <constraint firstAttribute="width" constant="122" id="OkZ-u2-Qg9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="NanumPenOTF" family="Nanum Pen Script OTF" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="food_2" translatesAutoresizingMaskIntoConstraints="NO" id="Dfg-fd-aZL">
-                                <rect key="frame" x="0.0" y="75" width="375" height="524"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="mlP-Ab-mge" firstAttribute="top" secondItem="SOm-6Y-VRm" secondAttribute="bottom" constant="8" symbolic="YES" id="1lq-Ph-cxK"/>
-                            <constraint firstItem="eBH-fs-0qj" firstAttribute="leading" secondItem="bgO-gq-ogn" secondAttribute="trailing" constant="23" id="5NN-io-LSN"/>
-                            <constraint firstItem="bgO-gq-ogn" firstAttribute="top" secondItem="Dfg-fd-aZL" secondAttribute="bottom" constant="8" symbolic="YES" id="Ac6-tT-ehY"/>
-                            <constraint firstItem="bgO-gq-ogn" firstAttribute="baseline" secondItem="eBH-fs-0qj" secondAttribute="firstBaseline" id="F0e-yL-6Dc"/>
-                            <constraint firstAttribute="bottom" secondItem="bgO-gq-ogn" secondAttribute="bottom" constant="20" symbolic="YES" id="FPA-nn-Wnr"/>
-                            <constraint firstItem="Dfg-fd-aZL" firstAttribute="top" secondItem="mlP-Ab-mge" secondAttribute="bottom" constant="8" symbolic="YES" id="NIw-2E-yTK"/>
-                            <constraint firstAttribute="trailing" secondItem="Dfg-fd-aZL" secondAttribute="trailing" id="Uuj-1W-RV2"/>
-                            <constraint firstItem="bgO-gq-ogn" firstAttribute="top" secondItem="eBH-fs-0qj" secondAttribute="top" id="Yf0-On-otD"/>
-                            <constraint firstItem="bgO-gq-ogn" firstAttribute="leading" secondItem="PjM-5Z-6Br" secondAttribute="leadingMargin" id="Zw5-hv-9yN"/>
-                            <constraint firstItem="eBH-fs-0qj" firstAttribute="trailing" secondItem="PjM-5Z-6Br" secondAttribute="trailingMargin" id="d8g-au-u9u"/>
-                            <constraint firstItem="eBH-fs-0qj" firstAttribute="baseline" secondItem="bgO-gq-ogn" secondAttribute="firstBaseline" id="eQn-lW-bBH"/>
-                            <constraint firstItem="Dfg-fd-aZL" firstAttribute="leading" secondItem="PjM-5Z-6Br" secondAttribute="leading" id="uWX-dF-1yF"/>
-                            <constraint firstItem="mlP-Ab-mge" firstAttribute="centerX" secondItem="Dfg-fd-aZL" secondAttribute="centerX" id="xBv-k4-pzK"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RXW-7Y-k7i" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="828" y="749.7751124437782"/>
-        </scene>
-        <!--Delivery Map View Controller-->
-        <scene sceneID="Wtw-Gp-IjU">
-            <objects>
-                <viewController id="f0S-9X-esq" customClass="DeliveryMapViewController" customModule="FoToGo" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="pzQ-5J-uT7"/>
-                        <viewControllerLayoutGuide type="bottom" id="SP0-kR-e8u"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="2wD-3d-8w2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DBE-CR-FsW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1638" y="750"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="aTe-QO-DCb">
@@ -758,14 +752,16 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Back" width="50" height="50"/>
-        <image name="food_2" width="512" height="512"/>
-        <image name="food_3" width="512" height="512"/>
+        <image name="Left-50" width="50" height="50"/>
+        <image name="Menu Filled-30" width="30" height="30"/>
+        <image name="Restaurant Filled-30" width="30" height="30"/>
+        <image name="Track Order Filled-30" width="30" height="30"/>
+        <image name="food_4" width="400" height="400"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qsp-TC-PtQ"/>
-        <segue reference="ouC-M0-WWL"/>
+        <segue reference="2DH-7A-pdF"/>
         <segue reference="jr8-HY-2qn"/>
+        <segue reference="4m4-uP-iyi"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
 </document>
