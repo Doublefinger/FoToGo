@@ -30,6 +30,7 @@
 		FE5D7D4E1DD0CE6200B14049 /* font-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4B1DD0CE3600B14049 /* font-2.ttf */; };
 		FE5D7D4F1DD0CE6200B14049 /* font-3.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4A1DD0CE1D00B14049 /* font-3.ttf */; };
 		FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */; };
+		FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */; };
 		FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */; };
 		FEB732631DDC030D00720326 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732621DDC030D00720326 /* Manager.swift */; };
 		FEB732651DDC2C1D00720326 /* MeasurementHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732641DDC2C1D00720326 /* MeasurementHelper.swift */; };
@@ -90,6 +91,7 @@
 		FE5D7D4B1DD0CE3600B14049 /* font-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-2.ttf"; sourceTree = "<group>"; };
 		FE5D7D4C1DD0CE4600B14049 /* font-1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-1.ttf"; sourceTree = "<group>"; };
 		FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMapViewController.swift; sourceTree = "<group>"; };
+		FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
 		FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOrderViewController.swift; sourceTree = "<group>"; };
 		FEB732621DDC030D00720326 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		FEB732641DDC2C1D00720326 /* MeasurementHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementHelper.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				FE1035811DE0D0AF0053066D /* ResetPasswordViewController.swift */,
 				FE3ECB141DD054A500084144 /* RegisterViewController.swift */,
 				FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */,
+				FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */,
 				FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */,
 				FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */,
 				FEB732661DDC2D4500720326 /* AppState.swift */,
@@ -525,6 +528,7 @@
 				FEB732651DDC2C1D00720326 /* MeasurementHelper.swift in Sources */,
 				FE3302141DD187A600FB3923 /* UserInfo.swift in Sources */,
 				FE1035821DE0D0AF0053066D /* ResetPasswordViewController.swift in Sources */,
+				FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */,
 				FE3ECB151DD054A500084144 /* RegisterViewController.swift in Sources */,
 				FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */,
 				FEB732631DDC030D00720326 /* Manager.swift in Sources */,

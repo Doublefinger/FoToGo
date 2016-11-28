@@ -25,7 +25,10 @@ class PaymentInfoViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toRegister" {
+        if segue.identifier == "toEmailCheck" {
+            let controller = segue.destination as! FinishRegistrationViewController
+            controller.emailAddress = userInfo.email
+        } else {
             let controller = segue.destination as! RegisterViewController
             controller.userInfo = userInfo
         }

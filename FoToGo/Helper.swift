@@ -28,7 +28,7 @@ public class Helper{
     }
     
     static func isPartPhoneNumber(text: String) -> Bool {
-        let numbers = NSCharacterSet(charactersIn: "-0123456789")
+        let numbers = NSCharacterSet(charactersIn: "0123456789")
         if text.rangeOfCharacter(from: numbers.inverted) != nil {
             return false
         }

@@ -31,7 +31,6 @@ class ViewController: UIViewController {
             AppState.sharedInstance.signedIn = true
             
             
-            
             let viewController = storyboard?.instantiateViewController(withIdentifier: "mainPage")
             self.present(viewController!, animated: true, completion: nil)
         }

@@ -7,13 +7,30 @@
 //
 
 import UIKit
+import Firebase
+import GoogleMaps
+import GooglePlaces
 
 class MakeOrderViewController: UIViewController {
 
+    
+    @IBOutlet weak var start: UITextField!
+    @IBOutlet weak var end: UITextField!
+    @IBOutlet weak var mapView: GMSMapView!
+
+    var storageRef: FIRStorageReference!
+    var startAutocompleteController, endAutocompleteController: GMSAutocompleteViewController!
+    var markerA, markerB: GMSMarker!
+    var placeA, placeB: GMSPlace!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        configureStorage()
+        startAutocompleteController = GMSAutocompleteViewController()
+        startAutocompleteController.delegate = self
+        endAutocompleteController = GMSAutocompleteViewController()
+        endAutocompleteController.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,7 +38,22 @@ class MakeOrderViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func configureStorage() {
+        let storageUrl = FIRApp.defaultApp()?.options.storageBucket
+        storageRef = FIRStorage.storage().reference(forURL: "gs://" + storageUrl!)
+    }
+    
+    @IBAction func editPlaceA(_ sender: Any) {
+        self.present(startAutocompleteController, animated: true, completion: nil)
+    }
 
+    @IBAction func editPlaceB(_ sender: Any) {
+        self.present(endAutocompleteController, animated: true, completion: nil)
+    }
+    
+    @IBAction func postOrder(_ sender: Any) {
+        self.tabBarController?.selectedIndex = 2;
+    }
     /*
     // MARK: - Navigation
 
@@ -31,5 +63,52 @@ class MakeOrderViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
+
+extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        print("Place name ", place.name)
+        if viewController == startAutocompleteController {
+            self.start.text = place.name
+            markerA = GMSMarker()
+            markerA.position = place.coordinate
+            markerA.title = place.name
+            markerA.icon = UIImage(named: "RBF-30")
+            markerA.map = mapView
+            placeA = place
+        } else {
+            markerB = GMSMarker()
+            markerB.position = place.coordinate
+            markerB.title = place.name
+            markerB.map = mapView
+            markerB.icon = UIImage(named: "FFF-30")
+            self.end.text = place.name
+            placeB = place
+        }
+        if placeA != nil && placeB != nil {
+            let latitude = (placeA.coordinate.latitude + placeB.coordinate.latitude) / 2
+            let longitude = (placeA.coordinate.longitude + placeB.coordinate.longitude) / 2
+            mapView.camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: 14)
+        } else {
+            mapView.camera = GMSCameraPosition.camera(withLatitude: place.coordinate.latitude, longitude: place.coordinate.longitude, zoom: 15)
+        }
+        viewController.dismiss(animated: true, completion: nil)
+    }
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        print("Error: ", error.localizedDescription)
+    }
+    
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+}
+

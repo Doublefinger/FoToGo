@@ -11,29 +11,10 @@ import CoreLocation
 import GoogleMaps
 import GooglePlaces
 
-class OrderMapViewController: UIViewController, CLLocationManagerDelegate {
+class OrderMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: GMSMapView!
     let locationManager = CLLocationManager()
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == CLAuthorizationStatus.authorizedWhenInUse {
-            self.getLocationUpdate()
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let userLocation = locations.first {
-            mapView.camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 15)
-            
-//            let marker = GMSMarker()
-//            marker.position = userLocation.coordinate
-//            marker.title = "Current Location"
-//            marker.snippet = "XXXX"
-//            marker.map = mapView
-            self.locationManager.stopUpdatingLocation()
-        }
-    }
     
     func getLocationUpdate() {
         locationManager.startUpdatingLocation()
@@ -46,6 +27,7 @@ class OrderMapViewController: UIViewController, CLLocationManagerDelegate {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
+//            locationManager.requestAlwaysAuthorization()
             getLocationUpdate()
         }
     }
@@ -54,7 +36,6 @@ class OrderMapViewController: UIViewController, CLLocationManagerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 
@@ -64,4 +45,20 @@ class OrderMapViewController: UIViewController, CLLocationManagerDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+}
+
+
+extension OrderMapViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.authorizedWhenInUse {
+            self.getLocationUpdate()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let userLocation = locations.first {
+            mapView.camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 15)
+            self.locationManager.stopUpdatingLocation()
+        }
+    }
 }

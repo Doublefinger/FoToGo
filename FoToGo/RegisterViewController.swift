@@ -13,10 +13,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
-    @IBOutlet weak var mobile: UITextField!
     @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var mobile1: UITextField!
+    @IBOutlet weak var mobile2: UITextField!
+    @IBOutlet weak var mobile3: UITextField!
     @IBOutlet weak var password: UITextField!
-    
     @IBOutlet weak var majorPicker: UIPickerView!
     
     var major = [String]()
@@ -29,7 +30,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         if (userInfo) != nil {
             firstName.text = userInfo.firstName
             lastName.text = userInfo.lastName
-            mobile.text = userInfo.mobile
+            let index1 = userInfo.mobile.index(userInfo.mobile.startIndex, offsetBy: 3)
+            mobile1.text = userInfo.mobile.substring(to: index1)
+            let index2 = userInfo.mobile.index(userInfo.mobile.startIndex, offsetBy: 6)
+            mobile2.text = userInfo.mobile.substring(with: index1..<index2)
+            mobile3.text = userInfo.mobile.substring(from: index2)
             email.text = userInfo.email
             password.text = userInfo.password
             var row = 0
@@ -83,11 +88,25 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             Helper.removeErrorIndicator(textField: password)
         }
         
-        if mobile.text == "" || mobile.text!.characters.count != 12 {
+        if mobile1.text == "" || mobile1.text!.characters.count != 3 {
             valid = false
-            Helper.showErrorIndicator(textField: mobile)
+            Helper.showErrorIndicator(textField: mobile1)
         } else {
-            Helper.removeErrorIndicator(textField: mobile)
+            Helper.removeErrorIndicator(textField: mobile1)
+        }
+        
+        if mobile2.text == "" || mobile2.text!.characters.count != 3 {
+            valid = false
+            Helper.showErrorIndicator(textField: mobile2)
+        } else {
+            Helper.removeErrorIndicator(textField: mobile2)
+        }
+        
+        if mobile3.text == "" || mobile3.text!.characters.count != 4 {
+            valid = false
+            Helper.showErrorIndicator(textField: mobile3)
+        } else {
+            Helper.removeErrorIndicator(textField: mobile3)
         }
         
         if email.text == "" || !Helper.isValidSchoolEmail(text: email.text!) {
@@ -104,7 +123,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         //TODO also check if the email exists
         let majorIndex = majorPicker.selectedRow(inComponent: 0)
         if valid {
-            userInfo = UserInfo.init(firstName: firstName.text!, lastName: lastName.text!, mobile: mobile.text!, email: email.text!, major: major[majorIndex], password: password.text!)
+            userInfo = UserInfo.init(firstName: firstName.text!, lastName: lastName.text!, mobile: mobile1.text! + mobile2.text! + mobile3.text!, email: email.text!, major: major[majorIndex], password: password.text!)
         }
         return valid
     }
@@ -122,11 +141,12 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             return Helper.isAlpha(text: prospectiveText) && prospectiveText.characters.count <= 20
         case password:
             return prospectiveText.characters.count <= 20
-        case mobile:
-            if prospectiveText.characters.count == 3 || prospectiveText.characters.count == 7 {
-                mobile.text = prospectiveText + "-"
-            }
-            return Helper.isPartPhoneNumber(text: prospectiveText) && prospectiveText.characters.count <= 12
+        case mobile1:
+            return Helper.isPartPhoneNumber(text: prospectiveText) && prospectiveText.characters.count <= 3
+        case mobile2:
+            return Helper.isPartPhoneNumber(text: prospectiveText) && prospectiveText.characters.count <= 3
+        case mobile3:
+            return Helper.isPartPhoneNumber(text: prospectiveText) && prospectiveText.characters.count <= 4
         default:
             return true
         }
