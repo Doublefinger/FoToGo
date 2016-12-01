@@ -14,7 +14,7 @@ import Firebase
 
 public class Manager{
     static let sharedInstance = Manager()
-    
+    var ref: FIRDatabaseReference!
     func register(userInfo: UserInfo, viewController: PaymentInfoViewController) {
         FIRAuth.auth()?.createUser(withEmail: userInfo.email, password: userInfo.password, completion: { (user, error) in
             if let error = error {
@@ -56,7 +56,14 @@ public class Manager{
             viewController.finish()
         })
     }
-    
+//    
+//    func createDeliveryRequest(withData data: [String: String]) {
+//        var mdata = data
+//        mdata[Constants.OrderFields.account] = AppState.sharedInstance.email
+//        //push data to Firebase Database
+//        self.ref.child("tasks").childByAutoId().setValue(mdata)
+//    }
+//    
     private func registerInfo(_ user: FIRUser, _ userInfo: UserInfo, viewController: PaymentInfoViewController){
         let changeRequest = user.profileChangeRequest()
         changeRequest.displayName = userInfo.firstName
@@ -73,7 +80,8 @@ public class Manager{
     private func signedIn(_ user: FIRUser?) {
         MeasurementHelper.sendLoginEvent()
         
-        AppState.sharedInstance.displayName = user?.displayName ?? user?.email
+        AppState.sharedInstance.displayName = user?.displayName
+        AppState.sharedInstance.email = user?.email
         AppState.sharedInstance.photoURL = user?.photoURL
         AppState.sharedInstance.signedIn = true
         let notificationName = Notification.Name(rawValue: Constants.NotificationKeys.SignedIn)

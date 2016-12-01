@@ -13,6 +13,7 @@ class AppState: NSObject {
     static let sharedInstance = AppState()
     
     var signedIn = false
+    var email: String?
     var displayName: String?
     var photoURL: URL?
 }

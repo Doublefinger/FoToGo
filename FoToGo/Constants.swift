@@ -21,4 +21,13 @@ struct Constants {
         static let FpToSignIn = "FPToSignIn"
     }
     
+    struct OrderFields {
+        static let account = "account"
+        static let expectedTime = "expectedTime"
+        static let orderList = "orderList"
+        static let restaurantLatitude = "restLati"
+        static let restaurantLongitude = "restLong"
+        static let estimateCost = "estimateCost"
+    }
+    
 }

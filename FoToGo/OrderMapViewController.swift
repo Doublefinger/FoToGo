@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import CoreLocation
 import GoogleMaps
 import GooglePlaces
@@ -14,6 +15,9 @@ import GooglePlaces
 class OrderMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: GMSMapView!
+    var ref: FIRDatabaseReference!
+    var tasks: [FIRDataSnapshot]! = []
+    fileprivate var _refHandle: FIRDatabaseHandle!
     let locationManager = CLLocationManager()
     
     func getLocationUpdate() {
@@ -30,12 +34,38 @@ class OrderMapViewController: UIViewController {
 //            locationManager.requestAlwaysAuthorization()
             getLocationUpdate()
         }
+        configureDatabase()
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    func configureDatabase() {
+        ref = FIRDatabase.database().reference()
+        _refHandle = self.ref.child("tasks").observe(.childAdded, with: { [weak self] (snapshot) in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.tasks.append(snapshot)
+            self?.drawTask(taskData: snapshot)
+        })
+    }
+    
+    func drawTask(taskData: FIRDataSnapshot) {
+        let task = taskData.value as! NSDictionary
+        let restLati = task[Constants.OrderFields.restaurantLatitude] as! NSNumber
+        let restLong = task[Constants.OrderFields.restaurantLongitude] as! NSNumber
+        let position = CLLocationCoordinate2D(latitude: restLati.doubleValue, longitude: restLong.doubleValue)
+        let marker = GMSMarker(position: position)
+        marker.title = "Hello World"
+        marker.map  = mapView
+    }
+    
+    deinit {
+        self.ref.child("tasks").removeObserver(withHandle: _refHandle)
+    }
     /*
     // MARK: - Navigation
 
