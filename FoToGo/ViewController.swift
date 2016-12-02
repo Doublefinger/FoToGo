@@ -26,6 +26,7 @@ class ViewController: UIViewController {
         
         if FIRAuth.auth()?.currentUser != nil {
             let user = FIRAuth.auth()?.currentUser
+            AppState.sharedInstance.uid = user?.uid
             AppState.sharedInstance.displayName = user?.displayName ?? user?.email
             AppState.sharedInstance.photoURL = user?.photoURL
             AppState.sharedInstance.signedIn = true

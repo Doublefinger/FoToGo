@@ -80,6 +80,7 @@ public class Manager{
     private func signedIn(_ user: FIRUser?) {
         MeasurementHelper.sendLoginEvent()
         
+        AppState.sharedInstance.uid = user?.uid
         AppState.sharedInstance.displayName = user?.displayName
         AppState.sharedInstance.email = user?.email
         AppState.sharedInstance.photoURL = user?.photoURL

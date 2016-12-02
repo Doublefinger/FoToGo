@@ -22,10 +22,12 @@ class MakeOrderViewController: UIViewController {
     var startAutocompleteController, endAutocompleteController: GMSAutocompleteViewController!
     var markerA, markerB: GMSMarker!
     var placeA, placeB: GMSPlace!
+    var ref : FIRDatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.ref = FIRDatabase.database().reference()
         configureStorage()
         startAutocompleteController = GMSAutocompleteViewController()
         startAutocompleteController.delegate = self
@@ -52,6 +54,16 @@ class MakeOrderViewController: UIViewController {
     }
     
     @IBAction func postOrder(_ sender: Any) {
+        var tData = [String: Any]()
+        tData[Constants.OrderFields.account] = AppState.sharedInstance.uid
+        tData[Constants.OrderFields.restaurantName] = start.text!
+        tData[Constants.OrderFields.destinationName] = end.text!
+        tData[Constants.OrderFields.restaurantLatitude] = Double(placeA.coordinate.latitude)
+        tData[Constants.OrderFields.restaurantLongitude] = Double(placeA.coordinate.longitude)
+        tData[Constants.OrderFields.destinationLatitude] = Double(placeB.coordinate.latitude)
+        tData[Constants.OrderFields.destinationLongitude] = Double(placeB.coordinate.longitude)
+        tData[Constants.OrderFields.state] = "waiting"
+        self.ref.child("tasks").childByAutoId().setValue(tData)
         self.tabBarController?.selectedIndex = 2;
     }
     /*
@@ -67,7 +79,6 @@ class MakeOrderViewController: UIViewController {
 
 extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Place name ", place.name)
         if viewController == startAutocompleteController {
             self.start.text = place.name
             markerA = GMSMarker()
