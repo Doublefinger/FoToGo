@@ -58,13 +58,13 @@ class MakeOrderViewController: UIViewController {
         tData[Constants.OrderFields.account] = AppState.sharedInstance.uid
         tData[Constants.OrderFields.restaurantName] = start.text!
         tData[Constants.OrderFields.destinationName] = end.text!
-        tData[Constants.OrderFields.restaurantLatitude] = Double(placeA.coordinate.latitude)
-        tData[Constants.OrderFields.restaurantLongitude] = Double(placeA.coordinate.longitude)
-        tData[Constants.OrderFields.destinationLatitude] = Double(placeB.coordinate.latitude)
-        tData[Constants.OrderFields.destinationLongitude] = Double(placeB.coordinate.longitude)
+        tData[Constants.OrderFields.restaurantLatitude] = placeA.coordinate.latitude
+        tData[Constants.OrderFields.restaurantLongitude] = placeA.coordinate.longitude
+        tData[Constants.OrderFields.destinationLatitude] = placeB.coordinate.latitude
+        tData[Constants.OrderFields.destinationLongitude] = placeB.coordinate.longitude
         tData[Constants.OrderFields.state] = "waiting"
         self.ref.child("tasks").childByAutoId().setValue(tData)
-        self.tabBarController?.selectedIndex = 2;
+        self.tabBarController?.selectedIndex = 2
     }
     /*
     // MARK: - Navigation

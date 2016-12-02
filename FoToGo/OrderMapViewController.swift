@@ -20,14 +20,17 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     var taskId: String!
     
     var ref: FIRDatabaseReference!
+    var waitingTasks: FIRDatabaseQuery!
     var tasks: [FIRDataSnapshot]! = []
     fileprivate var _refAddHandle, _refUpdateHandle: FIRDatabaseHandle!
-    var add_update_conflict = false
+    var initalDataLoaded: Bool!
     let locationManager = CLLocationManager()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        initalDataLoaded = true
+
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
@@ -35,6 +38,7 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
             getLocationUpdate()
         }
         configureDatabase()
+        initalDataLoaded = false
         configureAlert()
         prevRestMarker = nil
     }
@@ -54,15 +58,6 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
                     displayRestaurantMarker(marker)
                 }
             }
-
-//            if self.prevRestMarker?.map == nil {
-//                displayRestaurantMarker(marker)
-//            } else {
-//                self.prevRestMarker.map = nil
-//                if marker.userData as? GMSMarker != self.prevRestMarker {
-//                    displayRestaurantMarker(marker)
-//                }
-//            }
         }
         return false;
     }
@@ -75,12 +70,12 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func configureAlert() {
-        acceptTaskAlert = UIAlertController(title: "Pick the Order", message: "Do you want to pick this order?", preferredStyle: UIAlertControllerStyle.alert)
-        acceptTaskAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
-            self.acceptTaskAlert.dismiss(animated: true, completion: nil)
-        }))
+        acceptTaskAlert = UIAlertController(title: "Confirmation", message: "Do you want to pick this order?", preferredStyle: UIAlertControllerStyle.alert)
         acceptTaskAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             self.orderPicked()
+        }))
+        acceptTaskAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
+            self.acceptTaskAlert.dismiss(animated: true, completion: nil)
         }))
     }
     
@@ -95,8 +90,7 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
         self.prevRestMarker = restMarker
     }
 
-    func displayTask(taskData: FIRDataSnapshot) {
-        let task = taskData.value as! NSDictionary
+    func displayTask(_ task: NSDictionary, taskId: String) {
         let restName = task[Constants.OrderFields.restaurantName] as! NSString
         let destName = task[Constants.OrderFields.destinationName] as! NSString
         let restLati = task[Constants.OrderFields.restaurantLatitude] as! NSNumber
@@ -107,22 +101,24 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
         let restMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: restLati.doubleValue, longitude: restLong.doubleValue))
         restMarker.icon = UIImage(named: "Restaurant Pickup-30")
         restMarker.title = restName as String
+        restMarker.snippet = "Long press the info window to pick this order"
         restMarker.map = nil
-        restMarker.userData = taskData.key
+        restMarker.userData = taskId
         
         let destMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: destLati.doubleValue, longitude: destLong.doubleValue))
         destMarker.icon = UIImage(named: "FF-30")
         destMarker.title = destName as String
+        destMarker.snippet = "Type the restaurant marker to pick an order"
         destMarker.userData = restMarker
         destMarker.map = mapView
         markers.append(destMarker)
     }
     
-    func removeTask(taskData: FIRDataSnapshot) {
+    func removeTask(_ taskId: String) {
         var index = -1
         for marker in markers {
             let restMarker = marker.userData as! GMSMarker
-            if (restMarker.userData as! String) == taskData.key {
+            if (restMarker.userData as! String) == taskId {
                 restMarker.map = nil
                 marker.map = nil
                 index = markers.index(of: marker)!
@@ -141,31 +137,33 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func configureDatabase() {
-        ref = FIRDatabase.database().reference()
-        let childRefQuery = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.state).queryEqual(toValue: "waiting")
+        self.ref = FIRDatabase.database().reference()
+        self.waitingTasks = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.state).queryEqual(toValue: "waiting")
         
-        _refAddHandle = childRefQuery.observe(.childAdded, with: { [weak self] (snapshot) in
+        _refAddHandle = waitingTasks.observe(.childAdded, with: { [weak self] (snapshot) in
             guard self != nil else {
                 return
             }
 //            strongSelf.tasks.append(snapshot)
-            print("addChild")
-            self?.displayTask(taskData: snapshot)
+            let task = snapshot.value as! NSDictionary
+            self?.displayTask(task, taskId: snapshot.key)
         })
-        
-        _refUpdateHandle = self.ref.child("tasks").observe(.childChanged, with: { [weak self] (snapshot) in
+        _refUpdateHandle = waitingTasks.observe(.childChanged, with: { [weak self] (snapshot) in
             guard self != nil else {
                 return
             }
-            
-            print("changeChild")
-            self?.removeTask(taskData: snapshot)
+            let task = snapshot.value as! NSDictionary
+            let state = task[Constants.OrderFields.state] as! String
+            if state == "pick" {
+                self?.removeTask(snapshot.key)
+            }
         })
+    
     }
     
     deinit {
-        self.ref.child("tasks").removeObserver(withHandle: _refAddHandle)
-        self.ref.child("tasks").removeObserver(withHandle: _refUpdateHandle)
+        waitingTasks.removeObserver(withHandle: _refAddHandle)
+        waitingTasks.removeObserver(withHandle: _refUpdateHandle)
     }
     /*
     // MARK: - Navigation
