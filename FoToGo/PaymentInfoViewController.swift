@@ -65,7 +65,6 @@ class PaymentInfoViewController: UIViewController {
         self.present(responseAlert, animated: true, completion: nil)
     }
     
-
     /*
     // MARK: - Navigation
 

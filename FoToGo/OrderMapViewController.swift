@@ -17,19 +17,16 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     var markers = [GMSMarker]()
     var prevRestMarker: GMSMarker!
     var acceptTaskAlert: UIAlertController!
-    var taskId: String!
     
     var ref: FIRDatabaseReference!
     var waitingTasks: FIRDatabaseQuery!
     var tasks: [FIRDataSnapshot]! = []
     fileprivate var _refAddHandle, _refUpdateHandle: FIRDatabaseHandle!
-    var initalDataLoaded: Bool!
     let locationManager = CLLocationManager()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        initalDataLoaded = true
 
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -38,7 +35,6 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
             getLocationUpdate()
         }
         configureDatabase()
-        initalDataLoaded = false
         configureAlert()
         prevRestMarker = nil
     }
@@ -80,8 +76,9 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func orderPicked(){
-        let path = "tasks/" + (mapView.selectedMarker?.userData as! String) + "/state"
-        self.ref.child(path).setValue("pick")
+        let path = "tasks/" + (mapView.selectedMarker?.userData as! String) + "/"
+        self.ref.child(path + Constants.OrderFields.state).setValue("pick")
+        self.ref.child(path + Constants.OrderFields.pickedBy).setValue(AppState.sharedInstance.uid)
     }
     
     func displayRestaurantMarker(_ marker: GMSMarker) {
@@ -138,25 +135,34 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     
     func configureDatabase() {
         self.ref = FIRDatabase.database().reference()
-        self.waitingTasks = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.state).queryEqual(toValue: "waiting")
+        self.waitingTasks = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.state).queryEqual(toValue: Constants.OrderStates.wait)
         
         _refAddHandle = waitingTasks.observe(.childAdded, with: { [weak self] (snapshot) in
-            guard self != nil else {
+            guard let strongSelf = self else {
                 return
             }
 //            strongSelf.tasks.append(snapshot)
+            print("enter map add")
             let task = snapshot.value as! NSDictionary
-            self?.displayTask(task, taskId: snapshot.key)
+            strongSelf.displayTask(task, taskId: snapshot.key)
         })
-        _refUpdateHandle = waitingTasks.observe(.childChanged, with: { [weak self] (snapshot) in
-            guard self != nil else {
+        _refUpdateHandle = self.ref.child("tasks").observe(.childChanged, with: { [weak self] (snapshot) in
+            guard let strongSelf = self else {
                 return
             }
+            print("enter map change")
+            
             let task = snapshot.value as! NSDictionary
             let state = task[Constants.OrderFields.state] as! String
-            if state == "pick" {
-                self?.removeTask(snapshot.key)
+            if state == Constants.OrderStates.pick {
+                strongSelf.removeTask(snapshot.key)
             }
+            
+            if state == Constants.OrderStates.complete && ((task[Constants.OrderFields.account] as! String) == AppState.sharedInstance.uid) || ((task[Constants.OrderFields.pickedBy] as! String) == AppState.sharedInstance.uid) {
+                print("enter notification")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.PickOrder), object: snapshot.key)
+            }
+
         })
     
     }

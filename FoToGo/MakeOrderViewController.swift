@@ -56,6 +56,7 @@ class MakeOrderViewController: UIViewController {
     @IBAction func postOrder(_ sender: Any) {
         var tData = [String: Any]()
         tData[Constants.OrderFields.account] = AppState.sharedInstance.uid
+        tData[Constants.OrderFields.pickedBy] = ""
         tData[Constants.OrderFields.restaurantName] = start.text!
         tData[Constants.OrderFields.destinationName] = end.text!
         tData[Constants.OrderFields.restaurantLatitude] = placeA.coordinate.latitude

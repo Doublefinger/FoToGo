@@ -14,6 +14,7 @@ struct Constants {
     
     struct NotificationKeys {
         static let SignedIn = "onSignInCompleted"
+        static let PickOrder = "orderPicked"
     }
     
     struct Segues {
@@ -23,6 +24,7 @@ struct Constants {
     
     struct OrderFields {
         static let account = "account"
+        static let pickedBy = "pickedBy"
         static let expectedTime = "expectedTime"
         static let orderList = "orderList"
         static let estimateCost = "estimateCost"
@@ -35,4 +37,10 @@ struct Constants {
         static let destinationLongitude = "destLong"
     }
     
+    struct OrderStates {
+        static let wait = "waiting"
+        static let pick = "pick"
+        static let drop = "drop"
+        static let complete = "complete"
+    }
 }
