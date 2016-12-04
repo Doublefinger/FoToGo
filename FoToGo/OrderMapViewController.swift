@@ -44,6 +44,13 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "signOut" {
+            Manager.sharedInstance.signOut()
+        }
+
+    }
+    
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         if (!(marker.userData is String)) {
             if self.prevRestMarker?.map == nil {
@@ -60,7 +67,6 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
  
     func mapView(_ mapView: GMSMapView, didLongPressInfoWindowOf marker: GMSMarker) {
         if (marker.userData is String) {
-//            taskId = marker.userData as! String!
             self.present(acceptTaskAlert, animated: true, completion: nil)
         }
     }
@@ -76,9 +82,21 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func orderPicked(){
-        let path = "tasks/" + (mapView.selectedMarker?.userData as! String) + "/"
-        self.ref.child(path + Constants.OrderFields.state).setValue("pick")
-        self.ref.child(path + Constants.OrderFields.pickedBy).setValue(AppState.sharedInstance.uid)
+        let taskId = mapView.selectedMarker?.userData as! String
+        for snapshot in self.tasks {
+            if taskId == snapshot.key {
+                let task = snapshot.value as! NSDictionary
+                if (task[Constants.OrderFields.account] as! String) == AppState.sharedInstance.uid {
+                    print("cannot pick own task")
+                    return
+                }
+                
+                let path = "tasks/" + taskId + "/"
+                self.ref.child(path + Constants.OrderFields.state).setValue("pick")
+                self.ref.child(path + Constants.OrderFields.pickedBy).setValue(AppState.sharedInstance.uid)
+                break
+            }
+        }
     }
     
     func displayRestaurantMarker(_ marker: GMSMarker) {
@@ -141,16 +159,15 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
             guard let strongSelf = self else {
                 return
             }
-//            strongSelf.tasks.append(snapshot)
-            print("enter map add")
+
             let task = snapshot.value as! NSDictionary
+            strongSelf.tasks.append(snapshot)
             strongSelf.displayTask(task, taskId: snapshot.key)
         })
         _refUpdateHandle = self.ref.child("tasks").observe(.childChanged, with: { [weak self] (snapshot) in
             guard let strongSelf = self else {
                 return
             }
-            print("enter map change")
             
             let task = snapshot.value as! NSDictionary
             let state = task[Constants.OrderFields.state] as! String

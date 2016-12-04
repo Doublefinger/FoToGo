@@ -63,7 +63,7 @@ class MakeOrderViewController: UIViewController {
         tData[Constants.OrderFields.restaurantLongitude] = placeA.coordinate.longitude
         tData[Constants.OrderFields.destinationLatitude] = placeB.coordinate.latitude
         tData[Constants.OrderFields.destinationLongitude] = placeB.coordinate.longitude
-        tData[Constants.OrderFields.state] = "waiting"
+        tData[Constants.OrderFields.state] = Constants.OrderStates.wait
         self.ref.child("tasks").childByAutoId().setValue(tData)
         self.tabBarController?.selectedIndex = 2
     }
@@ -85,7 +85,7 @@ extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
             markerA = GMSMarker()
             markerA.position = place.coordinate
             markerA.title = place.name
-            markerA.icon = UIImage(named: "RBF-30")
+            markerA.icon = UIImage(named: "Restaurant Pickup-30")
             markerA.map = mapView
             placeA = place
         } else {
@@ -93,7 +93,7 @@ extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
             markerB.position = place.coordinate
             markerB.title = place.name
             markerB.map = mapView
-            markerB.icon = UIImage(named: "FFF-30")
+            markerB.icon = UIImage(named: "FF-30")
             self.end.text = place.name
             placeB = place
         }

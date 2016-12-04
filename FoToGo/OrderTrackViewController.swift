@@ -19,9 +19,10 @@ class OrderTrackViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
+
         NotificationCenter.default.addObserver(self, selector: #selector(OrderTrackViewController.removeTask(_:)), name: Notification.Name(rawValue: Constants.NotificationKeys.PickOrder), object: nil)
         configureDatabase()
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,50 +32,32 @@ class OrderTrackViewController: UIViewController, UITableViewDataSource, UITable
     
     func configureDatabase() {
         self.ref = FIRDatabase.database().reference()
-        self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.state).queryEqual(toValue: "pick").observe(.childAdded, with: {[weak self] (snapshot) -> Void in
+        self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.account).queryEqual(toValue: AppState.sharedInstance.uid).observe(.childAdded, with: {[weak self] (snapshot) -> Void in
             guard let strongSelf = self else {
                 return
             }
-            print("enter order add")
             let task = snapshot.value as! NSDictionary
             
-            //I will design the database structure later, this is just for demo purpose
-            if !((task[Constants.OrderFields.account] as! String) == AppState.sharedInstance.uid) && !((task[Constants.OrderFields.pickedBy] as! String) == AppState.sharedInstance.uid) {
-                return
-            }
             let orderInfo = OrderInfo(id: snapshot.key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String)
             strongSelf.orderInfos.append(orderInfo)
             strongSelf.orderTable.insertRows(at: [IndexPath(row: strongSelf.orderInfos.count-1, section: 0)], with: .automatic)
         })
         
-//        self.ref.child("tasks").observe(.childChanged, with: { [weak self] (snapshot) in
-//            guard let strongSelf = self else {
-//                return
-//            }
-//            let task = snapshot.value as! NSDictionary
-//            
-//            //I will design the database structure later, this is just for demo purpose
-//            if !((task[Constants.OrderFields.account] as! String) == AppState.sharedInstance.uid) && !((task[Constants.OrderFields.pickedBy] as! String) == AppState.sharedInstance.uid) {
-//                return
-//            }
-//            
-//            let state = task[Constants.OrderFields.state] as! String
-//            switch state {
-//            case Constants.OrderStates.pick:
-//                strongSelf.taskSnapshots.append(snapshot)
-//            case Constants.OrderStates.drop:
-//                strongSelf.removeTask(snapshot.key)
-//            case Constants.OrderStates.complete:
-//                strongSelf.removeTask(snapshot.key)
-//            default:
-//                return
-//            }
-//        })
+        self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.pickedBy).queryEqual(toValue: AppState.sharedInstance.uid).observe(.childAdded, with: {[weak self] (snapshot) -> Void in
+            guard let strongSelf = self else {
+                return
+            }
+            let task = snapshot.value as! NSDictionary
+            
+            let orderInfo = OrderInfo(id: snapshot.key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String)
+            strongSelf.orderInfos.append(orderInfo)
+            strongSelf.orderTable.insertRows(at: [IndexPath(row: strongSelf.orderInfos.count-1, section: 0)], with: .automatic)
+        })
     }
     
     func removeTask(_ notification: NSNotification) {
-        print("enterNo")
-        print(notification.object)
+        //TODO complete the order, then remove task
+        
 //        var index = -1
 //        for taskSnapshot in self.taskSnapshots {
 //            if taskSnapshot.key == taskId {
@@ -86,10 +69,6 @@ class OrderTrackViewController: UIViewController, UITableViewDataSource, UITable
 //            taskSnapshots.remove(at: index)
 //        }
     }
-    
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return self.taskSnapshots.count
-//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
@@ -110,8 +89,6 @@ class OrderTrackViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.orderTable.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath)
         let orderInfo  = self.orderInfos[indexPath.row]
-//        let madeById = task[Constants.OrderFields.account] as! String
-//        let pickedById = task[Constants.OrderFields.pickedBy] as! String
         
         cell.textLabel!.text = "From: " + orderInfo.restaurantName + " - To: " + orderInfo.destinationName
         return cell

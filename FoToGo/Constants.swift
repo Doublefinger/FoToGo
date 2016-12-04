@@ -22,6 +22,13 @@ struct Constants {
         static let FpToSignIn = "FPToSignIn"
     }
     
+    struct UserFields {
+        static let id = "uid"
+        static let mobile = "mobile"
+        static let year = "year"
+        static let name = "name"
+    }
+    
     struct OrderFields {
         static let account = "account"
         static let pickedBy = "pickedBy"

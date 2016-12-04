@@ -14,7 +14,7 @@ import Firebase
 
 public class Manager{
     static let sharedInstance = Manager()
-    var ref: FIRDatabaseReference!
+    var ref: FIRDatabaseReference = FIRDatabase.database().reference()
     func register(userInfo: UserInfo, viewController: PaymentInfoViewController) {
         FIRAuth.auth()?.createUser(withEmail: userInfo.email, password: userInfo.password, completion: { (user, error) in
             if let error = error {
@@ -45,6 +45,16 @@ public class Manager{
         })
     }
     
+    func signOut() {
+        let firebaseAuth = FIRAuth.auth()
+        do {
+            try firebaseAuth?.signOut()
+            AppState.sharedInstance.signedIn = false
+        } catch let signOutError as NSError {
+            print ("Error signing out: \(signOutError.localizedDescription)")
+        }
+    }
+    
     func resetPassword(_ email: String, viewController: ResetPasswordViewController){
         FIRAuth.auth()?.sendPasswordReset(withEmail: email, completion: { (error) in
             if let error = error {
@@ -64,6 +74,15 @@ public class Manager{
 //        self.ref.child("tasks").childByAutoId().setValue(mdata)
 //    }
 //    
+    private func saveDataToCustomTable(_ id: String, userInfo: UserInfo){
+        var uData = [String: Any]()
+        uData[Constants.UserFields.mobile] = userInfo.mobile
+        uData[Constants.UserFields.year] = userInfo.major
+        uData[Constants.UserFields.name] = userInfo.firstName
+        self.ref.child("users").child(id).setValue(uData)
+        print("enter custom")
+    }
+    
     private func registerInfo(_ user: FIRUser, _ userInfo: UserInfo, viewController: PaymentInfoViewController){
         let changeRequest = user.profileChangeRequest()
         changeRequest.displayName = userInfo.firstName
@@ -73,6 +92,7 @@ public class Manager{
                 viewController.finish()
                 return
             }
+            self.saveDataToCustomTable(user.uid, userInfo: userInfo)
             self.sendEmailVerfication(user, viewController: viewController)
         }
     }
