@@ -15,6 +15,9 @@ struct Constants {
     struct NotificationKeys {
         static let SignedIn = "onSignInCompleted"
         static let PickOrder = "orderPicked"
+        static let IncreaseBadge = "increaseBadge"
+        static let RemoveBadge = "removeBadge"
+        static let UpdateTrackOrder = "updateTrackOrder"
     }
     
     struct Segues {
@@ -42,6 +45,7 @@ struct Constants {
         static let restaurantLongitude = "restLong"
         static let destinationLatitude = "destLati"
         static let destinationLongitude = "destLong"
+        static let checked = "checked"
     }
     
     struct OrderStates {

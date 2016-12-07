@@ -50,6 +50,10 @@ public class Manager{
         do {
             try firebaseAuth?.signOut()
             AppState.sharedInstance.signedIn = false
+            AppState.sharedInstance.displayName = nil
+            AppState.sharedInstance.email = nil
+            AppState.sharedInstance.photoURL = nil
+            AppState.sharedInstance.uid = nil
         } catch let signOutError as NSError {
             print ("Error signing out: \(signOutError.localizedDescription)")
         }

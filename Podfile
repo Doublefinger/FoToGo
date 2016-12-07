@@ -13,6 +13,7 @@ target 'FoToGo' do
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'
   pod 'GoogleMaps'
+  pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
 
   target 'FoToGoTests' do
     inherit! :search_paths

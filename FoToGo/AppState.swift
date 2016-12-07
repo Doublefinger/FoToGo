@@ -17,4 +17,6 @@ class AppState: NSObject {
     var email: String?
     var displayName: String?
     var photoURL: URL?
+    var orderInfos: [OrderInfo]?
+    var uncheckedOrders: [String]?
 }

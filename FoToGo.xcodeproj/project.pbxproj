@@ -33,6 +33,7 @@
 		FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */; };
 		FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */; };
 		FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */; };
+		FEB63A811DF7C36B000ECA94 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */; };
 		FEB732631DDC030D00720326 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732621DDC030D00720326 /* Manager.swift */; };
 		FEB732651DDC2C1D00720326 /* MeasurementHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732641DDC2C1D00720326 /* MeasurementHelper.swift */; };
 		FEB732671DDC2D4500720326 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732661DDC2D4500720326 /* AppState.swift */; };
@@ -97,6 +98,7 @@
 		FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMapViewController.swift; sourceTree = "<group>"; };
 		FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
 		FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOrderViewController.swift; sourceTree = "<group>"; };
+		FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		FEB732621DDC030D00720326 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		FEB732641DDC2C1D00720326 /* MeasurementHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementHelper.swift; sourceTree = "<group>"; };
 		FEB732661DDC2D4500720326 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				FE3ECB141DD054A500084144 /* RegisterViewController.swift */,
 				FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */,
 				FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */,
+				FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */,
 				FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */,
 				FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */,
 				FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */,
@@ -528,6 +531,7 @@
 				FEF7E1711DF290AA004985BE /* OrderDetailViewController.swift in Sources */,
 				FE1035801DE0BCDA0053066D /* SignInViewController.swift in Sources */,
 				FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */,
+				FEB63A811DF7C36B000ECA94 /* TabBarViewController.swift in Sources */,
 				FE4EE7841DD02E4A0085468E /* ViewController.swift in Sources */,
 				FE4EE7821DD02E4A0085468E /* AppDelegate.swift in Sources */,
 				FEB732671DDC2D4500720326 /* AppState.swift in Sources */,

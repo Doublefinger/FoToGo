@@ -17,11 +17,12 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     var markers = [GMSMarker]()
     var prevRestMarker: GMSMarker!
     var acceptTaskAlert: UIAlertController!
+    var messageAlert: UIAlertController!
     
     var ref: FIRDatabaseReference!
-    var waitingTasks: FIRDatabaseQuery!
+    var waitingTasks, trackOrderMadeBy, trackOrderPickedBy: FIRDatabaseQuery!
     var tasks: [FIRDataSnapshot]! = []
-    fileprivate var _refAddHandle, _refUpdateHandle: FIRDatabaseHandle!
+    fileprivate var _refAddHandle, _refUpdateHandle, _refTrackOrderMadeHandle, _refTrackOrderPickedHandle: FIRDatabaseHandle!
     let locationManager = CLLocationManager()
     
 
@@ -34,6 +35,12 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
 //            locationManager.requestAlwaysAuthorization()
             getLocationUpdate()
         }
+        
+//        let viewController = storyboard?.instantiateViewController(withIdentifier: "trackOrder") as! OrderTrackViewController
+//        NotificationCenter.default.addObserver(self, selector: #selector(viewController.removeTask(_:)), name: Notification.Name(rawValue: Constants.NotificationKeys.PickOrder), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(viewController.updateTrackOrder(_:)), name: Notification.Name(rawValue: Constants.NotificationKeys.UpdateTrackOrder), object: nil)
+        
+       
         configureDatabase()
         configureAlert()
         prevRestMarker = nil
@@ -79,6 +86,11 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
         acceptTaskAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
             self.acceptTaskAlert.dismiss(animated: true, completion: nil)
         }))
+        
+        messageAlert = UIAlertController(title: "", message: "You cannot pick your own order!", preferredStyle: UIAlertControllerStyle.alert)
+        messageAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { (action) in
+            self.messageAlert.dismiss(animated: true, completion: nil)
+        }))
     }
     
     func orderPicked(){
@@ -87,10 +99,10 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
             if taskId == snapshot.key {
                 let task = snapshot.value as! NSDictionary
                 if (task[Constants.OrderFields.account] as! String) == AppState.sharedInstance.uid {
+                    self.present(messageAlert, animated: true, completion: nil)
                     print("cannot pick own task")
                     return
                 }
-                
                 let path = "tasks/" + taskId + "/"
                 self.ref.child(path + Constants.OrderFields.state).setValue("pick")
                 self.ref.child(path + Constants.OrderFields.pickedBy).setValue(AppState.sharedInstance.uid)
@@ -121,7 +133,12 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
         restMarker.userData = taskId
         
         let destMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: destLati.doubleValue, longitude: destLong.doubleValue))
-        destMarker.icon = UIImage(named: "FF-30")
+        
+        if (task[Constants.OrderFields.account] as! NSString) as String == AppState.sharedInstance.uid {
+            destMarker.icon = UIImage(named: "Empty Flag-30")
+        } else {
+            destMarker.icon = UIImage(named: "FF-30")
+        }
         destMarker.title = destName as String
         destMarker.snippet = "Type the restaurant marker to pick an order"
         destMarker.userData = restMarker
@@ -171,22 +188,53 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
             
             let task = snapshot.value as! NSDictionary
             let state = task[Constants.OrderFields.state] as! String
+            
+            //remove picked task
             if state == Constants.OrderStates.pick {
                 strongSelf.removeTask(snapshot.key)
             }
             
             if state == Constants.OrderStates.complete && ((task[Constants.OrderFields.account] as! String) == AppState.sharedInstance.uid) || ((task[Constants.OrderFields.pickedBy] as! String) == AppState.sharedInstance.uid) {
-                print("enter notification")
                 NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.PickOrder), object: snapshot.key)
             }
 
         })
+        
+        self.trackOrderMadeBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.account).queryEqual(toValue: AppState.sharedInstance.uid)
+        _refTrackOrderMadeHandle = self.trackOrderMadeBy.observe(.childAdded, with: {(snapshot) -> Void in
+            let task = snapshot.value as! NSDictionary
+            let state = task[Constants.OrderFields.state] as! String
+            if state == Constants.OrderStates.wait || state == Constants.OrderStates.pick {
+                let orderInfo = OrderInfo(id: snapshot.key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String)
+                //            NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.UpdateTrackOrder), object: orderInfo)
+                AppState.sharedInstance.orderInfos?.append(orderInfo)
+                
+                let checked = task[Constants.OrderFields.checked] as! String
+                if state == Constants.OrderStates.pick && checked == "no" {
+                    AppState.sharedInstance.uncheckedOrders?.append(snapshot.key)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.IncreaseBadge), object: nil)
+                }
+            }
+        })
+        
+        self.trackOrderPickedBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.pickedBy).queryEqual(toValue: AppState.sharedInstance.uid)
+        _refTrackOrderPickedHandle = self.trackOrderPickedBy.observe(.childAdded, with: {(snapshot) -> Void in
+            let task = snapshot.value as! NSDictionary
+            let state = task[Constants.OrderFields.state] as! String
+            if state == Constants.OrderStates.pick {
+                let orderInfo = OrderInfo(id: snapshot.key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String)
+                AppState.sharedInstance.orderInfos?.append(orderInfo)
+            }
+        })
+
     
     }
     
     deinit {
         waitingTasks.removeObserver(withHandle: _refAddHandle)
         waitingTasks.removeObserver(withHandle: _refUpdateHandle)
+        trackOrderMadeBy.removeObserver(withHandle: _refTrackOrderMadeHandle)
+        trackOrderPickedBy.removeObserver(withHandle: _refTrackOrderPickedHandle)
     }
     /*
     // MARK: - Navigation

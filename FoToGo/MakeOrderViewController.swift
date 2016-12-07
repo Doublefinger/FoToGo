@@ -13,12 +13,12 @@ import GooglePlaces
 
 class MakeOrderViewController: UIViewController {
 
-    
     @IBOutlet weak var start: UITextField!
     @IBOutlet weak var end: UITextField!
     @IBOutlet weak var mapView: GMSMapView!
 
-    var storageRef: FIRStorageReference!
+    var postTaskAlert: UIAlertController!
+
     var startAutocompleteController, endAutocompleteController: GMSAutocompleteViewController!
     var markerA, markerB: GMSMarker!
     var placeA, placeB: GMSPlace!
@@ -28,7 +28,7 @@ class MakeOrderViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.ref = FIRDatabase.database().reference()
-        configureStorage()
+        
         startAutocompleteController = GMSAutocompleteViewController()
         startAutocompleteController.delegate = self
         endAutocompleteController = GMSAutocompleteViewController()
@@ -40,11 +40,6 @@ class MakeOrderViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func configureStorage() {
-        let storageUrl = FIRApp.defaultApp()?.options.storageBucket
-        storageRef = FIRStorage.storage().reference(forURL: "gs://" + storageUrl!)
-    }
-    
     @IBAction func editPlaceA(_ sender: Any) {
         self.present(startAutocompleteController, animated: true, completion: nil)
     }
@@ -54,18 +49,48 @@ class MakeOrderViewController: UIViewController {
     }
     
     @IBAction func postOrder(_ sender: Any) {
+        guard let startText = self.start.text else {
+            return
+        }
+        
+        guard let endText = self.end.text else {
+            return
+        }
+        
+        if startText == "" || endText == "" {
+            return
+        }
+        
+        //generate task info
+        postTaskAlert = UIAlertController(title: "Confirmation", message: "From: " + startText + " To: " + endText, preferredStyle: .alert)
+        postTaskAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+            self.sendTask(start: startText, end: endText)
+        }))
+        
+        postTaskAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
+            self.postTaskAlert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(postTaskAlert, animated: true, completion: nil)
+    }
+    
+    func sendTask(start: String, end: String) {
+        self.tabBarController?.selectedIndex = 0
         var tData = [String: Any]()
         tData[Constants.OrderFields.account] = AppState.sharedInstance.uid
         tData[Constants.OrderFields.pickedBy] = ""
-        tData[Constants.OrderFields.restaurantName] = start.text!
-        tData[Constants.OrderFields.destinationName] = end.text!
+        tData[Constants.OrderFields.restaurantName] = start
+        tData[Constants.OrderFields.destinationName] = end
         tData[Constants.OrderFields.restaurantLatitude] = placeA.coordinate.latitude
         tData[Constants.OrderFields.restaurantLongitude] = placeA.coordinate.longitude
         tData[Constants.OrderFields.destinationLatitude] = placeB.coordinate.latitude
         tData[Constants.OrderFields.destinationLongitude] = placeB.coordinate.longitude
         tData[Constants.OrderFields.state] = Constants.OrderStates.wait
-        self.ref.child("tasks").childByAutoId().setValue(tData)
-        self.tabBarController?.selectedIndex = 2
+        tData[Constants.OrderFields.checked] = "no"
+        self.ref.child("tasks").childByAutoId().setValue(tData, withCompletionBlock: { (error, ref) -> Void in
+            self.start.text = ""
+            self.end.text = ""
+            self.mapView.clear()
+        })
     }
     /*
     // MARK: - Navigation
