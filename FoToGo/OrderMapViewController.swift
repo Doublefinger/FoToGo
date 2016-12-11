@@ -40,7 +40,6 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
 //        NotificationCenter.default.addObserver(self, selector: #selector(viewController.removeTask(_:)), name: Notification.Name(rawValue: Constants.NotificationKeys.PickOrder), object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(viewController.updateTrackOrder(_:)), name: Notification.Name(rawValue: Constants.NotificationKeys.UpdateTrackOrder), object: nil)
         
-       
         configureDatabase()
         configureAlert()
         prevRestMarker = nil
@@ -95,6 +94,7 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     
     func orderPicked(){
         let taskId = mapView.selectedMarker?.userData as! String
+        
         for snapshot in self.tasks {
             if taskId == snapshot.key {
                 let task = snapshot.value as! NSDictionary
@@ -147,17 +147,30 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func removeTask(_ taskId: String) {
+        //虽然很丑，但很温柔
         var index = -1
-        for marker in markers {
+        for marker in self.markers {
             let restMarker = marker.userData as! GMSMarker
             if (restMarker.userData as! String) == taskId {
                 restMarker.map = nil
                 marker.map = nil
-                index = markers.index(of: marker)!
+                index = self.markers.index(of: marker)!
+                break
             }
         }
         if index >= 0 {
             markers.remove(at: index)
+            index = -1
+            for snapshot in self.tasks {
+                if taskId == snapshot.key {
+                    index = self.tasks.index(of: snapshot)!
+                    break
+                }
+            }
+            
+            if index >= 0 {
+                self.tasks.remove(at: index)
+            }
         }
     }
     
@@ -170,41 +183,31 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     
     func configureDatabase() {
         self.ref = FIRDatabase.database().reference()
+        //waiting orders 
+        //TODO for a certain zone
         self.waitingTasks = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.state).queryEqual(toValue: Constants.OrderStates.wait)
-        
-        _refAddHandle = waitingTasks.observe(.childAdded, with: { [weak self] (snapshot) in
+        self.waitingTasks.observe(.childAdded, with: { [weak self] (snapshot) in
             guard let strongSelf = self else {
                 return
             }
-
             let task = snapshot.value as! NSDictionary
             strongSelf.tasks.append(snapshot)
             strongSelf.displayTask(task, taskId: snapshot.key)
         })
-        _refUpdateHandle = self.ref.child("tasks").observe(.childChanged, with: { [weak self] (snapshot) in
+        
+        self.waitingTasks.observe(.childRemoved, with: { [weak self] (snapshot) in
             guard let strongSelf = self else {
                 return
             }
-            
-            let task = snapshot.value as! NSDictionary
-            let state = task[Constants.OrderFields.state] as! String
-            
-            //remove picked task
-            if state == Constants.OrderStates.pick {
-                strongSelf.removeTask(snapshot.key)
-            }
-            
-            if state == Constants.OrderStates.complete && ((task[Constants.OrderFields.account] as! String) == AppState.sharedInstance.uid) || ((task[Constants.OrderFields.pickedBy] as! String) == AppState.sharedInstance.uid) {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.PickOrder), object: snapshot.key)
-            }
-
+            strongSelf.removeTask(snapshot.key)
         })
         
+        //personal orders
         self.trackOrderMadeBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.account).queryEqual(toValue: AppState.sharedInstance.uid)
         _refTrackOrderMadeHandle = self.trackOrderMadeBy.observe(.childAdded, with: {(snapshot) -> Void in
             let task = snapshot.value as! NSDictionary
             let state = task[Constants.OrderFields.state] as! String
-            if state == Constants.OrderStates.wait || state == Constants.OrderStates.pick {
+            if state != Constants.OrderStates.complete {
                 let orderInfo = OrderInfo(id: snapshot.key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String)
                 //            NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.UpdateTrackOrder), object: orderInfo)
                 AppState.sharedInstance.orderInfos?.append(orderInfo)
@@ -226,13 +229,10 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
                 AppState.sharedInstance.orderInfos?.append(orderInfo)
             }
         })
-
-    
     }
     
     deinit {
-        waitingTasks.removeObserver(withHandle: _refAddHandle)
-        waitingTasks.removeObserver(withHandle: _refUpdateHandle)
+        waitingTasks.removeAllObservers()
         trackOrderMadeBy.removeObserver(withHandle: _refTrackOrderMadeHandle)
         trackOrderPickedBy.removeObserver(withHandle: _refTrackOrderPickedHandle)
     }

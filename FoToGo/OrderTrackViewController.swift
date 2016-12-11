@@ -80,9 +80,10 @@ class OrderTrackViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.orderTable.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath)
-        let orderInfo  = AppState.sharedInstance.orderInfos?[indexPath.row]
+        let orderInfo = AppState.sharedInstance.orderInfos?[indexPath.row]
         
-        cell.textLabel!.text = "From: " + (orderInfo?.restaurantName)! + " - To: " + (orderInfo?.destinationName)!
+        cell.textLabel!.text = (orderInfo?.restaurantName)! + " - " + (orderInfo?.destinationName)!
+        
         return cell
     }
 
