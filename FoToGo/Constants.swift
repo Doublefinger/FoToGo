@@ -14,6 +14,7 @@ struct Constants {
     
     struct NotificationKeys {
         static let SignedIn = "onSignInCompleted"
+        static let DisplayProfile = "displayProfile"
         static let PickOrder = "orderPicked"
         static let IncreaseBadge = "increaseBadge"
         static let RemoveBadge = "removeBadge"

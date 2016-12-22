@@ -17,7 +17,6 @@
 		FE3ECB111DD0487600084144 /* NanumPen.otf in Resources */ = {isa = PBXBuildFile; fileRef = FE3ECB101DD047ED00084144 /* NanumPen.otf */; };
 		FE3ECB151DD054A500084144 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3ECB141DD054A500084144 /* RegisterViewController.swift */; };
 		FE3ECB171DD0561300084144 /* PaymentInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */; };
-		FE4ABCDA1DFD23EB00D6820D /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4ABCD91DFD23EB00D6820D /* UserProfileView.swift */; };
 		FE4C36D91DF2067100812447 /* OrderTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */; };
 		FE4EE7821DD02E4A0085468E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7811DD02E4A0085468E /* AppDelegate.swift */; };
 		FE4EE7841DD02E4A0085468E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7831DD02E4A0085468E /* ViewController.swift */; };
@@ -34,11 +33,13 @@
 		FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */; };
 		FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */; };
 		FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */; };
+		FEB0DB011E0B370200EAB1E6 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */; };
 		FEB63A811DF7C36B000ECA94 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */; };
 		FEB732631DDC030D00720326 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732621DDC030D00720326 /* Manager.swift */; };
 		FEB732651DDC2C1D00720326 /* MeasurementHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732641DDC2C1D00720326 /* MeasurementHelper.swift */; };
 		FEB732671DDC2D4500720326 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732661DDC2D4500720326 /* AppState.swift */; };
 		FEB732691DDC2E6D00720326 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732681DDC2E6D00720326 /* Constants.swift */; };
+		FEB9EA1A1E0AFC7F00B876BA /* MenuControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB9EA191E0AFC7F00B876BA /* MenuControllerViewController.swift */; };
 		FEF7E1711DF290AA004985BE /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */; };
 		FEF7E1731DF2938C004985BE /* OrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF7E1721DF2938C004985BE /* OrderInfo.swift */; };
 /* End PBXBuildFile section */
@@ -77,7 +78,6 @@
 		FE3ECB101DD047ED00084144 /* NanumPen.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumPen.otf; sourceTree = "<group>"; };
 		FE3ECB141DD054A500084144 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentInfoViewController.swift; sourceTree = "<group>"; };
-		FE4ABCD91DFD23EB00D6820D /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTrackViewController.swift; sourceTree = "<group>"; };
 		FE4EE77E1DD02E4A0085468E /* FoToGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoToGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE4EE7811DD02E4A0085468E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,11 +100,13 @@
 		FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMapViewController.swift; sourceTree = "<group>"; };
 		FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
 		FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOrderViewController.swift; sourceTree = "<group>"; };
+		FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		FEB732621DDC030D00720326 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		FEB732641DDC2C1D00720326 /* MeasurementHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementHelper.swift; sourceTree = "<group>"; };
 		FEB732661DDC2D4500720326 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		FEB732681DDC2E6D00720326 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FEB9EA191E0AFC7F00B876BA /* MenuControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuControllerViewController.swift; sourceTree = "<group>"; };
 		FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 		FEF7E1721DF2938C004985BE /* OrderInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -204,6 +206,8 @@
 				FE3ECB141DD054A500084144 /* RegisterViewController.swift */,
 				FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */,
 				FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */,
+				FEB9EA191E0AFC7F00B876BA /* MenuControllerViewController.swift */,
+				FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */,
 				FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */,
 				FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */,
 				FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */,
@@ -213,7 +217,6 @@
 				FEB732681DDC2E6D00720326 /* Constants.swift */,
 				FEF7E1721DF2938C004985BE /* OrderInfo.swift */,
 				FE3302131DD187A600FB3923 /* UserInfo.swift */,
-				FE4ABCD91DFD23EB00D6820D /* UserProfileView.swift */,
 				FEB732641DDC2C1D00720326 /* MeasurementHelper.swift */,
 				FEB732621DDC030D00720326 /* Manager.swift */,
 				FE3302111DD1405600FB3923 /* Helper.swift */,
@@ -538,17 +541,18 @@
 				FE4EE7841DD02E4A0085468E /* ViewController.swift in Sources */,
 				FE4EE7821DD02E4A0085468E /* AppDelegate.swift in Sources */,
 				FEB732671DDC2D4500720326 /* AppState.swift in Sources */,
-				FE4ABCDA1DFD23EB00D6820D /* UserProfileView.swift in Sources */,
 				FE3302121DD1405600FB3923 /* Helper.swift in Sources */,
 				FE4EE78A1DD02E4A0085468E /* FoToGo.xcdatamodeld in Sources */,
 				FEB732691DDC2E6D00720326 /* Constants.swift in Sources */,
 				FE3ECB171DD0561300084144 /* PaymentInfoViewController.swift in Sources */,
 				FEB732651DDC2C1D00720326 /* MeasurementHelper.swift in Sources */,
+				FEB9EA1A1E0AFC7F00B876BA /* MenuControllerViewController.swift in Sources */,
 				FE3302141DD187A600FB3923 /* UserInfo.swift in Sources */,
 				FE4C36D91DF2067100812447 /* OrderTrackViewController.swift in Sources */,
 				FE1035821DE0D0AF0053066D /* ResetPasswordViewController.swift in Sources */,
 				FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */,
 				FE3ECB151DD054A500084144 /* RegisterViewController.swift in Sources */,
+				FEB0DB011E0B370200EAB1E6 /* LeftMenuViewController.swift in Sources */,
 				FEF7E1731DF2938C004985BE /* OrderInfo.swift in Sources */,
 				FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */,
 				FEB732631DDC030D00720326 /* Manager.swift in Sources */,

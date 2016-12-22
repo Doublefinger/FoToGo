@@ -14,6 +14,7 @@ import GooglePlaces
 
 class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var mapView: GMSMapView!
+    
     var markers = [GMSMarker]()
     var prevRestMarker: GMSMarker!
     var acceptTaskAlert: UIAlertController!
@@ -22,10 +23,9 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     var ref: FIRDatabaseReference!
     var waitingTasks, trackOrderMadeBy, trackOrderPickedBy: FIRDatabaseQuery!
     var tasks: [FIRDataSnapshot]! = []
-    fileprivate var _refAddHandle, _refUpdateHandle, _refTrackOrderMadeHandle, _refTrackOrderPickedHandle: FIRDatabaseHandle!
+    fileprivate var _refTrackOrderMadeHandle, _refTrackOrderPickedHandle: FIRDatabaseHandle!
     let locationManager = CLLocationManager()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,10 +35,6 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
 //            locationManager.requestAlwaysAuthorization()
             getLocationUpdate()
         }
-        
-//        let viewController = storyboard?.instantiateViewController(withIdentifier: "trackOrder") as! OrderTrackViewController
-//        NotificationCenter.default.addObserver(self, selector: #selector(viewController.removeTask(_:)), name: Notification.Name(rawValue: Constants.NotificationKeys.PickOrder), object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(viewController.updateTrackOrder(_:)), name: Notification.Name(rawValue: Constants.NotificationKeys.UpdateTrackOrder), object: nil)
         
         configureDatabase()
         configureAlert()
@@ -50,11 +46,14 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func showMenu(_ sender: Any) {
+        self.slideMenuController()?.openLeft()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "signOut" {
             Manager.sharedInstance.signOut()
         }
-
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
@@ -68,7 +67,7 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
                 }
             }
         }
-        return false;
+        return false
     }
  
     func mapView(_ mapView: GMSMapView, didLongPressInfoWindowOf marker: GMSMarker) {
@@ -76,22 +75,7 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
             self.present(acceptTaskAlert, animated: true, completion: nil)
         }
     }
-    
-    func configureAlert() {
-        acceptTaskAlert = UIAlertController(title: "Confirmation", message: "Do you want to pick this order?", preferredStyle: UIAlertControllerStyle.alert)
-        acceptTaskAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
-            self.orderPicked()
-        }))
-        acceptTaskAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
-            self.acceptTaskAlert.dismiss(animated: true, completion: nil)
-        }))
-        
-        messageAlert = UIAlertController(title: "", message: "You cannot pick your own order!", preferredStyle: UIAlertControllerStyle.alert)
-        messageAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { (action) in
-            self.messageAlert.dismiss(animated: true, completion: nil)
-        }))
-    }
-    
+
     func orderPicked(){
         let taskId = mapView.selectedMarker?.userData as! String
         
@@ -179,6 +163,21 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
         mapView.delegate = self
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
+    }
+    
+    func configureAlert() {
+        acceptTaskAlert = UIAlertController(title: "Confirmation", message: "Do you want to pick this order?", preferredStyle: UIAlertControllerStyle.alert)
+        acceptTaskAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+            self.orderPicked()
+        }))
+        acceptTaskAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
+            self.acceptTaskAlert.dismiss(animated: true, completion: nil)
+        }))
+        
+        messageAlert = UIAlertController(title: "", message: "You cannot pick your own order!", preferredStyle: UIAlertControllerStyle.alert)
+        messageAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { (action) in
+            self.messageAlert.dismiss(animated: true, completion: nil)
+        }))
     }
     
     func configureDatabase() {

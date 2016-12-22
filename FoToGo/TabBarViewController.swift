@@ -8,11 +8,14 @@
 
 import UIKit
 import Firebase
+import GoogleMaps
+import SlideMenuControllerSwift
 
-class TabBarViewController: UITabBarController {
+class TabBarViewController: UITabBarController{
 
     var count = 0
     var ref: FIRDatabaseReference!
+    var gesture: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +53,7 @@ class TabBarViewController: UITabBarController {
         
         self.tabBar.items?[2].badgeValue = nil
     }
-
+    
     /*
     // MARK: - Navigation
 

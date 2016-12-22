@@ -14,7 +14,8 @@ target 'FoToGo' do
   pod 'GooglePlacePicker'
   pod 'GoogleMaps'
   pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
-
+  pod 'SlideMenuControllerSwift'
+ 
   target 'FoToGoTests' do
     inherit! :search_paths
     # Pods for testing
