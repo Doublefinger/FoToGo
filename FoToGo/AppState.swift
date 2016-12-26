@@ -14,7 +14,9 @@ class AppState: NSObject {
     
     var signedIn = false
     var uid: String?
+    var mobile: String?
     var email: String?
+    var year: String?
     var displayName: String?
     var photoURL: URL?
     var orderInfos: [OrderInfo]?

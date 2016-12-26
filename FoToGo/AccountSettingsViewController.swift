@@ -1,20 +1,26 @@
 //
-//  LeftMenuControllerViewController.swift
+//  AccountSettingsViewController.swift
 //  FoToGo
 //
-//  Created by Shitianyu Pan on 21/12/2016.
+//  Created by Shitianyu Pan on 23/12/2016.
 //  Copyright © 2016 Doublefinger. All rights reserved.
 //
 
 import UIKit
-import SlideMenuControllerSwift
 
-class MenuControllerViewController: SlideMenuController {
+class AccountSettingsViewController: UIViewController {
 
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var username: UILabel!
+    @IBOutlet weak var email: UILabel!
+    @IBOutlet weak var mobile: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        SlideMenuOptions.leftViewWidth = (self.mainViewController?.view.frame.size.width)! * 0.75
+        self.username.text = AppState.sharedInstance.displayName
+        self.email.text = AppState.sharedInstance.email
+        self.mobile.text = AppState.sharedInstance.mobile
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,18 +28,10 @@ class MenuControllerViewController: SlideMenuController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func awakeFromNib() {
-        if let controller = self.storyboard?.instantiateViewController(withIdentifier: "MainMenu") {
-            self.mainViewController = controller
-        }
+    @IBAction func signOut(_ sender: Any) {
         
-        if let controller = self.storyboard?.instantiateViewController(withIdentifier: "LeftMenu") {
-            self.leftViewController = controller
-        }
-        
-        super.awakeFromNib()
     }
-    
+
     /*
     // MARK: - Navigation
 

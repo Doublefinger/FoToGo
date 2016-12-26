@@ -45,6 +45,15 @@ public class Manager{
         })
     }
     
+    func getUserInfo(_ uid: String) {
+        let ref = FIRDatabase.database().reference()
+        ref.child("users").queryOrderedByKey().queryEqual(toValue: uid).observeSingleEvent(of: .childAdded, with: { (snapshot) in
+            let userData = snapshot.value as! NSDictionary
+            AppState.sharedInstance.mobile = userData["mobile"] as? String
+            AppState.sharedInstance.year = userData["year"] as? String
+        })
+    }
+    
     func signOut() {
         let firebaseAuth = FIRAuth.auth()
         do {
@@ -84,12 +93,11 @@ public class Manager{
         uData[Constants.UserFields.year] = userInfo.major
         uData[Constants.UserFields.name] = userInfo.firstName
         self.ref.child("users").child(id).setValue(uData)
-        print("enter custom")
     }
     
     private func registerInfo(_ user: FIRUser, _ userInfo: UserInfo, viewController: PaymentInfoViewController){
         let changeRequest = user.profileChangeRequest()
-        changeRequest.displayName = userInfo.firstName
+        changeRequest.displayName = userInfo.firstName + " " + userInfo.lastName
         changeRequest.commitChanges { (error) in
             if let error = error {
                 viewController.message = error.localizedDescription
@@ -105,6 +113,7 @@ public class Manager{
         MeasurementHelper.sendLoginEvent()
         
         AppState.sharedInstance.uid = user?.uid
+        self.getUserInfo(AppState.sharedInstance.uid!)
         AppState.sharedInstance.displayName = user?.displayName
         AppState.sharedInstance.email = user?.email
         AppState.sharedInstance.photoURL = user?.photoURL

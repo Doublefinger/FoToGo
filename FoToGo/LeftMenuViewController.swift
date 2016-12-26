@@ -11,21 +11,25 @@ import UIKit
 class LeftMenuViewController: UIViewController {
 
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileName: UILabel!
+    @IBOutlet weak var username: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
-        print(self.profileImageView.frame.size.width)
-        print(self.profileImageView.frame.size.height)
         self.profileImageView.clipsToBounds = true
+        username.text = AppState.sharedInstance.displayName
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        slideMenuController()?.closeLeftNonAnimation()
+    }
 
     /*
     // MARK: - Navigation

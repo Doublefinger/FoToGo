@@ -31,6 +31,7 @@
 		FE5D7D4E1DD0CE6200B14049 /* font-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4B1DD0CE3600B14049 /* font-2.ttf */; };
 		FE5D7D4F1DD0CE6200B14049 /* font-3.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4A1DD0CE1D00B14049 /* font-3.ttf */; };
 		FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */; };
+		FE7A75021E0DBD5B00234D1D /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7A75011E0DBD5B00234D1D /* AccountSettingsViewController.swift */; };
 		FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */; };
 		FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */; };
 		FEB0DB011E0B370200EAB1E6 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */; };
@@ -98,6 +99,7 @@
 		FE5D7D4B1DD0CE3600B14049 /* font-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-2.ttf"; sourceTree = "<group>"; };
 		FE5D7D4C1DD0CE4600B14049 /* font-1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-1.ttf"; sourceTree = "<group>"; };
 		FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMapViewController.swift; sourceTree = "<group>"; };
+		FE7A75011E0DBD5B00234D1D /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
 		FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOrderViewController.swift; sourceTree = "<group>"; };
 		FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */,
 				FEB9EA191E0AFC7F00B876BA /* MenuControllerViewController.swift */,
 				FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */,
+				FE7A75011E0DBD5B00234D1D /* AccountSettingsViewController.swift */,
 				FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */,
 				FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */,
 				FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */,
@@ -320,7 +323,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Doublefinger;
 				TargetAttributes = {
 					FE4EE77D1DD02E4A0085468E = {
@@ -553,6 +556,7 @@
 				FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */,
 				FE3ECB151DD054A500084144 /* RegisterViewController.swift in Sources */,
 				FEB0DB011E0B370200EAB1E6 /* LeftMenuViewController.swift in Sources */,
+				FE7A75021E0DBD5B00234D1D /* AccountSettingsViewController.swift in Sources */,
 				FEF7E1731DF2938C004985BE /* OrderInfo.swift in Sources */,
 				FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */,
 				FEB732631DDC030D00720326 /* Manager.swift in Sources */,
@@ -709,6 +713,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C5AA04AFFEB387B040ED3EE5 /* Pods-FoToGo.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = FoToGo/Info.plist;
@@ -723,6 +728,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 04B11D288B0CEC8F2CC6928F /* Pods-FoToGo.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = FoToGo/Info.plist;
