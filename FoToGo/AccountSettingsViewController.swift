@@ -10,6 +10,7 @@ import UIKit
 
 class AccountSettingsViewController: UIViewController {
 
+    @IBOutlet weak var userInfoView: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var email: UILabel!
@@ -21,6 +22,8 @@ class AccountSettingsViewController: UIViewController {
         self.username.text = AppState.sharedInstance.displayName
         self.email.text = AppState.sharedInstance.email
         self.mobile.text = AppState.sharedInstance.mobile
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.editAccountSegue(_:)))
+        self.userInfoView.addGestureRecognizer(gesture)
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,7 +34,12 @@ class AccountSettingsViewController: UIViewController {
     @IBAction func signOut(_ sender: Any) {
         
     }
-
+    
+    func editAccountSegue(_ sender: UITapGestureRecognizer) {
+        let viewController = storyboard?.instantiateViewController(withIdentifier: "editAccount")
+        self.present(viewController!, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

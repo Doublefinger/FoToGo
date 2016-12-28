@@ -33,6 +33,7 @@
 		FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */; };
 		FE7A75021E0DBD5B00234D1D /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7A75011E0DBD5B00234D1D /* AccountSettingsViewController.swift */; };
 		FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */; };
+		FE8740731E118788009DA025 /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8740721E118788009DA025 /* EditAccountViewController.swift */; };
 		FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */; };
 		FEB0DB011E0B370200EAB1E6 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */; };
 		FEB63A811DF7C36B000ECA94 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */; };
@@ -40,7 +41,7 @@
 		FEB732651DDC2C1D00720326 /* MeasurementHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732641DDC2C1D00720326 /* MeasurementHelper.swift */; };
 		FEB732671DDC2D4500720326 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732661DDC2D4500720326 /* AppState.swift */; };
 		FEB732691DDC2E6D00720326 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732681DDC2E6D00720326 /* Constants.swift */; };
-		FEB9EA1A1E0AFC7F00B876BA /* MenuControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB9EA191E0AFC7F00B876BA /* MenuControllerViewController.swift */; };
+		FEB9EA1A1E0AFC7F00B876BA /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB9EA191E0AFC7F00B876BA /* MenuViewController.swift */; };
 		FEF7E1711DF290AA004985BE /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */; };
 		FEF7E1731DF2938C004985BE /* OrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF7E1721DF2938C004985BE /* OrderInfo.swift */; };
 /* End PBXBuildFile section */
@@ -101,6 +102,7 @@
 		FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMapViewController.swift; sourceTree = "<group>"; };
 		FE7A75011E0DBD5B00234D1D /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
+		FE8740721E118788009DA025 /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 		FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOrderViewController.swift; sourceTree = "<group>"; };
 		FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -108,7 +110,7 @@
 		FEB732641DDC2C1D00720326 /* MeasurementHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementHelper.swift; sourceTree = "<group>"; };
 		FEB732661DDC2D4500720326 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		FEB732681DDC2E6D00720326 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		FEB9EA191E0AFC7F00B876BA /* MenuControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuControllerViewController.swift; sourceTree = "<group>"; };
+		FEB9EA191E0AFC7F00B876BA /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 		FEF7E1721DF2938C004985BE /* OrderInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -201,28 +203,13 @@
 		FE4EE7801DD02E4A0085468E /* FoToGo */ = {
 			isa = PBXGroup;
 			children = (
+				FEA68B621E11CD3C00483FA0 /* UserManagement */,
+				FEA68B611E11CD2300483FA0 /* Order */,
+				FEA68B601E11CD1300483FA0 /* Menu */,
+				FEA68B5F1E11CD0300483FA0 /* General */,
 				FE4EE7811DD02E4A0085468E /* AppDelegate.swift */,
 				FE4EE7831DD02E4A0085468E /* ViewController.swift */,
-				FE10357F1DE0BCDA0053066D /* SignInViewController.swift */,
-				FE1035811DE0D0AF0053066D /* ResetPasswordViewController.swift */,
-				FE3ECB141DD054A500084144 /* RegisterViewController.swift */,
-				FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */,
-				FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */,
-				FEB9EA191E0AFC7F00B876BA /* MenuControllerViewController.swift */,
-				FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */,
-				FE7A75011E0DBD5B00234D1D /* AccountSettingsViewController.swift */,
-				FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */,
-				FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */,
-				FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */,
-				FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */,
-				FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */,
-				FEB732661DDC2D4500720326 /* AppState.swift */,
-				FEB732681DDC2E6D00720326 /* Constants.swift */,
-				FEF7E1721DF2938C004985BE /* OrderInfo.swift */,
-				FE3302131DD187A600FB3923 /* UserInfo.swift */,
 				FEB732641DDC2C1D00720326 /* MeasurementHelper.swift */,
-				FEB732621DDC030D00720326 /* Manager.swift */,
-				FE3302111DD1405600FB3923 /* Helper.swift */,
 				FE4EE7851DD02E4A0085468E /* Main.storyboard */,
 				FE4EE78B1DD02E4A0085468E /* Assets.xcassets */,
 				FE4EE78D1DD02E4A0085468E /* LaunchScreen.storyboard */,
@@ -249,6 +236,54 @@
 				FE4EE7A61DD02E4A0085468E /* Info.plist */,
 			);
 			path = FoToGoUITests;
+			sourceTree = "<group>";
+		};
+		FEA68B5F1E11CD0300483FA0 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				FEB732621DDC030D00720326 /* Manager.swift */,
+				FEF7E1721DF2938C004985BE /* OrderInfo.swift */,
+				FEB732681DDC2E6D00720326 /* Constants.swift */,
+				FE3302111DD1405600FB3923 /* Helper.swift */,
+				FE3302131DD187A600FB3923 /* UserInfo.swift */,
+				FEB732661DDC2D4500720326 /* AppState.swift */,
+			);
+			name = General;
+			sourceTree = "<group>";
+		};
+		FEA68B601E11CD1300483FA0 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				FEB9EA191E0AFC7F00B876BA /* MenuViewController.swift */,
+				FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */,
+				FE7A75011E0DBD5B00234D1D /* AccountSettingsViewController.swift */,
+				FE8740721E118788009DA025 /* EditAccountViewController.swift */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		FEA68B611E11CD2300483FA0 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */,
+				FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */,
+				FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */,
+				FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */,
+				FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */,
+			);
+			name = Order;
+			sourceTree = "<group>";
+		};
+		FEA68B621E11CD3C00483FA0 /* UserManagement */ = {
+			isa = PBXGroup;
+			children = (
+				FE10357F1DE0BCDA0053066D /* SignInViewController.swift */,
+				FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */,
+				FE3ECB141DD054A500084144 /* RegisterViewController.swift */,
+				FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */,
+				FE1035811DE0D0AF0053066D /* ResetPasswordViewController.swift */,
+			);
+			name = UserManagement;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -549,7 +584,8 @@
 				FEB732691DDC2E6D00720326 /* Constants.swift in Sources */,
 				FE3ECB171DD0561300084144 /* PaymentInfoViewController.swift in Sources */,
 				FEB732651DDC2C1D00720326 /* MeasurementHelper.swift in Sources */,
-				FEB9EA1A1E0AFC7F00B876BA /* MenuControllerViewController.swift in Sources */,
+				FE8740731E118788009DA025 /* EditAccountViewController.swift in Sources */,
+				FEB9EA1A1E0AFC7F00B876BA /* MenuViewController.swift in Sources */,
 				FE3302141DD187A600FB3923 /* UserInfo.swift in Sources */,
 				FE4C36D91DF2067100812447 /* OrderTrackViewController.swift in Sources */,
 				FE1035821DE0D0AF0053066D /* ResetPasswordViewController.swift in Sources */,

@@ -45,13 +45,40 @@ public class Manager{
         })
     }
     
-    func getUserInfo(_ uid: String) {
-        let ref = FIRDatabase.database().reference()
-        ref.child("users").queryOrderedByKey().queryEqual(toValue: uid).observeSingleEvent(of: .childAdded, with: { (snapshot) in
+    func getUserInfo() {
+        self.ref.child("users").queryOrderedByKey().queryEqual(toValue: AppState.sharedInstance.uid).observeSingleEvent(of: .childAdded, with: { (snapshot) in
             let userData = snapshot.value as! NSDictionary
             AppState.sharedInstance.mobile = userData["mobile"] as? String
             AppState.sharedInstance.year = userData["year"] as? String
         })
+    }
+    
+    func updateUserInfo(_ userInfo: UserInfo, viewController: EditAccountViewController) {
+        let user = FIRAuth.auth()?.currentUser
+        if userInfo.email != "" {
+            user?.updateEmail(userInfo.email, completion: { (error) in
+                if let error = error {
+//                    viewController.message = error.localizedDescription
+//                    viewController.finish()
+                    return
+                }
+                
+            })
+        }
+        let changeRequest = user?.profileChangeRequest()
+        if userInfo.firstName != "" || userInfo.lastName != "" {
+            changeRequest?.displayName = userInfo.firstName + " " + userInfo.lastName
+        } else if userInfo.photoUrl != nil {
+            changeRequest?.photoURL = userInfo.photoUrl
+        }
+        changeRequest?.commitChanges { (error) in
+            if let error = error {
+//                viewController.message = error.localizedDescription
+//                viewController.finish()
+//                return
+            }
+//            self.saveDataToCustomTable(user.uid, userInfo: userInfo)
+        }
     }
     
     func signOut() {
@@ -79,7 +106,8 @@ public class Manager{
             viewController.finish()
         })
     }
-//    
+    
+//
 //    func createDeliveryRequest(withData data: [String: String]) {
 //        var mdata = data
 //        mdata[Constants.OrderFields.account] = AppState.sharedInstance.email
@@ -113,7 +141,7 @@ public class Manager{
         MeasurementHelper.sendLoginEvent()
         
         AppState.sharedInstance.uid = user?.uid
-        self.getUserInfo(AppState.sharedInstance.uid!)
+        self.getUserInfo()
         AppState.sharedInstance.displayName = user?.displayName
         AppState.sharedInstance.email = user?.email
         AppState.sharedInstance.photoURL = user?.photoURL

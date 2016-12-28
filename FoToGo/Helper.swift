@@ -35,6 +35,12 @@ public class Helper{
         return true
     }
     
+    static func isPhoneNumber(text: String) -> Bool {
+        let phoneRegEx = "[0-9]{3}-[0-9]{3}-[0-9]{4}"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegEx)
+        return phoneTest.evaluate(with: text)
+    }
+    
     static func isValidSchoolEmail(text: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._-]+@[A-Za-z0-9.-]+\\.edu"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)

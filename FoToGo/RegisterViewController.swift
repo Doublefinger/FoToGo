@@ -120,7 +120,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             return valid
         }
         
-        //TODO also check if the email exists
         let majorIndex = majorPicker.selectedRow(inComponent: 0)
         if valid {
             userInfo = UserInfo.init(firstName: firstName.text!, lastName: lastName.text!, mobile: mobile1.text! + mobile2.text! + mobile3.text!, email: email.text!, major: major[majorIndex], password: password.text!)

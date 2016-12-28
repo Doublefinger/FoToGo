@@ -15,6 +15,7 @@ public struct UserInfo {
     var email = ""
     var major = ""
     var password = ""
+    var photoUrl: URL?
     var empty = true
     
     init() {}
