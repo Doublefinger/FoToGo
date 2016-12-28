@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditAccountViewController: UIViewController, UITextFieldDelegate {
+class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var firstName: UITextField!
@@ -23,6 +23,10 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.message = ""
+        self.saveButton.isEnabled = false
+        self.saveButton.backgroundColor = UIColor.lightGray
+        
         let fullName = AppState.sharedInstance.displayName?.characters.split(separator: " ").map(String.init)
         self.firstName.text = fullName?[0]
         self.lastName.text = fullName?[1]
@@ -30,9 +34,11 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate {
         var mobileText = AppState.sharedInstance.mobile
         mobileText?.insert("-", at: (mobileText?.index((mobileText?.startIndex)!, offsetBy: 3))!)
         mobileText?.insert("-", at: (mobileText?.index((mobileText?.startIndex)!, offsetBy: 7))!)
-
         self.mobile.text = mobileText
-        self.message = ""
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.addPhoto(_:)))
+        self.userProfileImage.isUserInteractionEnabled = true
+        self.userProfileImage.addGestureRecognizer(gesture)
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,6 +48,7 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         self.saveButton.isEnabled = true
+        self.saveButton.backgroundColor = UIColor.darkGray
         if string.characters.count == 0 {
             return true
         }
@@ -62,6 +69,22 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate {
         default:
             return true
         }
+    }
+    
+    func addPhoto(_ sender: UITapGestureRecognizer) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            picker.sourceType = .camera
+        } else {
+            picker.sourceType = .photoLibrary
+        }
+        
+        self.present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
     }
     
     @IBAction func saveChanges(_ sender: Any) {

@@ -50,5 +50,9 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Show your location on the map</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Take and upload photo to FoToGo</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Upload photo to FoToGo</string>
 </dict>
 </plist>

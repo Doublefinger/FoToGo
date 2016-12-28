@@ -356,37 +356,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLs-ER-PaX">
-                                <rect key="frame" x="16" y="65" width="343" height="27.5"/>
+                                <rect key="frame" x="16" y="65" width="343" height="28"/>
                                 <fontDescription key="fontDescription" name="NanumPenOTF" family="Nanum Pen Script OTF" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NzD-BK-R6s">
-                                <rect key="frame" x="16" y="100.5" width="343" height="27.5"/>
+                                <rect key="frame" x="16" y="101" width="343" height="28"/>
                                 <fontDescription key="fontDescription" name="NanumPenOTF" family="Nanum Pen Script OTF" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requested by:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2T-3P-QHZ">
-                                <rect key="frame" x="16" y="136" width="343" height="27.5"/>
+                                <rect key="frame" x="16" y="137" width="343" height="28"/>
                                 <fontDescription key="fontDescription" name="NanumPenOTF" family="Nanum Pen Script OTF" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Picked by:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arV-ae-D3w">
-                                <rect key="frame" x="16" y="171.5" width="343" height="27.5"/>
+                                <rect key="frame" x="16" y="173" width="343" height="28"/>
                                 <fontDescription key="fontDescription" name="NanumPenOTF" family="Nanum Pen Script OTF" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order State:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hW2-g1-yCm">
-                                <rect key="frame" x="16" y="242.5" width="343" height="27.5"/>
+                                <rect key="frame" x="16" y="245" width="343" height="28"/>
                                 <fontDescription key="fontDescription" name="NanumPenOTF" family="Nanum Pen Script OTF" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cell phone:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bQ-fz-fFZ">
-                                <rect key="frame" x="16" y="207" width="343" height="27.5"/>
+                                <rect key="frame" x="16" y="209" width="343" height="28"/>
                                 <fontDescription key="fontDescription" name="NanumPenOTF" family="Nanum Pen Script OTF" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -431,7 +431,7 @@
         <scene sceneID="hEW-wy-47l">
             <objects>
                 <navigationController id="lUm-7n-ENW" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="1np-IH-ro1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1np-IH-ro1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

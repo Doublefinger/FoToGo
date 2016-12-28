@@ -22,7 +22,7 @@ class AccountSettingsViewController: UIViewController {
         self.username.text = AppState.sharedInstance.displayName
         self.email.text = AppState.sharedInstance.email
         self.mobile.text = AppState.sharedInstance.mobile
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.editAccountSegue(_:)))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.presentEditAccountView(_:)))
         self.userInfoView.addGestureRecognizer(gesture)
     }
 
@@ -35,7 +35,7 @@ class AccountSettingsViewController: UIViewController {
         
     }
     
-    func editAccountSegue(_ sender: UITapGestureRecognizer) {
+    func presentEditAccountView(_ sender: UITapGestureRecognizer) {
         let viewController = storyboard?.instantiateViewController(withIdentifier: "editAccount")
         self.present(viewController!, animated: true, completion: nil)
     }
