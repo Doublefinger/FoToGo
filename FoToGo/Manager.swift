@@ -15,6 +15,8 @@ import Firebase
 public class Manager{
     static let sharedInstance = Manager()
     var ref: FIRDatabaseReference = FIRDatabase.database().reference()
+    var storageRef = FIRStorage.storage().reference(forURL: "gs://" + (FIRApp.defaultApp()?.options.storageBucket!)!)
+    
     func register(userInfo: UserInfo, viewController: PaymentInfoViewController) {
         FIRAuth.auth()?.createUser(withEmail: userInfo.email, password: userInfo.password, completion: { (user, error) in
             if let error = error {
@@ -36,16 +38,15 @@ public class Manager{
             }
 //            firUser = user!
             if (user?.isEmailVerified)! {
-                self.signedIn(user!)
-                viewController.message = Constants.Messages.success
+                self.signedIn(user!, viewController: viewController)
             } else {
                 viewController.message = Constants.Messages.notVerified
+                viewController.finish()
             }
-            viewController.finish()
         })
     }
     
-    func getUserInfo() {
+    func retrieveUserInfo() {
         self.ref.child("users").queryOrderedByKey().queryEqual(toValue: AppState.sharedInstance.uid).observeSingleEvent(of: .childAdded, with: { (snapshot) in
             let userData = snapshot.value as! NSDictionary
             AppState.sharedInstance.mobile = userData["mobile"] as? String
@@ -53,31 +54,26 @@ public class Manager{
         })
     }
     
-    func updateUserInfo(_ userInfo: UserInfo, viewController: EditAccountViewController) {
-        let user = FIRAuth.auth()?.currentUser
-        if userInfo.email != "" {
-            user?.updateEmail(userInfo.email, completion: { (error) in
+    func updateUserInfo(_ hasImage: Bool, userInfo: UserInfo, viewController: EditAccountViewController) {
+        let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
+        changeRequest?.displayName = userInfo.firstName + " " + userInfo.lastName
+        
+        if hasImage {
+            let imageData = UIImageJPEGRepresentation(userInfo.photo, 1.0)
+            let imagePath = AppState.sharedInstance.uid! + "_profile.jpg"
+            let metadata = FIRStorageMetadata()
+            metadata.contentType = "image/jpeg"
+            self.storageRef.child(imagePath).put(imageData!, metadata: metadata, completion: { (metadata, error) in
                 if let error = error {
-//                    viewController.message = error.localizedDescription
-//                    viewController.finish()
+                    viewController.message = error.localizedDescription
+                    viewController.finish()
                     return
                 }
-                
+                changeRequest?.photoURL = URL(string: self.storageRef.child((metadata?.path)!).description)
+                self.commitChangeRequest(changeRequest!, userInfo: userInfo, newURL: true, viewController: viewController)
             })
-        }
-        let changeRequest = user?.profileChangeRequest()
-        if userInfo.firstName != "" || userInfo.lastName != "" {
-            changeRequest?.displayName = userInfo.firstName + " " + userInfo.lastName
-        } else if userInfo.photoUrl != nil {
-            changeRequest?.photoURL = userInfo.photoUrl
-        }
-        changeRequest?.commitChanges { (error) in
-            if let error = error {
-//                viewController.message = error.localizedDescription
-//                viewController.finish()
-//                return
-            }
-//            self.saveDataToCustomTable(user.uid, userInfo: userInfo)
+        } else {
+            self.commitChangeRequest(changeRequest!, userInfo: userInfo, newURL: false, viewController: viewController)
         }
     }
     
@@ -85,11 +81,7 @@ public class Manager{
         let firebaseAuth = FIRAuth.auth()
         do {
             try firebaseAuth?.signOut()
-            AppState.sharedInstance.signedIn = false
-            AppState.sharedInstance.displayName = nil
-            AppState.sharedInstance.email = nil
-            AppState.sharedInstance.photoURL = nil
-            AppState.sharedInstance.uid = nil
+            AppState.sharedInstance.clear()
         } catch let signOutError as NSError {
             print ("Error signing out: \(signOutError.localizedDescription)")
         }
@@ -115,12 +107,66 @@ public class Manager{
 //        self.ref.child("tasks").childByAutoId().setValue(mdata)
 //    }
 //    
-    private func saveDataToCustomTable(_ id: String, userInfo: UserInfo){
+    private func registerDataToCustomTable(_ user: FIRUser, id: String, userInfo: UserInfo, viewController: PaymentInfoViewController){
         var uData = [String: Any]()
         uData[Constants.UserFields.mobile] = userInfo.mobile
         uData[Constants.UserFields.year] = userInfo.major
         uData[Constants.UserFields.name] = userInfo.firstName
-        self.ref.child("users").child(id).setValue(uData)
+        self.ref.child("users").child(id).setValue(uData) { (error, ref) in
+            if let error = error {
+                viewController.message = error.localizedDescription
+                viewController.finish()
+                return
+            }
+            self.sendEmailVerfication(user, viewController: viewController)
+        }
+    }
+    
+    private func commitChangeRequest(_ changeRequest: FIRUserProfileChangeRequest, userInfo: UserInfo, newURL: Bool, viewController: EditAccountViewController) {
+        changeRequest.commitChanges { (error) in
+            if let error = error {
+                viewController.message = error.localizedDescription
+                viewController.finish()
+                return
+            }
+            AppState.sharedInstance.displayName = changeRequest.displayName
+            if newURL {
+                AppState.sharedInstance.profileImage = userInfo.photo
+            }
+            if userInfo.email != AppState.sharedInstance.email {
+                FIRAuth.auth()?.currentUser?.updateEmail(userInfo.email, completion: { (error) in
+                    if let error = error {
+                        viewController.message = error.localizedDescription
+                        viewController.finish()
+                        return
+                    }
+                    AppState.sharedInstance.email = userInfo.email
+                    self.updateUserCustomTable(userInfo.mobile, userInfo.firstName, viewController: viewController)
+                })
+            } else {
+                self.updateUserCustomTable(userInfo.mobile, userInfo.firstName, viewController: viewController)
+            }
+        }
+    }
+
+    private func updateUserCustomTable(_ mobile: String, _ name: String, viewController: EditAccountViewController) {
+        self.ref.child("users").child(AppState.sharedInstance.uid! + "/mobile").setValue(mobile) { (error, ref) in
+            if let error = error {
+                viewController.message = error.localizedDescription
+                viewController.finish()
+                return
+            }
+            AppState.sharedInstance.mobile = mobile
+            self.ref.child("users").child(AppState.sharedInstance.uid! + "/name").setValue(name) { (error, ref) in
+                if let error = error {
+                    viewController.message = error.localizedDescription
+                    viewController.finish()
+                    return
+                }
+                viewController.message = Constants.Messages.success
+                viewController.finish()
+            }
+        }
     }
     
     private func registerInfo(_ user: FIRUser, _ userInfo: UserInfo, viewController: PaymentInfoViewController){
@@ -132,22 +178,36 @@ public class Manager{
                 viewController.finish()
                 return
             }
-            self.saveDataToCustomTable(user.uid, userInfo: userInfo)
-            self.sendEmailVerfication(user, viewController: viewController)
+            self.registerDataToCustomTable(user, id: user.uid, userInfo: userInfo, viewController: viewController)
         }
     }
     
-    private func signedIn(_ user: FIRUser?) {
+    private func signedIn(_ user: FIRUser?, viewController: SignInViewController) {
         MeasurementHelper.sendLoginEvent()
         
         AppState.sharedInstance.uid = user?.uid
-        self.getUserInfo()
+        self.retrieveUserInfo()
         AppState.sharedInstance.displayName = user?.displayName
         AppState.sharedInstance.email = user?.email
-        AppState.sharedInstance.photoURL = user?.photoURL
         AppState.sharedInstance.signedIn = true
-        let notificationName = Notification.Name(rawValue: Constants.NotificationKeys.SignedIn)
-        NotificationCenter.default.post(name: notificationName, object: nil, userInfo: nil)
+
+        if let url = user?.photoURL {
+            FIRStorage.storage().reference(forURL: url.absoluteString).data(withMaxSize: INT64_MAX, completion: { (data, error) in
+                if error != nil {
+                    AppState.sharedInstance.profileImage = UIImage(named: "user_default")
+                } else {
+                    AppState.sharedInstance.profileImage = UIImage(data: data!)
+                }
+                viewController.message = Constants.Messages.success
+                viewController.finish()
+            })
+        } else {
+            AppState.sharedInstance.profileImage = UIImage(named: "user_default")
+            viewController.message = Constants.Messages.success
+            viewController.finish()
+        }
+//        let notificationName = Notification.Name(rawValue: Constants.NotificationKeys.SignedIn)
+//        NotificationCenter.default.post(name: notificationName, object: nil, userInfo: nil)
     }
     
     private func sendEmailVerfication(_ user: FIRUser?, viewController: PaymentInfoViewController) {

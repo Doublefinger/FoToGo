@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class AppState: NSObject {
     
@@ -18,7 +19,19 @@ class AppState: NSObject {
     var email: String?
     var year: String?
     var displayName: String?
-    var photoURL: URL?
+    var profileImage: UIImage?
     var orderInfos: [OrderInfo]?
     var uncheckedOrders: [String]?
+    
+    func clear(){
+        signedIn = false
+        uid = nil
+        mobile = nil
+        email = nil
+        year = nil
+        displayName = nil
+        profileImage = nil
+        orderInfos = nil
+        uncheckedOrders = nil
+    }
 }

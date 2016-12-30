@@ -21,7 +21,13 @@ class AccountSettingsViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.username.text = AppState.sharedInstance.displayName
         self.email.text = AppState.sharedInstance.email
-        self.mobile.text = AppState.sharedInstance.mobile
+        var mobileText = AppState.sharedInstance.mobile
+        mobileText?.insert("-", at: (mobileText?.index((mobileText?.startIndex)!, offsetBy: 3))!)
+        mobileText?.insert("-", at: (mobileText?.index((mobileText?.startIndex)!, offsetBy: 7))!)
+        self.mobile.text = mobileText
+        self.profileImage.image = AppState.sharedInstance.profileImage
+        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.height/2
+        self.profileImage.clipsToBounds = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.presentEditAccountView(_:)))
         self.userInfoView.addGestureRecognizer(gesture)
     }
@@ -32,7 +38,7 @@ class AccountSettingsViewController: UIViewController {
     }
     
     @IBAction func signOut(_ sender: Any) {
-        
+        Manager.sharedInstance.signOut()
     }
     
     func presentEditAccountView(_ sender: UITapGestureRecognizer) {

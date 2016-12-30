@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public struct UserInfo {
     var firstName = ""
@@ -15,7 +16,7 @@ public struct UserInfo {
     var email = ""
     var major = ""
     var password = ""
-    var photoUrl: URL?
+    var photo = UIImage()
     var empty = true
     
     init() {}
@@ -27,6 +28,14 @@ public struct UserInfo {
         self.email = email
         self.major = major
         self.password = password
+        self.empty = false
+    }
+    
+    init(firstName: String, lastName: String, mobile: String, email: String) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.mobile = mobile
+        self.email = email
         self.empty = false
     }
 }

@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Photos
+
+import Firebase
 
 class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -19,6 +22,7 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     var message: String!
     var responseAlert: UIAlertController!
+    var photoChanged = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +41,11 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
         self.mobile.text = mobileText
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.addPhoto(_:)))
+        self.userProfileImage.image = AppState.sharedInstance.profileImage
         self.userProfileImage.isUserInteractionEnabled = true
         self.userProfileImage.addGestureRecognizer(gesture)
+        self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height/2
+        self.userProfileImage.clipsToBounds = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,50 +86,50 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
         } else {
             picker.sourceType = .photoLibrary
         }
-        
+        picker.allowsEditing = true
         self.present(picker, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
+        picker.dismiss(animated: true, completion: nil)
+        if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            photoChanged = true
+            userProfileImage.image = pickedImage
+            self.saveButton.isEnabled = true
+            self.saveButton.backgroundColor = UIColor.darkGray
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func saveChanges(_ sender: Any) {
         var valid : Bool = true
-        guard let firstNameText = firstName.text else {
+        if firstName.text == "" {
             valid = false
             Helper.showErrorIndicator(textField: firstName)
-            return
+        } else {
+            Helper.removeErrorIndicator(textField: firstName)
         }
-        Helper.removeErrorIndicator(textField: firstName)
 
-        guard let lastNameText = lastName.text else {
+        if lastName.text == "" {
             valid = false
             Helper.showErrorIndicator(textField: lastName)
-            return
-        }
-        Helper.removeErrorIndicator(textField: lastName)
-        
-        guard let emailText = email.text else {
-            valid = false
-            Helper.showErrorIndicator(textField: email)
-            return
+        } else {
+            Helper.removeErrorIndicator(textField: lastName)
         }
         
-        if !Helper.isValidSchoolEmail(text: emailText) {
+        if !Helper.isValidSchoolEmail(text: email.text!) {
             valid = false
             Helper.showErrorIndicator(textField: email)
         } else {
             Helper.removeErrorIndicator(textField: email)
         }
 
-        guard var mobileText = mobile.text else {
-            valid = false
-            Helper.showErrorIndicator(textField: mobile)
-            return
-        }
-        
-        if !Helper.isPhoneNumber(text: mobile.text!) {
+        var mobileText = mobile.text!
+
+        if !Helper.isPhoneNumber(text: mobileText) {
             valid = false
             Helper.showErrorIndicator(textField: mobile)
         } else {
@@ -132,22 +139,38 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
         if !valid {
             return
         }
-
+        
         mobileText.remove(at: mobileText.index(mobileText.startIndex, offsetBy: 3))
         mobileText.remove(at: mobileText.index(mobileText.startIndex, offsetBy: 6))
-        if firstNameText + " " + lastNameText == AppState.sharedInstance.displayName
-            && mobileText == AppState.sharedInstance.mobile && emailText == AppState.sharedInstance.email {
+        
+        if firstName.text! + " " + lastName.text! == AppState.sharedInstance.displayName
+            && mobileText == AppState.sharedInstance.mobile && email.text! == AppState.sharedInstance.email && !photoChanged{
             return
         }
         
         print("ready")
-        let userInfo = UserInfo(firstName: firstNameText, lastName: lastNameText, mobile: mobileText, email: emailText, major: "", password: "")
-//        Manager.sharedInstance.updateUserInfo(userInfo, viewController: self)
+        
+        var userInfo = UserInfo(firstName: firstName.text!, lastName: lastName.text!, mobile: mobileText, email: email.text!)
+        if photoChanged {
+            userInfo.photo = userProfileImage.image!
+        }
+        self.showAlert()
+        Manager.sharedInstance.updateUserInfo(photoChanged, userInfo: userInfo, viewController: self)
+        photoChanged = false
     }
     
     func finish() {
         if message == Constants.Messages.success {
-            
+            self.responseAlert.dismiss(animated: true, completion: {
+                self.saveButton.isEnabled = false
+                self.saveButton.backgroundColor = UIColor.lightGray
+            })
+        } else {
+            //show warning
+            responseAlert.message = message
+            responseAlert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { (action) in
+                self.responseAlert.dismiss(animated: true, completion: nil)
+            }))
         }
     }
     

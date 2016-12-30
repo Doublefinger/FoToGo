@@ -17,6 +17,7 @@ class LeftMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.profileImageView.image = AppState.sharedInstance.profileImage
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
         self.profileImageView.clipsToBounds = true
         username.text = AppState.sharedInstance.displayName
