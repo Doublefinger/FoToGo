@@ -31,11 +31,10 @@ public struct UserInfo {
         self.empty = false
     }
     
-    init(firstName: String, lastName: String, mobile: String, email: String) {
+    init(firstName: String, lastName: String, mobile: String) {
         self.firstName = firstName
         self.lastName = lastName
         self.mobile = mobile
-        self.email = email
         self.empty = false
     }
 }

@@ -133,19 +133,7 @@ public class Manager{
             if newURL {
                 AppState.sharedInstance.profileImage = userInfo.photo
             }
-            if userInfo.email != AppState.sharedInstance.email {
-                FIRAuth.auth()?.currentUser?.updateEmail(userInfo.email, completion: { (error) in
-                    if let error = error {
-                        viewController.message = error.localizedDescription
-                        viewController.finish()
-                        return
-                    }
-                    AppState.sharedInstance.email = userInfo.email
-                    self.updateUserCustomTable(userInfo.mobile, userInfo.firstName, viewController: viewController)
-                })
-            } else {
-                self.updateUserCustomTable(userInfo.mobile, userInfo.firstName, viewController: viewController)
-            }
+            self.updateUserCustomTable(userInfo.mobile, userInfo.firstName, viewController: viewController)
         }
     }
 

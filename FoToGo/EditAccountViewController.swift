@@ -35,6 +35,7 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
         self.firstName.text = fullName?[0]
         self.lastName.text = fullName?[1]
         self.email.text = AppState.sharedInstance.email
+        self.email.isEnabled = false
         var mobileText = AppState.sharedInstance.mobile
         mobileText?.insert("-", at: (mobileText?.index((mobileText?.startIndex)!, offsetBy: 3))!)
         mobileText?.insert("-", at: (mobileText?.index((mobileText?.startIndex)!, offsetBy: 7))!)
@@ -120,12 +121,12 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
             Helper.removeErrorIndicator(textField: lastName)
         }
         
-        if !Helper.isValidSchoolEmail(text: email.text!) {
-            valid = false
-            Helper.showErrorIndicator(textField: email)
-        } else {
-            Helper.removeErrorIndicator(textField: email)
-        }
+//        if !Helper.isValidSchoolEmail(text: email.text!) {
+//            valid = false
+//            Helper.showErrorIndicator(textField: email)
+//        } else {
+//            Helper.removeErrorIndicator(textField: email)
+//        }
 
         var mobileText = mobile.text!
 
@@ -144,13 +145,13 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
         mobileText.remove(at: mobileText.index(mobileText.startIndex, offsetBy: 6))
         
         if firstName.text! + " " + lastName.text! == AppState.sharedInstance.displayName
-            && mobileText == AppState.sharedInstance.mobile && email.text! == AppState.sharedInstance.email && !photoChanged{
+            && mobileText == AppState.sharedInstance.mobile && !photoChanged{
             return
         }
         
         print("ready")
         
-        var userInfo = UserInfo(firstName: firstName.text!, lastName: lastName.text!, mobile: mobileText, email: email.text!)
+        var userInfo = UserInfo(firstName: firstName.text!, lastName: lastName.text!, mobile: mobileText)
         if photoChanged {
             userInfo.photo = userProfileImage.image!
         }
