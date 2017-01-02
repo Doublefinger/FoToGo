@@ -23,6 +23,7 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
     var message: String!
     var responseAlert: UIAlertController!
     var photoChanged = false
+    var triggedBy: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,11 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func back(_ sender: Any) {
+        let viewController = storyboard?.instantiateViewController(withIdentifier: triggedBy!)
+        self.present(viewController!, animated: true, completion: nil)
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         self.saveButton.isEnabled = true
         self.saveButton.backgroundColor = UIColor.darkGray
@@ -81,6 +87,7 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     func addPhoto(_ sender: UITapGestureRecognizer) {
         let picker = UIImagePickerController()
+        
         picker.delegate = self
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             picker.sourceType = .camera

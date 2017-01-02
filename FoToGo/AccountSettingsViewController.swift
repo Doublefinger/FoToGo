@@ -42,8 +42,9 @@ class AccountSettingsViewController: UIViewController {
     }
     
     func presentEditAccountView(_ sender: UITapGestureRecognizer) {
-        let viewController = storyboard?.instantiateViewController(withIdentifier: "editAccount")
-        self.present(viewController!, animated: true, completion: nil)
+        let viewController = storyboard?.instantiateViewController(withIdentifier: "editAccount") as! EditAccountViewController
+        viewController.triggedBy = "AccountSettings"
+        self.present(viewController, animated: true, completion: nil)
     }
     
     /*

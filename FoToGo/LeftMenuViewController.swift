@@ -20,6 +20,9 @@ class LeftMenuViewController: UIViewController {
         self.profileImageView.image = AppState.sharedInstance.profileImage
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
         self.profileImageView.clipsToBounds = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.presentEditAccountView(_:)))
+        self.profileImageView.addGestureRecognizer(gesture)
+        self.profileImageView.isUserInteractionEnabled = true
         username.text = AppState.sharedInstance.displayName
     }
 
@@ -30,6 +33,13 @@ class LeftMenuViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         slideMenuController()?.closeLeftNonAnimation()
+    }
+    
+    func presentEditAccountView(_ sender: UITapGestureRecognizer) {
+        slideMenuController()?.closeLeftNonAnimation()
+        let viewController = storyboard?.instantiateViewController(withIdentifier: "editAccount") as! EditAccountViewController
+        viewController.triggedBy = "mainPage"
+        self.present(viewController, animated: true, completion: nil)
     }
 
     /*
