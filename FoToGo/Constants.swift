@@ -42,6 +42,7 @@ struct Constants {
         static let orderContent = "orderContent"
         static let estimateCost = "estimateCost"
         static let restaurantName = "restName"
+        static let restaurantId = "restaurantId"
         static let destinationName = "destName"
         static let state = "state"
         static let restaurantLatitude = "restLati"

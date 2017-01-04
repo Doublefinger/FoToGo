@@ -17,6 +17,8 @@ class MakeOrderViewController: UIViewController {
     @IBOutlet weak var end: UITextField!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var openStatus: UIButton!
+    @IBOutlet weak var foodItem: UITextField!
+    @IBOutlet weak var estimateCost: UITextField!
 
     var postTaskAlert: UIAlertController!
 
@@ -109,11 +111,6 @@ class MakeOrderViewController: UIViewController {
     
     func sendTask(start: String, end: String) {
         self.tabBarController?.selectedIndex = 0
-        let date = NSDate()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let stringDate = formatter.string(from: date as Date)
-
         var tData = [String: Any]()
         tData[Constants.OrderFields.account] = AppState.sharedInstance.uid
         tData[Constants.OrderFields.pickedBy] = ""
@@ -124,11 +121,14 @@ class MakeOrderViewController: UIViewController {
         tData[Constants.OrderFields.destinationLatitude] = placeB.coordinate.latitude
         tData[Constants.OrderFields.destinationLongitude] = placeB.coordinate.longitude
         tData[Constants.OrderFields.state] = Constants.OrderStates.wait
-        tData[Constants.OrderFields.madeTime] = stringDate
+        tData[Constants.OrderFields.madeTime] = Helper.convertDate(NSDate())
+        tData[Constants.OrderFields.restaurantId] = placeA.placeID
         tData[Constants.OrderFields.checked] = "no"
         self.ref.child("tasks").childByAutoId().setValue(tData, withCompletionBlock: { (error, ref) -> Void in
             self.start.text = ""
             self.end.text = ""
+            self.foodItem.text = ""
+            self.estimateCost.text = ""
             self.mapView.clear()
         })
     }

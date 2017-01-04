@@ -35,6 +35,7 @@
 		FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */; };
 		FE8740731E118788009DA025 /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8740721E118788009DA025 /* EditAccountViewController.swift */; };
 		FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */; };
+		FEA195BB1E1DA38100A07FAD /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA195BA1E1DA38100A07FAD /* OrderTableViewCell.swift */; };
 		FEB0DB011E0B370200EAB1E6 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */; };
 		FEB63A811DF7C36B000ECA94 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */; };
 		FEB732631DDC030D00720326 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732621DDC030D00720326 /* Manager.swift */; };
@@ -104,6 +105,7 @@
 		FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
 		FE8740721E118788009DA025 /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 		FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOrderViewController.swift; sourceTree = "<group>"; };
+		FEA195BA1E1DA38100A07FAD /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
 		FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		FEB732621DDC030D00720326 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */,
 				FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */,
 				FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */,
+				FEA195BA1E1DA38100A07FAD /* OrderTableViewCell.swift */,
 			);
 			name = Order;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				FEB9EA1A1E0AFC7F00B876BA /* MenuViewController.swift in Sources */,
 				FE3302141DD187A600FB3923 /* UserInfo.swift in Sources */,
 				FE4C36D91DF2067100812447 /* OrderTrackViewController.swift in Sources */,
+				FEA195BB1E1DA38100A07FAD /* OrderTableViewCell.swift in Sources */,
 				FE1035821DE0D0AF0053066D /* ResetPasswordViewController.swift in Sources */,
 				FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */,
 				FE3ECB151DD054A500084144 /* RegisterViewController.swift in Sources */,

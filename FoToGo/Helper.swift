@@ -56,4 +56,20 @@ public class Helper{
     static func removeErrorIndicator(textField: UITextField) {
         textField.layer.borderWidth = 0
     }
+    
+    static func convertDate(_ date: NSDate) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "America/New_York")
+        return formatter.string(from: date as Date)
+    }
+    
+    static func displayDateInLocal(_ string: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "America/New_York")
+        let date = formatter.date(from: string)
+        formatter.timeZone = NSTimeZone.local
+        return formatter.string(from: date!)
+    }
 }
