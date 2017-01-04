@@ -21,9 +21,8 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     var messageAlert: UIAlertController!
     
     var ref: FIRDatabaseReference!
-    var waitingTasks, trackOrderMadeBy, trackOrderPickedBy: FIRDatabaseQuery!
+    var waitingTasks: FIRDatabaseQuery!
     var tasks: [FIRDataSnapshot]! = []
-    fileprivate var _refTrackOrderMadeHandle, _refTrackOrderPickedHandle: FIRDatabaseHandle!
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -200,40 +199,10 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
             }
             strongSelf.removeTask(snapshot.key)
         })
-        
-        //personal orders
-        self.trackOrderMadeBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.account).queryEqual(toValue: AppState.sharedInstance.uid)
-        _refTrackOrderMadeHandle = self.trackOrderMadeBy.observe(.childAdded, with: {(snapshot) -> Void in
-            let task = snapshot.value as! NSDictionary
-            let state = task[Constants.OrderFields.state] as! String
-            if state != Constants.OrderStates.complete {
-                let orderInfo = OrderInfo(id: snapshot.key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String)
-                //            NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.UpdateTrackOrder), object: orderInfo)
-                AppState.sharedInstance.orderInfos?.append(orderInfo)
-                
-                let checked = task[Constants.OrderFields.checked] as! String
-                if state == Constants.OrderStates.pick && checked == "no" {
-                    AppState.sharedInstance.uncheckedOrders?.append(snapshot.key)
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.IncreaseBadge), object: nil)
-                }
-            }
-        })
-        
-        self.trackOrderPickedBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.pickedBy).queryEqual(toValue: AppState.sharedInstance.uid)
-        _refTrackOrderPickedHandle = self.trackOrderPickedBy.observe(.childAdded, with: {(snapshot) -> Void in
-            let task = snapshot.value as! NSDictionary
-            let state = task[Constants.OrderFields.state] as! String
-            if state == Constants.OrderStates.pick {
-                let orderInfo = OrderInfo(id: snapshot.key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String)
-                AppState.sharedInstance.orderInfos?.append(orderInfo)
-            }
-        })
     }
     
     deinit {
         waitingTasks.removeAllObservers()
-        trackOrderMadeBy.removeObserver(withHandle: _refTrackOrderMadeHandle)
-        trackOrderPickedBy.removeObserver(withHandle: _refTrackOrderPickedHandle)
     }
     /*
     // MARK: - Navigation

@@ -15,11 +15,15 @@ struct OrderInfo {
     var state = ""
     var restaurantName = ""
     var destinationName = ""
+    var madeTime = ""
+    var expectedTime = ""
+    var pickedTime = ""
     
-    init(id: String, account: String, pickedBy: String, state: String, restaurantName: String, destinationName: String) {
+    init(id: String, account: String, pickedBy: String, state: String, restaurantName: String, destinationName: String, madeTime: String) {
         self.id = id
         self.account = account
         self.pickedBy = pickedBy
+        self.madeTime = madeTime
         self.state = state
         self.restaurantName = restaurantName
         self.destinationName = destinationName

@@ -19,7 +19,6 @@ class TabBarViewController: UITabBarController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AppState.sharedInstance.orderInfos = [OrderInfo]()
         AppState.sharedInstance.uncheckedOrders = [String]()
         // Do any additional setup after loading the view.
         self.ref = FIRDatabase.database().reference()

@@ -16,6 +16,7 @@ class MakeOrderViewController: UIViewController {
     @IBOutlet weak var start: UITextField!
     @IBOutlet weak var end: UITextField!
     @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var openStatus: UIButton!
 
     var postTaskAlert: UIAlertController!
 
@@ -34,7 +35,40 @@ class MakeOrderViewController: UIViewController {
         endAutocompleteController = GMSAutocompleteViewController()
         endAutocompleteController.delegate = self
     }
+    
+    @IBAction func openWebsite(_ sender: Any) {
+        if placeA != nil {
+            if let url = placeA.website {
+                if UIApplication.shared.canOpenURL(url as URL) {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(placeA.website!, completionHandler: nil)
+                    } else {
+                        // Fallback on earlier versions
+                        UIApplication.shared.openURL(url)
+                    }
+                }
+            }
+        }
+    }
 
+    @IBAction func call(_ sender: Any) {
+        if placeA != nil {
+            if let phoneNumber = placeA.phoneNumber {
+                let phone = String(phoneNumber.characters.filter{String($0).rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil })
+                print(phone)
+                let url = URL(string: "telprompt://" + phone)
+                if UIApplication.shared.canOpenURL(url!) {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url!, completionHandler: nil)
+                    } else {
+                        // Fallback on earlier versions
+                        UIApplication.shared.openURL(url!)
+                    }
+                }
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -62,7 +96,7 @@ class MakeOrderViewController: UIViewController {
         }
         
         //generate task info
-        postTaskAlert = UIAlertController(title: "Confirmation", message: "From: " + startText + " To: " + endText, preferredStyle: .alert)
+        postTaskAlert = UIAlertController(title: "Confirmation", message: startText + " - " + endText, preferredStyle: .alert)
         postTaskAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             self.sendTask(start: startText, end: endText)
         }))
@@ -75,6 +109,11 @@ class MakeOrderViewController: UIViewController {
     
     func sendTask(start: String, end: String) {
         self.tabBarController?.selectedIndex = 0
+        let date = NSDate()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let stringDate = formatter.string(from: date as Date)
+
         var tData = [String: Any]()
         tData[Constants.OrderFields.account] = AppState.sharedInstance.uid
         tData[Constants.OrderFields.pickedBy] = ""
@@ -85,6 +124,7 @@ class MakeOrderViewController: UIViewController {
         tData[Constants.OrderFields.destinationLatitude] = placeB.coordinate.latitude
         tData[Constants.OrderFields.destinationLongitude] = placeB.coordinate.longitude
         tData[Constants.OrderFields.state] = Constants.OrderStates.wait
+        tData[Constants.OrderFields.madeTime] = stringDate
         tData[Constants.OrderFields.checked] = "no"
         self.ref.child("tasks").childByAutoId().setValue(tData, withCompletionBlock: { (error, ref) -> Void in
             self.start.text = ""
@@ -129,6 +169,18 @@ extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
         } else {
             mapView.camera = GMSCameraPosition.camera(withLatitude: place.coordinate.latitude, longitude: place.coordinate.longitude, zoom: 15)
         }
+        
+        if placeA != nil {
+            switch placeA.openNowStatus {
+            case .yes:
+                openStatus.setTitle("Open Now", for: .disabled)
+            case .no:
+                openStatus.setTitle("Closed", for: .disabled)
+            default:
+                openStatus.setTitle("Unknown", for: .disabled)
+            }
+        }
+        
         viewController.dismiss(animated: true, completion: nil)
     }
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {

@@ -20,7 +20,6 @@ class AppState: NSObject {
     var year: String?
     var displayName: String?
     var profileImage: UIImage?
-    var orderInfos: [OrderInfo]?
     var uncheckedOrders: [String]?
     
     func clear(){
@@ -31,7 +30,6 @@ class AppState: NSObject {
         year = nil
         displayName = nil
         profileImage = nil
-        orderInfos = nil
         uncheckedOrders = nil
     }
 }

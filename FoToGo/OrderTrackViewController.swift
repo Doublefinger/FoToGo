@@ -14,7 +14,10 @@ class OrderTrackViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var orderTable: UITableView!
     var detailViewController: OrderDetailViewController!
     var ref: FIRDatabaseReference!
-//    var orderInfos = [OrderInfo] ()
+    var trackOrderMadeBy, trackOrderPickedBy: FIRDatabaseQuery!
+    fileprivate var _refTrackOrderMadeHandle, _refTrackOrderPickedHandle: FIRDatabaseHandle!
+
+    var orderInfos = [OrderInfo] ()
 //    var taskSnapshots = [FIRDataSnapshot] ()
     
     override func viewDidLoad() {
@@ -27,7 +30,7 @@ class OrderTrackViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.orderTable.reloadData()
+//        self.orderTable.reloadData()
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.RemoveBadge), object: nil)
     }
     
@@ -44,6 +47,39 @@ class OrderTrackViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func configureDatabase() {
+        self.ref = FIRDatabase.database().reference()
+        //personal orders
+        self.trackOrderMadeBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.account).queryEqual(toValue: AppState.sharedInstance.uid)
+        _refTrackOrderMadeHandle = self.trackOrderMadeBy.observe(.childAdded, with: { [weak self] (snapshot) -> Void in
+            guard let strongSelf = self else { return }
+            let task = snapshot.value as! NSDictionary
+            let state = task[Constants.OrderFields.state] as! String
+            if state != Constants.OrderStates.complete {
+                let orderInfo = OrderInfo(id: snapshot.key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String, madeTime: task[Constants.OrderFields.madeTime] as! String)
+                //            NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.UpdateTrackOrder), object: orderInfo)
+                strongSelf.orderInfos.append(orderInfo)
+                strongSelf.orderTable.insertRows(at: [IndexPath(row: strongSelf.orderInfos.count-1, section: 0)], with: .automatic)
+                
+                let checked = task[Constants.OrderFields.checked] as! String
+                if state == Constants.OrderStates.pick && checked == "no" {
+                    AppState.sharedInstance.uncheckedOrders?.append(snapshot.key)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.IncreaseBadge), object: nil)
+                }
+            }
+        })
+        
+        self.trackOrderPickedBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.pickedBy).queryEqual(toValue: AppState.sharedInstance.uid)
+        _refTrackOrderPickedHandle = self.trackOrderPickedBy.observe(.childAdded, with: { [weak self] (snapshot) -> Void in            guard let strongSelf = self else { return }
+            let task = snapshot.value as! NSDictionary
+            let state = task[Constants.OrderFields.state] as! String
+            if state == Constants.OrderStates.pick {
+                let orderInfo = OrderInfo(id: snapshot.key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String, madeTime: task[Constants.OrderFields.madeTime] as! String)
+                strongSelf.orderInfos.append(orderInfo)
+                strongSelf.orderTable.insertRows(at: [IndexPath(row: strongSelf.orderInfos.count-1, section: 0)], with: .automatic)
+            }
+        })
+
+        
     }
     
     func removeTask(_ notification: NSNotification) {
@@ -64,7 +100,7 @@ class OrderTrackViewController: UIViewController, UITableViewDataSource, UITable
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.orderTable.indexPathForSelectedRow {
-                let orderInfo = AppState.sharedInstance.orderInfos?[indexPath.row]
+                let orderInfo = self.orderInfos[indexPath.row]
                 let controller = (segue.destination as! OrderDetailViewController)
                 controller.detailItem = orderInfo
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
@@ -75,14 +111,15 @@ class OrderTrackViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (AppState.sharedInstance.orderInfos?.count)!
+        return self.orderInfos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.orderTable.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath)
-        let orderInfo = AppState.sharedInstance.orderInfos?[indexPath.row]
-        
-        cell.textLabel!.text = (orderInfo?.restaurantName)! + " - " + (orderInfo?.destinationName)!
+        let orderInfo = self.orderInfos[indexPath.row]
+
+        cell.textLabel!.text = orderInfo.restaurantName
+        cell.detailTextLabel!.text = orderInfo.madeTime
         
         return cell
     }

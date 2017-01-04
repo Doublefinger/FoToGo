@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         if FIRAuth.auth()?.currentUser != nil {
             let user = FIRAuth.auth()?.currentUser
             AppState.sharedInstance.uid = user?.uid
