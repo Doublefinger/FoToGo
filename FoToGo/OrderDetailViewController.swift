@@ -13,10 +13,16 @@ class OrderDetailViewController: UIViewController {
     
     @IBOutlet weak var restName: UILabel!
     @IBOutlet weak var destName: UILabel!
-    @IBOutlet weak var requestedBy: UILabel!
-    @IBOutlet weak var pickedBy: UILabel!
-    @IBOutlet weak var state: UILabel!
-    @IBOutlet weak var mobile: UILabel!
+    @IBOutlet weak var theOtherName: UILabel!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var orderState: UILabel!
+    @IBOutlet weak var readyToGo: UIButton!
+    @IBOutlet weak var arrived: UIButton!
+    @IBOutlet weak var delivered: UIButton!
+    @IBOutlet weak var distance: UIButton!
+    @IBOutlet weak var restImage: UIImageView!
+    @IBOutlet weak var destImage: UIImageView!
+    @IBOutlet weak var theOtherImage: UIImageView!
     
     var ref: FIRDatabaseReference!
 
@@ -29,27 +35,33 @@ class OrderDetailViewController: UIViewController {
     func configureView() {
         if let detail = self.detailItem {
             if let label = self.restName {
-                label.text = label.text! + " " + detail.restaurantName
+                label.text = detail.restaurantName
             }
             
             if let label = self.destName {
-                label.text = label.text! + " " +  detail.destinationName
+                label.text = detail.destinationName
             }
 
-            if let label = self.state {
-                label.text = label.text! + " " +  detail.state
+            if let label = self.orderState {
+                label.text = detail.state
             }
+
+//            if detail.account == AppState.sharedInstance.uid {
+//                if let label = self.theOtherName {
+//                    label.text = AppState.sharedInstance.displayName!
+//                    self.configureDatabase(queryId: detail.pickedBy);
+//                }
+//            } else {
+//                if let label = self.theOtherName {
+//                    label.text = label.text! + " " + AppState.sharedInstance.displayName!
+//                    self.configureDatabase(queryId: detail.account);
+//                }
+//            }
             
-            if detail.account == AppState.sharedInstance.uid {
-                if let label = self.requestedBy {
-                    label.text = label.text! + " " + AppState.sharedInstance.displayName!
-                    self.configureDatabase(queryId: detail.pickedBy);
-                }
-            } else {
-                if let label = self.pickedBy {
-                    label.text = label.text! + " " + AppState.sharedInstance.displayName!
-                    self.configureDatabase(queryId: detail.account);
-                }
+            if let imageView = self.restImage {
+                imageView.image = detail.photo
+                imageView.layer.cornerRadius = imageView.frame.size.height/2
+                imageView.clipsToBounds = true
             }
         }
     }
@@ -57,25 +69,36 @@ class OrderDetailViewController: UIViewController {
     func configureDatabase(queryId: String) {
         self.ref = FIRDatabase.database().reference()
         
-        self.ref.child("users").queryOrderedByKey().queryEqual(toValue: queryId).observeSingleEvent(of: .childAdded, with: {[weak self] (snapshot) -> Void in
-            guard let strongSelf = self else {
-                return
-            }
-            let user = snapshot.value as! NSDictionary
-            strongSelf.mobile.text = strongSelf.mobile.text! + (user[Constants.UserFields.mobile] as! String)
-            if strongSelf.detailItem?.account == AppState.sharedInstance.uid {
-                strongSelf.pickedBy.text = strongSelf.pickedBy.text! + (user[Constants.UserFields.name] as! String)
-            } else {
-                strongSelf.requestedBy.text = strongSelf.requestedBy.text! + (user[Constants.UserFields.name] as! String)
-
-            }
-        })
+//        self.ref.child("users").queryOrderedByKey().queryEqual(toValue: queryId).observeSingleEvent(of: .childAdded, with: {[weak self] (snapshot) -> Void in
+//            guard let strongSelf = self else {
+//                return
+//            }
+//            let user = snapshot.value as! NSDictionary
+//            strongSelf.mobile.text = strongSelf.mobile.text! + (user[Constants.UserFields.mobile] as! String)
+//            if strongSelf.detailItem?.account == AppState.sharedInstance.uid {
+//                strongSelf.pickedBy.text = strongSelf.pickedBy.text! + (user[Constants.UserFields.name] as! String)
+//            } else {
+//                strongSelf.requestedBy.text = strongSelf.requestedBy.text! + (user[Constants.UserFields.name] as! String)
+//            }
+//        })
 
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        cancelButton.layer.borderWidth = 1
+        cancelButton.layer.borderColor = UIColor.orange.cgColor
+        cancelButton.setTitleColor(UIColor.orange, for: .normal)
+        readyToGo.layer.borderWidth = 1
+        readyToGo.layer.borderColor = UIColor.orange.cgColor
+        readyToGo.setTitleColor(UIColor.orange, for: .normal)
+        arrived.layer.borderWidth = 1
+        arrived.layer.borderColor = UIColor.orange.cgColor
+        arrived.setTitleColor(UIColor.orange, for: .normal)
+        delivered.layer.borderWidth = 1
+        delivered.layer.borderColor = UIColor.orange.cgColor
+        delivered.setTitleColor(UIColor.orange, for: .normal)
         self.configureView()
     }
 

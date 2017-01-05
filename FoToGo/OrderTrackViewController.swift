@@ -56,11 +56,7 @@ class OrderTrackViewController: UITableViewController {
             let task = snapshot.value as! NSDictionary
             let state = task[Constants.OrderFields.state] as! String
             if state != Constants.OrderStates.complete {
-                let orderInfo = OrderInfo(id: snapshot.key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, restaurantId: task[Constants.OrderFields.restaurantId] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String, madeTime: task[Constants.OrderFields.madeTime] as! String)
-                //            NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.UpdateTrackOrder), object: orderInfo)
-                strongSelf.orderInfos.append(orderInfo)
-                strongSelf.orderTable.insertRows(at: [IndexPath(row: strongSelf.orderInfos.count-1, section: 0)], with: .automatic)
-                
+                strongSelf.loadTable(placeID: task[Constants.OrderFields.restaurantId] as! String, key: snapshot.key, task: task)
                 let checked = task[Constants.OrderFields.checked] as! String
                 if state == Constants.OrderStates.pick && checked == "no" {
                     AppState.sharedInstance.uncheckedOrders?.append(snapshot.key)
@@ -74,37 +70,45 @@ class OrderTrackViewController: UITableViewController {
             let task = snapshot.value as! NSDictionary
             let state = task[Constants.OrderFields.state] as! String
             if state == Constants.OrderStates.pick {
-                let orderInfo = OrderInfo(id: snapshot.key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, restaurantId: task[Constants.OrderFields.restaurantId] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String, madeTime: task[Constants.OrderFields.madeTime] as! String)
-                strongSelf.orderInfos.append(orderInfo)
-                strongSelf.orderTable.insertRows(at: [IndexPath(row: strongSelf.orderInfos.count-1, section: 0)], with: .automatic)
+                strongSelf.loadTable(placeID: task[Constants.OrderFields.restaurantId] as! String, key: snapshot.key, task: task)
             }
         })
     }
     
-    func loadFirstPhotoForPlace(placeID: String, cell: UITableViewCell) {
+    func loadTable(placeID: String, key: String, task: NSDictionary) {
         GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) { (photos, error) -> Void in
             if let error = error {
                 // TODO: handle the error.
                 print("Error: \(error.localizedDescription)")
+                self.buildTable(key: key, task: task, photo: UIImage(named: "NoImage Icons-70")!)
             } else {
-                if let firstPhoto = photos?.results.first {
-                    self.loadImageForMetadata(photoMetadata: firstPhoto, cell: cell)
+                guard let firstPhoto = photos?.results.first else {
+                    self.buildTable(key: key, task: task, photo: UIImage(named: "NoImage Icons-70")!)
+                    return
                 }
+                self.loadImageForMetadata(photoMetadata: firstPhoto, key: key, task: task)
             }
         }
     }
     
-    func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata, cell: UITableViewCell) {
+    func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata, key: String, task: NSDictionary) {
         GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
             (photo, error) -> Void in
             if let error = error {
                 // TODO: handle the error.
                 print("Error: \(error.localizedDescription)")
+                self.buildTable(key: key, task: task, photo: UIImage(named: "NoImage Icons-70")!)
             } else {
-                cell.imageView?.image = photo;
+                self.buildTable(key: key, task: task, photo: photo!)
 //                self.attributionTextView.attributedText = photoMetadata.attributions;
             }
         })
+    }
+    
+    func buildTable(key: String, task: NSDictionary, photo: UIImage) {
+        let orderInfo = OrderInfo(id: key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, photo: photo, destinationName: task[Constants.OrderFields.destinationName] as! String, madeTime: task[Constants.OrderFields.madeTime] as! String)
+        self.orderInfos.append(orderInfo)
+        self.orderTable.insertRows(at: [IndexPath(row: self.orderInfos.count-1, section: 0)], with: .automatic)
     }
     
     func removeTask(_ notification: NSNotification) {
@@ -130,6 +134,8 @@ class OrderTrackViewController: UITableViewController {
                 controller.detailItem = orderInfo
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
+                controller.navigationItem.title = orderInfo.restaurantName + " - " + orderInfo.destinationName
+
             }
         }
     }
@@ -141,9 +147,9 @@ class OrderTrackViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.orderTable.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderTableViewCell
         let orderInfo = self.orderInfos[indexPath.row]
-        self.loadFirstPhotoForPlace(placeID: orderInfo.restaurantId, cell: cell)
         cell.textLabel!.text = orderInfo.restaurantName
         cell.detailTextLabel!.text = Helper.displayDateInLocal(orderInfo.madeTime) + " last update"
+        cell.imageView?.image = orderInfo.photo
         cell.orderState.text = orderInfo.state
         return cell
     }
