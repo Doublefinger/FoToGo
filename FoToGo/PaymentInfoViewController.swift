@@ -17,6 +17,8 @@ class PaymentInfoViewController: UIViewController {
         super.viewDidLoad()
         self.message = ""
         // Do any additional setup after loading the view.
+        self.navigationItem.leftItemsSupplementBackButton = true
+        self.navigationItem.title = "Payment"
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,9 +30,6 @@ class PaymentInfoViewController: UIViewController {
         if segue.identifier == "toEmailCheck" {
             let controller = segue.destination as! FinishRegistrationViewController
             controller.emailAddress = userInfo.email
-        } else {
-            let controller = segue.destination as! RegisterViewController
-            controller.userInfo = userInfo
         }
     }
     

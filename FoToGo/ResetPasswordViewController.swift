@@ -11,6 +11,7 @@ import UIKit
 class ResetPasswordViewController: UIViewController {
 
     @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var reset: UIButton!
     
     var emailText: String!
     var message: String!
@@ -20,8 +21,12 @@ class ResetPasswordViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationItem.leftItemsSupplementBackButton = true
+        self.navigationItem.title = "Reset Password"
+        
         self.message = ""
         email.text = emailText ?? ""
+        self.reset.isEnabled = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,36 +34,20 @@ class ResetPasswordViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if email.text == "" {
+    @IBAction func resetPass(_ sender: Any) {
+        self.showAlert()
+        if !Helper.isValidSchoolEmail(text: email.text!) {
+            message = "Please enter a valid school email"
+            self.finish()
             return
         }
-        
-        let controller = segue.destination as! SignInViewController
-        controller.emailText = email.text
-    }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "toSignIn" {
-            return true
-        }
-        
-        if message == Constants.Messages.success {
-            return true
-        }
-        
-        if email.text == "" {
-            return false
-        }
-        self.showAlert()
         Manager.sharedInstance.resetPassword(email.text!, viewController: self)
-        return false
     }
     
     func finish(){
         if message == Constants.Messages.success {
             self.responseAlert.dismiss(animated: true, completion: {
-                self.performSegue(withIdentifier: "toSignIn", sender: self)
+                self.reset.isEnabled = false
             })
         } else {
             //show warning
@@ -70,7 +59,7 @@ class ResetPasswordViewController: UIViewController {
     }
     
     func showAlert() {
-        responseAlert = UIAlertController(title: "", message: "Submitting", preferredStyle: UIAlertControllerStyle.alert)
+        responseAlert = UIAlertController(title: "", message: "Sending", preferredStyle: UIAlertControllerStyle.alert)
         self.present(responseAlert, animated: true, completion: nil)
     }
 

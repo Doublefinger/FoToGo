@@ -1,19 +1,20 @@
 //
-//  ViewController.swift
+//  RegisterationNavigationViewController.swift
 //  FoToGo
 //
-//  Created by Shitianyu Pan on 06/11/2016.
-//  Copyright © 2016 Doublefinger. All rights reserved.
+//  Created by Shitianyu Pan on 05/01/2017.
+//  Copyright © 2017 Doublefinger. All rights reserved.
 //
 
 import UIKit
 import Firebase
 
-class ViewController: UIViewController {
+class NavigationViewController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,7 +24,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         if FIRAuth.auth()?.currentUser != nil {
             let user = FIRAuth.auth()?.currentUser
             AppState.sharedInstance.uid = user?.uid
@@ -44,5 +45,14 @@ class ViewController: UIViewController {
             }
         }
     }
-}
+    /*
+    // MARK: - Navigation
 
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}

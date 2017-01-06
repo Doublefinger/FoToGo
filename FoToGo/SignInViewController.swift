@@ -12,6 +12,8 @@ class SignInViewController: UIViewController {
 
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var emailError: UILabel!
+    @IBOutlet weak var passwordError: UILabel!
     
     var responseAlert: UIAlertController!
     var emailText: String!
@@ -22,7 +24,9 @@ class SignInViewController: UIViewController {
         self.message = ""
         email.text = emailText ?? ""
         // Do any additional setup after loading the view.
-        //需要给forgot password按钮添加下划线
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationItem.leftItemsSupplementBackButton = true
+        self.navigationItem.title = "Sign In"
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,47 +35,36 @@ class SignInViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toReset" {
-            if email.text == "" {
-                return
-            }
-            let controller = segue.destination as! ResetPasswordViewController
-            controller.emailText = email.text
-        }
+        let controller = segue.destination as! ResetPasswordViewController
+        controller.emailText = email.text
+        
     }
     
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "toMain" {
-            if self.message == Constants.Messages.success {
-                print("toMain")
-
-                return true
-            }
-            if email.text == "" || !Helper.isValidSchoolEmail(text: email.text!) {
-                Helper.showErrorIndicator(textField: email)
-                return false
-            } else {
-                Helper.removeErrorIndicator(textField: email)
-            }
-
-            if password.text == "" || password.text!.characters.count < 6 {
-                Helper.showErrorIndicator(textField: password)
-                return false
-            } else {
-                Helper.removeErrorIndicator(textField: password)
-            }
-            self.showAlert()
-            Manager.sharedInstance.signIn(email.text!, password.text!, viewController: self)
-            return false
+    @IBAction func signIn(_ sender: Any) {
+        showAlert()
+        if !Helper.isValidSchoolEmail(text: email.text!) {
+            emailError.isHidden = false
+            self.finish()
+            return
+        } else {
+            emailError.isHidden = true
         }
         
-        return true
+        if password.text == "" || password.text!.characters.count < 6 {
+            passwordError.isHidden = false
+            self.finish()
+            return
+        } else {
+            passwordError.isHidden = true
+        }
+        Manager.sharedInstance.signIn(email.text!, password.text!, viewController: self)
     }
     
     func finish(){
         if message == Constants.Messages.success {
             self.responseAlert.dismiss(animated: true, completion: { 
-                self.performSegue(withIdentifier: "toMain", sender: self)
+                let viewController = self.storyboard?.instantiateViewController(withIdentifier: "mainPage")
+                self.present(viewController!, animated: true, completion: nil)
             })
         } else {
             //show warning
@@ -83,7 +76,7 @@ class SignInViewController: UIViewController {
     }
     
     func showAlert() {
-        responseAlert = UIAlertController(title: "", message: "Submitting", preferredStyle: UIAlertControllerStyle.alert)
+        responseAlert = UIAlertController(title: "", message: "Verifying", preferredStyle: UIAlertControllerStyle.alert)
         self.present(responseAlert, animated: true, completion: nil)
     }
     /*

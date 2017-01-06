@@ -9,7 +9,7 @@
 import UIKit
 
 
-class RegisterViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class PersonalInfoViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
@@ -18,87 +18,94 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var majorPicker: UIPickerView!
     
+    @IBOutlet weak var firstNameError: UILabel!
+    @IBOutlet weak var lastNameError: UILabel!
+    @IBOutlet weak var mobileError: UILabel!
+    @IBOutlet weak var emailError: UILabel!
+    @IBOutlet weak var passwordError: UILabel!
+    
     var major = [String]()
     var userInfo: UserInfo!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationItem.leftItemsSupplementBackButton = true
+        self.navigationItem.title = "Register"
         // Do any additional setup after loading the view.
         major = ["Freshman", "Sophomore", "Junior", "Senior", "Postgraduate"]
-        if (userInfo) != nil {
-            firstName.text = userInfo.firstName
-            lastName.text = userInfo.lastName
-            var mobileText = userInfo.mobile
-            mobileText.insert("-", at: (mobileText.index((mobileText.startIndex), offsetBy: 3)))
-            mobileText.insert("-", at: (mobileText.index((mobileText.startIndex), offsetBy: 7)))
-            mobile.text = mobileText
-            email.text = userInfo.email
-            password.text = userInfo.password
-            var row = 0
-            for index in 0...4 {
-                if major[index] == userInfo.major {
-                    row = index
-                    break
-                }
-            }
-            majorPicker.selectRow(row, inComponent: 0, animated: false)
-        }
+//        if (userInfo) != nil {
+//            firstName.text = userInfo.firstName
+//            lastName.text = userInfo.lastName
+//            var mobileText = userInfo.mobile
+//            mobileText.insert("-", at: (mobileText.index((mobileText.startIndex), offsetBy: 3)))
+//            mobileText.insert("-", at: (mobileText.index((mobileText.startIndex), offsetBy: 7)))
+//            mobile.text = mobileText
+//            email.text = userInfo.email
+//            password.text = userInfo.password
+//            var row = 0
+//            for index in 0...4 {
+//                if major[index] == userInfo.major {
+//                    row = index
+//                    break
+//                }
+//            }
+//            majorPicker.selectRow(row, inComponent: 0, animated: false)
+//        }
     }
-
+    
+    override func viewDidLayoutSubviews() {
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toPayment" {
-            let controller = segue.destination as! PaymentInfoViewController
-            controller.userInfo = userInfo
-        }
+        let controller = segue.destination as! PaymentInfoViewController
+        controller.userInfo = userInfo
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         //check user input
-        if identifier == "toStart" {
-            return true
-        }
-        
         var valid : Bool = true
         if firstName.text == "" {
             valid = false
-            Helper.showErrorIndicator(textField: firstName)
+            firstNameError.isHidden = false
         } else {
-            Helper.removeErrorIndicator(textField: firstName)
+            firstNameError.isHidden = true
         }
         
         if lastName.text == "" {
             valid = false
-            Helper.showErrorIndicator(textField: lastName)
+            lastNameError.isHidden = false
         } else {
-            Helper.removeErrorIndicator(textField: lastName)
+            lastNameError.isHidden = true
         }
         
         if password.text == "" || password.text!.characters.count < 6 {
             valid = false
-            Helper.showErrorIndicator(textField: password)
+            passwordError.isHidden = false
         } else {
-            Helper.removeErrorIndicator(textField: password)
+            passwordError.isHidden = true
         }
         
         var mobileText = mobile.text!
 
         if !Helper.isPhoneNumber(text: mobileText) {
             valid = false
-            Helper.showErrorIndicator(textField: mobile)
+            mobileError.isHidden = false
         } else {
-            Helper.removeErrorIndicator(textField: mobile)
+            mobileError.isHidden = true
         }
         
         if email.text == "" || !Helper.isValidSchoolEmail(text: email.text!) {
             valid = false
-            Helper.showErrorIndicator(textField: email)
+            emailError.isHidden = false
         } else {
-            Helper.removeErrorIndicator(textField: email)
+            emailError.isHidden = true
         }
 
         if !valid {
