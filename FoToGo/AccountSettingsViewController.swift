@@ -19,6 +19,10 @@ class AccountSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationItem.leftItemsSupplementBackButton = true
+        self.navigationItem.title = "Account Settings"
+        
         self.username.text = AppState.sharedInstance.displayName
         self.email.text = AppState.sharedInstance.email
         var mobileText = AppState.sharedInstance.mobile
@@ -31,7 +35,7 @@ class AccountSettingsViewController: UIViewController {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.presentEditAccountView(_:)))
         self.userInfoView.addGestureRecognizer(gesture)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

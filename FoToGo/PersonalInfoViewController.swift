@@ -29,10 +29,10 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate, UIPicke
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationItem.leftItemsSupplementBackButton = true
         self.navigationItem.title = "Register"
-        // Do any additional setup after loading the view.
         major = ["Freshman", "Sophomore", "Junior", "Senior", "Postgraduate"]
 //        if (userInfo) != nil {
 //            firstName.text = userInfo.firstName

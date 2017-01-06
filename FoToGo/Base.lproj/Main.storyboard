@@ -9,6 +9,7 @@
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -81,7 +82,7 @@
                                 </constraints>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="food_4" translatesAutoresizingMaskIntoConstraints="NO" id="EfR-1Z-rIZ">
-                                <rect key="frame" x="0.0" y="64" width="320" height="347"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="391"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -114,10 +115,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="BIS-av-ynp">
-                                <rect key="frame" x="16" y="144" width="288" height="330"/>
+                                <rect key="frame" x="16" y="100" width="288" height="330"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ECV-F8-J3X">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="85"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="109.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmi-f9-eck">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="40"/>
@@ -141,7 +142,7 @@
                                                 </connections>
                                             </textField>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your school email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dE-RH-Jbe">
-                                                <rect key="frame" x="0.0" y="85" width="288" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="90" width="288" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -149,7 +150,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ezj-TO-8rs">
-                                        <rect key="frame" x="0.0" y="129" width="288" height="85"/>
+                                        <rect key="frame" x="0.0" y="129" width="288" height="109.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSM-QD-ePP">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="40"/>
@@ -173,7 +174,7 @@
                                                 </connections>
                                             </textField>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your school email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pxr-kk-6Yp">
-                                                <rect key="frame" x="0.0" y="85" width="288" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="90" width="288" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -379,13 +380,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZqY-Mp-qIl">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZqY-Mp-qIl">
                                         <rect key="frame" x="8" y="158" width="304" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Estimate Cost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cG0-E2-6hs">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Estimate Cost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cG0-E2-6hs">
                                         <rect key="frame" x="8" y="196" width="103" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="GyC-wA-fqz"/>
@@ -984,59 +985,78 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Ad-dw-zZV">
-                                <rect key="frame" x="0.0" y="119" width="320" height="84"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="hgG-ab-pGB">
+                                <rect key="frame" x="16" y="209" width="101" height="215"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="user_default" translatesAutoresizingMaskIntoConstraints="NO" id="Dno-hF-cby">
-                                        <rect key="frame" x="16" y="-133" width="90" height="90"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C27-bk-2bi">
-                                        <rect key="frame" x="16" y="-28" width="296" height="36"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFy-WA-aRu">
+                                        <rect key="frame" x="0.0" y="0.0" width="101" height="43"/>
+                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="19"/>
+                                        <state key="normal" title="Payment"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lfn-gD-ywj">
+                                        <rect key="frame" x="0.0" y="43" width="101" height="43"/>
+                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="19"/>
+                                        <state key="normal" title="Order History"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ah6-Qf-cG5">
+                                        <rect key="frame" x="0.0" y="86" width="101" height="43"/>
+                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="19"/>
+                                        <state key="normal" title="Help"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oa-hg-Iwp">
+                                        <rect key="frame" x="0.0" y="129" width="101" height="43"/>
+                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="19"/>
+                                        <state key="normal" title="Free Food"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eda-sJ-yce">
+                                        <rect key="frame" x="0.0" y="172" width="101" height="43"/>
+                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="19"/>
+                                        <state key="normal" title="Settings"/>
+                                        <connections>
+                                            <segue destination="KGw-HJ-TPS" kind="show" id="i3b-K8-cdo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ad-dw-zZV">
+                                <rect key="frame" x="0.0" y="20" width="320" height="168"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C27-bk-2bi">
+                                        <rect key="frame" x="16" y="135" width="200" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="9UB-ev-ifn"/>
+                                            <constraint firstAttribute="width" constant="200" id="uMC-47-Ex1"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="user_default" translatesAutoresizingMaskIntoConstraints="NO" id="Dno-hF-cby">
+                                        <rect key="frame" x="16" y="49" width="70" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="Aj6-uC-pih"/>
+                                            <constraint firstAttribute="height" constant="70" id="db6-GU-J2d"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.46790380850000002" blue="0.21060464130000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.92382695150000005" green="0.92936366579999996" blue="0.90057970070000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Dno-hF-cby" firstAttribute="centerY" secondItem="2Ad-dw-zZV" secondAttribute="centerY" id="kRN-TG-RkF"/>
+                                    <constraint firstItem="C27-bk-2bi" firstAttribute="leading" secondItem="Dno-hF-cby" secondAttribute="leading" id="myB-0b-qx2"/>
+                                    <constraint firstItem="C27-bk-2bi" firstAttribute="top" secondItem="Dno-hF-cby" secondAttribute="bottom" constant="16" id="ni7-5s-Ord"/>
+                                    <constraint firstItem="Dno-hF-cby" firstAttribute="leading" secondItem="2Ad-dw-zZV" secondAttribute="leading" constant="16" id="rIn-7P-jHg"/>
+                                </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFy-WA-aRu">
-                                <rect key="frame" x="16" y="25" width="87" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="19"/>
-                                <state key="normal" title="Payment"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lfn-gD-ywj">
-                                <rect key="frame" x="16" y="62" width="124" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="19"/>
-                                <state key="normal" title="Order History"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oa-hg-Iwp">
-                                <rect key="frame" x="16" y="110" width="124" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="19"/>
-                                <state key="normal" title="Free Food"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ah6-Qf-cG5">
-                                <rect key="frame" x="16" y="158" width="124" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="19"/>
-                                <state key="normal" title="Help"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eda-sJ-yce">
-                                <rect key="frame" x="16" y="206" width="124" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="19"/>
-                                <state key="normal" title="Settings"/>
-                                <connections>
-                                    <segue destination="Cfu-X3-UHa" kind="show" id="Crm-mp-zG1"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hgG-ab-pGB" firstAttribute="top" secondItem="2Ad-dw-zZV" secondAttribute="bottom" multiplier="1:0.9" id="An9-Iv-LoR"/>
+                            <constraint firstAttribute="trailing" secondItem="2Ad-dw-zZV" secondAttribute="trailing" id="CcI-L7-HRd"/>
+                            <constraint firstItem="2Ad-dw-zZV" firstAttribute="top" secondItem="ru2-Uf-TW9" secondAttribute="bottom" id="ksi-y5-0bD"/>
+                            <constraint firstItem="2Ad-dw-zZV" firstAttribute="leading" secondItem="0Jq-jp-bMj" secondAttribute="leading" id="oq1-x3-LiU"/>
+                            <constraint firstItem="2Ad-dw-zZV" firstAttribute="height" secondItem="0Jq-jp-bMj" secondAttribute="height" multiplier="0.35" id="w2K-cY-xRX"/>
+                            <constraint firstItem="hgG-ab-pGB" firstAttribute="leading" secondItem="0Jq-jp-bMj" secondAttribute="leading" constant="16" id="zlF-oA-O83"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="profileImageView" destination="Dno-hF-cby" id="Jxq-7q-K3N"/>
@@ -1046,7 +1066,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RaN-uC-N10" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1636.875" y="748.75"/>
+            <point key="canvasLocation" x="24" y="1500"/>
         </scene>
         <!--Account Settings View Controller-->
         <scene sceneID="8Me-Ca-BCi">
@@ -1060,12 +1080,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcA-8E-Rf2">
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcA-8E-Rf2">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Ida-ru-3Vq"/>
-                                </constraints>
                                 <textAttributes key="titleTextAttributes">
                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 </textAttributes>
@@ -1080,21 +1098,16 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profiles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WP7-1l-B32">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Profiles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WP7-1l-B32">
                                 <rect key="frame" x="16" y="264" width="58" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="hal-5H-PZc"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9f-gK-esF">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9f-gK-esF">
                                 <rect key="frame" x="16" y="430" width="65" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="0rC-bP-Gdn"/>
-                                    <constraint firstAttribute="width" constant="65" id="P0d-82-QjS"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="16"/>
                                 <state key="normal" title="Sign Out"/>
                                 <connections>
@@ -1102,84 +1115,52 @@
                                     <segue destination="BYZ-38-t0r" kind="show" id="Vlg-NL-bEy"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZjU-x0-jKt">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZjU-x0-jKt">
                                 <rect key="frame" x="0.0" y="64" width="320" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_default" translatesAutoresizingMaskIntoConstraints="NO" id="LXB-W2-Nmu">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="user_default" translatesAutoresizingMaskIntoConstraints="NO" id="LXB-W2-Nmu">
                                         <rect key="frame" x="8" y="19" width="100" height="100"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="mBp-Sh-Hdd"/>
-                                        </constraints>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mobile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ys-yS-CKT">
-                                        <rect key="frame" x="116" y="57" width="179" height="25"/>
-                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7W-al-2q2">
-                                        <rect key="frame" x="116" y="95" width="179" height="25"/>
-                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GO-ZJ-BZ7">
-                                        <rect key="frame" x="116" y="19" width="179" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="53j-9s-o0Z"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EAA-un-8Ja">
+                                        <rect key="frame" x="116" y="19" width="87" height="83"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GO-ZJ-BZ7">
+                                                <rect key="frame" x="0.0" y="0.0" width="86.5" height="27.5"/>
+                                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="mobile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ys-yS-CKT">
+                                                <rect key="frame" x="0.0" y="27.5" width="86.5" height="27.5"/>
+                                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="email address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7W-al-2q2">
+                                                <rect key="frame" x="0.0" y="55" width="86.5" height="27.5"/>
+                                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.46790380850000002" blue="0.21060464130000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="Y7W-al-2q2" firstAttribute="top" secondItem="6ys-yS-CKT" secondAttribute="bottom" constant="13" id="3YE-Lx-Yjk"/>
-                                    <constraint firstItem="6ys-yS-CKT" firstAttribute="leading" secondItem="Y7W-al-2q2" secondAttribute="leading" id="50X-Wx-A7h"/>
-                                    <constraint firstItem="3GO-ZJ-BZ7" firstAttribute="leading" secondItem="LXB-W2-Nmu" secondAttribute="trailing" constant="8" symbolic="YES" id="9Ow-Sp-Res"/>
-                                    <constraint firstItem="Y7W-al-2q2" firstAttribute="bottom" secondItem="ZjU-x0-jKt" secondAttribute="bottomMargin" id="9VG-wg-Ci6"/>
-                                    <constraint firstItem="6ys-yS-CKT" firstAttribute="top" secondItem="3GO-ZJ-BZ7" secondAttribute="bottom" constant="13" id="CgP-bp-8RY"/>
-                                    <constraint firstItem="LXB-W2-Nmu" firstAttribute="centerY" secondItem="6ys-yS-CKT" secondAttribute="centerY" id="Glz-sN-nBK"/>
-                                    <constraint firstItem="LXB-W2-Nmu" firstAttribute="leading" secondItem="ZjU-x0-jKt" secondAttribute="leadingMargin" id="PqR-e7-qcq"/>
-                                    <constraint firstItem="3GO-ZJ-BZ7" firstAttribute="leading" secondItem="6ys-yS-CKT" secondAttribute="leading" id="QpB-KV-anN"/>
-                                    <constraint firstItem="LXB-W2-Nmu" firstAttribute="top" secondItem="ZjU-x0-jKt" secondAttribute="top" constant="19" id="e3y-8y-rv5"/>
-                                    <constraint firstItem="LXB-W2-Nmu" firstAttribute="top" secondItem="3GO-ZJ-BZ7" secondAttribute="top" id="sI6-0O-d1r"/>
-                                    <constraint firstItem="3GO-ZJ-BZ7" firstAttribute="trailing" secondItem="6ys-yS-CKT" secondAttribute="trailing" id="tCh-T7-bA1"/>
-                                    <constraint firstAttribute="bottom" secondItem="LXB-W2-Nmu" secondAttribute="bottom" constant="9" id="tKd-Ep-DGA"/>
-                                    <constraint firstAttribute="trailing" secondItem="3GO-ZJ-BZ7" secondAttribute="trailing" constant="25" id="uFi-76-oRq"/>
-                                    <constraint firstItem="6ys-yS-CKT" firstAttribute="trailing" secondItem="Y7W-al-2q2" secondAttribute="trailing" id="ut9-Ua-uq0"/>
-                                </constraints>
+                                <color key="backgroundColor" red="0.92382695150000005" green="0.92936366579999996" blue="0.90057970070000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorites" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmT-wH-n0u">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Favorites" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmT-wH-n0u">
                                 <rect key="frame" x="16" y="200" width="58" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="58" id="4XM-Hh-ilN"/>
-                                    <constraint firstAttribute="height" constant="30" id="gYD-pf-jVm"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ZjU-x0-jKt" firstAttribute="top" secondItem="GcA-8E-Rf2" secondAttribute="bottom" id="Egs-Vf-vxU"/>
-                            <constraint firstItem="GcA-8E-Rf2" firstAttribute="leading" secondItem="ZjU-x0-jKt" secondAttribute="leading" id="IOg-eb-YLO"/>
-                            <constraint firstItem="GmT-wH-n0u" firstAttribute="trailing" secondItem="WP7-1l-B32" secondAttribute="trailing" id="OgS-k8-DRa"/>
-                            <constraint firstItem="WP7-1l-B32" firstAttribute="leading" secondItem="Y9f-gK-esF" secondAttribute="leading" id="R3r-rE-H3M"/>
-                            <constraint firstItem="GmT-wH-n0u" firstAttribute="top" secondItem="bxy-OX-oya" secondAttribute="top" constant="200" id="UfL-iE-NDM"/>
-                            <constraint firstItem="GcA-8E-Rf2" firstAttribute="leading" secondItem="bxy-OX-oya" secondAttribute="leading" id="Wb9-Lc-gIh"/>
-                            <constraint firstAttribute="bottom" secondItem="WP7-1l-B32" secondAttribute="bottom" constant="186" id="ZO2-ee-FVd"/>
-                            <constraint firstItem="GcA-8E-Rf2" firstAttribute="trailing" secondItem="ZjU-x0-jKt" secondAttribute="trailing" id="cmG-cr-ZWu"/>
-                            <constraint firstItem="GmT-wH-n0u" firstAttribute="top" secondItem="ZjU-x0-jKt" secondAttribute="bottom" constant="8" symbolic="YES" id="es4-hx-n8M"/>
-                            <constraint firstAttribute="trailing" secondItem="GcA-8E-Rf2" secondAttribute="trailing" id="kfE-ew-OH1"/>
-                            <constraint firstItem="GmT-wH-n0u" firstAttribute="leading" secondItem="WP7-1l-B32" secondAttribute="leading" id="rdh-Ud-eSS"/>
-                            <constraint firstAttribute="bottom" secondItem="Y9f-gK-esF" secondAttribute="bottom" constant="20" symbolic="YES" id="vlu-7i-N4o"/>
-                            <constraint firstItem="GcA-8E-Rf2" firstAttribute="top" secondItem="OEc-V4-Zyt" secondAttribute="bottom" id="xQ4-8I-MKb"/>
-                            <constraint firstItem="GmT-wH-n0u" firstAttribute="leading" secondItem="bxy-OX-oya" secondAttribute="leadingMargin" id="xaf-5Z-G6Y"/>
-                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="UMI-pa-Iy4"/>
                     <connections>
                         <outlet property="email" destination="Y7W-al-2q2" id="L7L-bY-1mW"/>
                         <outlet property="mobile" destination="6ys-yS-CKT" id="S6b-50-kLY"/>
@@ -1190,7 +1171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i9u-kk-zth" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2444" y="749.7751124437782"/>
+            <point key="canvasLocation" x="1637" y="1500"/>
         </scene>
         <!--Edit Account View Controller-->
         <scene sceneID="AA8-Cf-9Jw">
@@ -1378,7 +1359,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nu2-Zr-WsS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3231.1999999999998" y="748.87556221889065"/>
+            <point key="canvasLocation" x="2443" y="1500"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dIV-zc-jHS">
+            <objects>
+                <navigationController id="KGw-HJ-TPS" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="gsc-nz-DBI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Cfu-X3-UHa" kind="relationship" relationship="rootViewController" id="Ppc-Mi-6xf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qzO-sq-XtL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="827" y="1500"/>
         </scene>
         <!--Reset Password View Controller-->
         <scene sceneID="Zc1-rr-pYt">
@@ -1393,7 +1390,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="mmY-wG-lel">
-                                <rect key="frame" x="16" y="100" width="288" height="200"/>
+                                <rect key="frame" x="16" y="56" width="288" height="200"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="HCe-ub-x0e">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="132"/>
@@ -1486,16 +1483,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1H3-wl-mKH">
-                                <rect key="frame" x="16" y="80" width="288" height="392"/>
+                                <rect key="frame" x="16" y="36" width="288" height="436"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="FUd-WP-YXz">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="59"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="66"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6wK-iz-PUg">
-                                                <rect key="frame" x="0.0" y="0.0" width="141" height="59"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="143.5" height="66"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3hX-OY-9B6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="141" height="59"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="143.5" height="29"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="18"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no"/>
@@ -1504,7 +1501,7 @@
                                                         </connections>
                                                     </textField>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Please enter your first name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZ7-M8-GyU">
-                                                        <rect key="frame" x="0.0" y="59" width="141" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="29" width="143.5" height="37"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1515,10 +1512,10 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="LTz-fT-xvP">
-                                                <rect key="frame" x="157" y="0.0" width="131" height="59"/>
+                                                <rect key="frame" x="159.5" y="0.0" width="128.5" height="66"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="as3-Y3-FpG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="131" height="59"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="128.5" height="29"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="18"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no"/>
@@ -1527,7 +1524,7 @@
                                                         </connections>
                                                     </textField>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Please enter your last name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5jX-wH-gRq">
-                                                        <rect key="frame" x="0.0" y="59" width="131" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="29" width="128.5" height="37"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1540,7 +1537,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="grx-aG-bNA">
-                                        <rect key="frame" x="0.0" y="67" width="288" height="58"/>
+                                        <rect key="frame" x="0.0" y="74" width="288" height="66"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Rlw-k5-bUg">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="29"/>
@@ -1563,10 +1560,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Kb9-of-TZ8">
-                                                <rect key="frame" x="0.0" y="37" width="288" height="21"/>
+                                                <rect key="frame" x="0.0" y="37" width="288" height="29"/>
                                                 <subviews>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Please enter a valid phone numebr" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKg-XT-dm8">
-                                                        <rect key="frame" x="-16" y="-184" width="154" height="0.0"/>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a valid phone numebr" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKg-XT-dm8">
+                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="29"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1576,10 +1573,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mXy-Gy-JDE">
-                                        <rect key="frame" x="0.0" y="133" width="288" height="59"/>
+                                        <rect key="frame" x="0.0" y="148" width="288" height="66"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="your_school@xxx.edu" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qKf-hV-22p">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="59"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="46.5"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -1588,7 +1585,7 @@
                                                 </connections>
                                             </textField>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your school email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DC4-8Q-G9O">
-                                                <rect key="frame" x="0.0" y="59" width="288" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="46.5" width="288" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1596,16 +1593,16 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="bIA-Ob-QES">
-                                        <rect key="frame" x="0.0" y="200" width="288" height="59"/>
+                                        <rect key="frame" x="0.0" y="222" width="288" height="66"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qQp-uU-jiX">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="29"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="33"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzx-jA-Pm1">
-                                                <rect key="frame" x="0.0" y="29" width="288" height="30"/>
+                                                <rect key="frame" x="0.0" y="33" width="288" height="33"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="4H0-RZ-EuX" id="X0t-gv-0lU"/>
                                                     <outlet property="delegate" destination="4H0-RZ-EuX" id="62V-f3-5Tl"/>
@@ -1614,10 +1611,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fgQ-J6-ktI">
-                                        <rect key="frame" x="0.0" y="267" width="288" height="58"/>
+                                        <rect key="frame" x="0.0" y="296" width="288" height="66"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bF6-Nj-K4d">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="58"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="46.5"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -1626,7 +1623,7 @@
                                                 </connections>
                                             </textField>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKd-rh-tdp">
-                                                <rect key="frame" x="0.0" y="58" width="288" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="46.5" width="288" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1634,10 +1631,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Mgi-BU-pjq">
-                                        <rect key="frame" x="0.0" y="333" width="288" height="59"/>
+                                        <rect key="frame" x="0.0" y="370" width="288" height="66"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHg-fG-io8">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="33"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="18"/>
                                                 <state key="normal" title="Next">
@@ -1653,7 +1650,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" text="BY CONTINUING, YOU CONFIRM THAT YOU HAVE READ AND AGREE TO TERMS &amp;CONDITIONS AND PRIVACY POLICY" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbW-Ej-xmv">
-                                                <rect key="frame" x="0.0" y="30" width="288" height="29"/>
+                                                <rect key="frame" x="0.0" y="33" width="288" height="33"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="11"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1754,7 +1751,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check your email to verify your account" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="App-7F-zXX">
-                                <rect key="frame" x="40" y="81" width="240" height="64"/>
+                                <rect key="frame" x="40" y="37" width="240" height="64"/>
                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1775,6 +1772,49 @@
             </objects>
             <point key="canvasLocation" x="2443.125" y="35"/>
         </scene>
+        <!--Root View Controller-->
+        <scene sceneID="drM-ZS-5wE">
+            <objects>
+                <tableViewController id="3mr-7G-D2l" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Nji-o8-IVR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="cGZ-b6-ZyY">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cGZ-b6-ZyY" id="fGA-FN-zaJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="3mr-7G-D2l" id="dfd-fb-uL6"/>
+                            <outlet property="delegate" destination="3mr-7G-D2l" id="Abv-De-BDw"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="YIW-IA-sOn"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zHg-vn-n50" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Kui-Da-GOX">
+            <objects>
+                <navigationController id="pMD-VT-LOo" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0si-yW-yCL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="3mr-7G-D2l" kind="relationship" relationship="rootViewController" id="nhT-DG-8CP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A14-Mv-fXP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
     <resources>
         <image name="Clock-25" width="25" height="25"/>
@@ -1794,7 +1834,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="TgL-9f-Yye"/>
-        <segue reference="vpt-0r-fG1"/>
+        <segue reference="Vlg-NL-bEy"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
 </document>
