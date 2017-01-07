@@ -27,7 +27,7 @@ class MenuViewController: SlideMenuController {
             self.mainViewController = controller
         }
         
-        if let controller = self.storyboard?.instantiateViewController(withIdentifier: "LeftNavigation") {
+        if let controller = self.storyboard?.instantiateViewController(withIdentifier: "LeftMenu") {
             self.leftViewController = controller
         }
         

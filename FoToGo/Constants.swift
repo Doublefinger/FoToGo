@@ -24,6 +24,8 @@ struct Constants {
     struct Segues {
         static let BeginRegistration = "BeginRegistration"
         static let BeginSignIn = "BeginSignIn"
+        static let ExitAccountSettings = "ExitAccountSettings"
+        static let SignOut = "SignOut"
     }
     
     struct UserFields {

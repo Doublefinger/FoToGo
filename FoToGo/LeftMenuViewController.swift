@@ -31,10 +31,6 @@ class LeftMenuViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         slideMenuController()?.closeLeftNonAnimation()

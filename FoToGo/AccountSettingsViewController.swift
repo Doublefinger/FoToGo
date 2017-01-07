@@ -19,9 +19,6 @@ class AccountSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.navigationItem.leftItemsSupplementBackButton = true
-        self.navigationItem.title = "Account Settings"
         
         self.username.text = AppState.sharedInstance.displayName
         self.email.text = AppState.sharedInstance.email
@@ -30,10 +27,13 @@ class AccountSettingsViewController: UIViewController {
         mobileText?.insert("-", at: (mobileText?.index((mobileText?.startIndex)!, offsetBy: 7))!)
         self.mobile.text = mobileText
         self.profileImage.image = AppState.sharedInstance.profileImage
-        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.height/2
         self.profileImage.clipsToBounds = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.presentEditAccountView(_:)))
         self.userInfoView.addGestureRecognizer(gesture)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.height/2
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,8 +41,10 @@ class AccountSettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func signOut(_ sender: Any) {
-        Manager.sharedInstance.signOut()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Segues.SignOut {
+            Manager.sharedInstance.signOut()
+        }
     }
     
     func presentEditAccountView(_ sender: UITapGestureRecognizer) {

@@ -41,10 +41,8 @@ class SignInViewController: UIViewController {
     }
     
     @IBAction func signIn(_ sender: Any) {
-        showAlert()
         if !Helper.isValidSchoolEmail(text: email.text!) {
             emailError.isHidden = false
-            self.finish()
             return
         } else {
             emailError.isHidden = true
@@ -52,11 +50,12 @@ class SignInViewController: UIViewController {
         
         if password.text == "" || password.text!.characters.count < 6 {
             passwordError.isHidden = false
-            self.finish()
             return
         } else {
             passwordError.isHidden = true
         }
+        
+        showAlert()
         Manager.sharedInstance.signIn(email.text!, password.text!, viewController: self)
     }
     

@@ -73,39 +73,39 @@ class PersonalInfoViewController: UIViewController, UITextFieldDelegate, UIPicke
         var valid : Bool = true
         if firstName.text == "" {
             valid = false
-            firstNameError.isHidden = false
+            firstNameError.textColor = UIColor.red
         } else {
-            firstNameError.isHidden = true
+            firstNameError.textColor = UIColor.white
         }
         
         if lastName.text == "" {
             valid = false
-            lastNameError.isHidden = false
+            lastNameError.textColor = UIColor.red
         } else {
-            lastNameError.isHidden = true
+            lastNameError.textColor = UIColor.white
         }
         
         if password.text == "" || password.text!.characters.count < 6 {
             valid = false
-            passwordError.isHidden = false
+            passwordError.textColor = UIColor.red
         } else {
-            passwordError.isHidden = true
+            passwordError.textColor = UIColor.white
         }
         
         var mobileText = mobile.text!
 
         if !Helper.isPhoneNumber(text: mobileText) {
             valid = false
-            mobileError.isHidden = false
+            mobileError.textColor = UIColor.red
         } else {
-            mobileError.isHidden = true
+            mobileError.textColor = UIColor.white
         }
         
         if email.text == "" || !Helper.isValidSchoolEmail(text: email.text!) {
             valid = false
-            emailError.isHidden = false
+            emailError.textColor = UIColor.red
         } else {
-            emailError.isHidden = true
+            emailError.textColor = UIColor.white
         }
 
         if !valid {

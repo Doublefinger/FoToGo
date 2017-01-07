@@ -31,7 +31,6 @@
 		FE5D7D4D1DD0CE6200B14049 /* font-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4C1DD0CE4600B14049 /* font-1.ttf */; };
 		FE5D7D4E1DD0CE6200B14049 /* font-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4B1DD0CE3600B14049 /* font-2.ttf */; };
 		FE5D7D4F1DD0CE6200B14049 /* font-3.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4A1DD0CE1D00B14049 /* font-3.ttf */; };
-		FE61DE051E1F6B4800544DDB /* LeftNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE61DE041E1F6B4800544DDB /* LeftNavigationViewController.swift */; };
 		FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */; };
 		FE7A75021E0DBD5B00234D1D /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7A75011E0DBD5B00234D1D /* AccountSettingsViewController.swift */; };
 		FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */; };
@@ -103,7 +102,6 @@
 		FE5D7D4A1DD0CE1D00B14049 /* font-3.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-3.ttf"; sourceTree = "<group>"; };
 		FE5D7D4B1DD0CE3600B14049 /* font-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-2.ttf"; sourceTree = "<group>"; };
 		FE5D7D4C1DD0CE4600B14049 /* font-1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-1.ttf"; sourceTree = "<group>"; };
-		FE61DE041E1F6B4800544DDB /* LeftNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftNavigationViewController.swift; sourceTree = "<group>"; };
 		FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMapViewController.swift; sourceTree = "<group>"; };
 		FE7A75011E0DBD5B00234D1D /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
@@ -260,7 +258,6 @@
 			isa = PBXGroup;
 			children = (
 				FEB9EA191E0AFC7F00B876BA /* MenuViewController.swift */,
-				FE61DE041E1F6B4800544DDB /* LeftNavigationViewController.swift */,
 				FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */,
 				FE7A75011E0DBD5B00234D1D /* AccountSettingsViewController.swift */,
 				FE8740721E118788009DA025 /* EditAccountViewController.swift */,
@@ -590,7 +587,6 @@
 				FE4EE7821DD02E4A0085468E /* AppDelegate.swift in Sources */,
 				FEB732671DDC2D4500720326 /* AppState.swift in Sources */,
 				FE3302121DD1405600FB3923 /* Helper.swift in Sources */,
-				FE61DE051E1F6B4800544DDB /* LeftNavigationViewController.swift in Sources */,
 				FE4EE78A1DD02E4A0085468E /* FoToGo.xcdatamodeld in Sources */,
 				FEB732691DDC2E6D00720326 /* Constants.swift in Sources */,
 				FE3ECB171DD0561300084144 /* PaymentInfoViewController.swift in Sources */,

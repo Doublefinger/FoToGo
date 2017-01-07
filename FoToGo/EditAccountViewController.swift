@@ -55,6 +55,10 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidLayoutSubviews() {
+        self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height/2
+    }
+    
     @IBAction func back(_ sender: Any) {
         let viewController = storyboard?.instantiateViewController(withIdentifier: triggedBy!)
         self.present(viewController!, animated: true, completion: nil)
