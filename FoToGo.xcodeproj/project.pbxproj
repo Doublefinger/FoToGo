@@ -44,6 +44,7 @@
 		FEB732671DDC2D4500720326 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732661DDC2D4500720326 /* AppState.swift */; };
 		FEB732691DDC2E6D00720326 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732681DDC2E6D00720326 /* Constants.swift */; };
 		FEB9EA1A1E0AFC7F00B876BA /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB9EA191E0AFC7F00B876BA /* MenuViewController.swift */; };
+		FED5E8EB1E21DBDC005499CB /* AutoCompleteTextField in Resources */ = {isa = PBXBuildFile; fileRef = FED5E8EA1E21DBDC005499CB /* AutoCompleteTextField */; };
 		FEF7E1711DF290AA004985BE /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */; };
 		FEF7E1731DF2938C004985BE /* OrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF7E1721DF2938C004985BE /* OrderInfo.swift */; };
 /* End PBXBuildFile section */
@@ -115,6 +116,7 @@
 		FEB732661DDC2D4500720326 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		FEB732681DDC2E6D00720326 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FEB9EA191E0AFC7F00B876BA /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		FED5E8EA1E21DBDC005499CB /* AutoCompleteTextField */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AutoCompleteTextField; sourceTree = "<group>"; };
 		FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 		FEF7E1721DF2938C004985BE /* OrderInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -207,6 +209,7 @@
 		FE4EE7801DD02E4A0085468E /* FoToGo */ = {
 			isa = PBXGroup;
 			children = (
+				FED5E8EA1E21DBDC005499CB /* AutoCompleteTextField */,
 				FEA68B621E11CD3C00483FA0 /* UserManagement */,
 				FEA68B611E11CD2300483FA0 /* Order */,
 				FEA68B601E11CD1300483FA0 /* Menu */,
@@ -410,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE5D7D4D1DD0CE6200B14049 /* font-1.ttf in Resources */,
+				FED5E8EB1E21DBDC005499CB /* AutoCompleteTextField in Resources */,
 				FE5D7D4E1DD0CE6200B14049 /* font-2.ttf in Resources */,
 				FE5D7D4F1DD0CE6200B14049 /* font-3.ttf in Resources */,
 				FE3ECB111DD0487600084144 /* NanumPen.otf in Resources */,
