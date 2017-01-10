@@ -135,7 +135,6 @@ class OrderTrackViewController: UITableViewController {
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 controller.navigationItem.title = orderInfo.restaurantName + " - " + orderInfo.destinationName
-
             }
         }
     }

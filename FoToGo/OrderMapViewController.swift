@@ -202,7 +202,9 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     deinit {
-        waitingTasks.removeAllObservers()
+        if let ref = self.waitingTasks {
+            ref.removeAllObservers()
+        }
     }
     /*
     // MARK: - Navigation

@@ -10,21 +10,8 @@ import UIKit
 import Firebase
 
 class NavigationViewController: UINavigationController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         if FIRAuth.auth()?.currentUser != nil {
             let user = FIRAuth.auth()?.currentUser
             AppState.sharedInstance.uid = user?.uid
@@ -44,6 +31,19 @@ class NavigationViewController: UINavigationController {
                 })
             }
         }
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
     }
     /*
     // MARK: - Navigation

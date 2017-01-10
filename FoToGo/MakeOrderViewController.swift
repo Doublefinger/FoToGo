@@ -17,8 +17,7 @@ class MakeOrderViewController: UIViewController {
     @IBOutlet weak var end: UITextField!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var openStatus: UIButton!
-    @IBOutlet weak var foodItem: UITextField!
-    @IBOutlet weak var estimateCost: UITextField!
+    @IBOutlet weak var orderDetailTableView: UITableView!
 
     var postTaskAlert: UIAlertController!
 
@@ -26,7 +25,7 @@ class MakeOrderViewController: UIViewController {
     var markerA, markerB: GMSMarker!
     var placeA, placeB: GMSPlace!
     var ref : FIRDatabaseReference!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -84,7 +83,7 @@ class MakeOrderViewController: UIViewController {
         self.present(endAutocompleteController, animated: true, completion: nil)
     }
     
-    @IBAction func postOrder(_ sender: Any) {
+    @IBAction func post(_ sender: Any) {
         guard let startText = self.start.text else {
             return
         }
@@ -127,10 +126,19 @@ class MakeOrderViewController: UIViewController {
         self.ref.child("tasks").childByAutoId().setValue(tData, withCompletionBlock: { (error, ref) -> Void in
             self.start.text = ""
             self.end.text = ""
-            self.foodItem.text = ""
-            self.estimateCost.text = ""
             self.mapView.clear()
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = self.orderDetailTableView.indexPathForSelectedRow {
+//            let orderInfo = self.orderInfos[indexPath.row]
+//            let controller = (segue.destination as! OrderDetailViewController)
+//            controller.detailItem = orderInfo
+//            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+//            controller.navigationItem.leftItemsSupplementBackButton = true
+//            controller.navigationItem.title = orderInfo.restaurantName + " - " + orderInfo.destinationName
+        }
     }
     /*
     // MARK: - Navigation
@@ -198,6 +206,40 @@ extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
     
     func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+}
+
+extension MakeOrderViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let image = UIImage(named: "More Than-30")
+        switch indexPath.row {
+        case 0:
+            let cell = self.orderDetailTableView.dequeueReusableCell(withIdentifier: "orderDetailCell") as! OrderDetailCell
+            cell.title.text = "Order Detail"
+            cell.detail.text = "Roast Beef Sandwiches"
+            cell.goDetail.image = image
+            return cell
+        case 1:
+            let cell = self.orderDetailTableView.dequeueReusableCell(withIdentifier: "estimateCostCell") as! EstimateCostCell
+            cell.title.text = "Estimate Cost"
+            cell.detail.text = "10.00"
+            cell.goDetail.image = image
+            return cell
+        case 3:
+            let cell = self.orderDetailTableView.dequeueReusableCell(withIdentifier: "expectedTimeCell") as! ExpectedTimeCell
+            cell.title.text = "Expected Time"
+            cell.detail.text = "Hello"
+            cell.goDetail.image = image
+            return cell
+        default:
+            let cell = self.orderDetailTableView.dequeueReusableCell(withIdentifier: "paymentMethodCell") as! PaymentMethodCell
+            cell.title.text = "Cash Only"
+            return cell
+        }
     }
 }
 

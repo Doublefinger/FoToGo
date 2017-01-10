@@ -37,6 +37,9 @@
 		FE8740731E118788009DA025 /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8740721E118788009DA025 /* EditAccountViewController.swift */; };
 		FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */; };
 		FEA195BB1E1DA38100A07FAD /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA195BA1E1DA38100A07FAD /* OrderTableViewCell.swift */; };
+		FEA305E91E257A35008BF153 /* PaymentMethodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA305E81E257A35008BF153 /* PaymentMethodCell.swift */; };
+		FEA305EC1E257F29008BF153 /* EstimateCostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA305EB1E257F29008BF153 /* EstimateCostCell.swift */; };
+		FEA305EE1E257F43008BF153 /* ExpectedTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA305ED1E257F43008BF153 /* ExpectedTimeCell.swift */; };
 		FEB0DB011E0B370200EAB1E6 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */; };
 		FEB63A811DF7C36B000ECA94 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */; };
 		FEB732631DDC030D00720326 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732621DDC030D00720326 /* Manager.swift */; };
@@ -44,7 +47,8 @@
 		FEB732671DDC2D4500720326 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732661DDC2D4500720326 /* AppState.swift */; };
 		FEB732691DDC2E6D00720326 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732681DDC2E6D00720326 /* Constants.swift */; };
 		FEB9EA1A1E0AFC7F00B876BA /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB9EA191E0AFC7F00B876BA /* MenuViewController.swift */; };
-		FED5E8EB1E21DBDC005499CB /* AutoCompleteTextField in Resources */ = {isa = PBXBuildFile; fileRef = FED5E8EA1E21DBDC005499CB /* AutoCompleteTextField */; };
+		FEE7ED151E24564600ADC96E /* OrderDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE7ED141E24564600ADC96E /* OrderDetailCell.swift */; };
+		FEF106961E22E3E0003F8466 /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF106951E22E3E0003F8466 /* AutoCompleteTextField.swift */; };
 		FEF7E1711DF290AA004985BE /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */; };
 		FEF7E1731DF2938C004985BE /* OrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF7E1721DF2938C004985BE /* OrderInfo.swift */; };
 /* End PBXBuildFile section */
@@ -109,6 +113,9 @@
 		FE8740721E118788009DA025 /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 		FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOrderViewController.swift; sourceTree = "<group>"; };
 		FEA195BA1E1DA38100A07FAD /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
+		FEA305E81E257A35008BF153 /* PaymentMethodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodCell.swift; sourceTree = "<group>"; };
+		FEA305EB1E257F29008BF153 /* EstimateCostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateCostCell.swift; sourceTree = "<group>"; };
+		FEA305ED1E257F43008BF153 /* ExpectedTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpectedTimeCell.swift; sourceTree = "<group>"; };
 		FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		FEB732621DDC030D00720326 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
@@ -116,7 +123,8 @@
 		FEB732661DDC2D4500720326 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		FEB732681DDC2E6D00720326 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FEB9EA191E0AFC7F00B876BA /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		FED5E8EA1E21DBDC005499CB /* AutoCompleteTextField */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AutoCompleteTextField; sourceTree = "<group>"; };
+		FEE7ED141E24564600ADC96E /* OrderDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailCell.swift; sourceTree = "<group>"; };
+		FEF106951E22E3E0003F8466 /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
 		FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 		FEF7E1721DF2938C004985BE /* OrderInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,7 +217,6 @@
 		FE4EE7801DD02E4A0085468E /* FoToGo */ = {
 			isa = PBXGroup;
 			children = (
-				FED5E8EA1E21DBDC005499CB /* AutoCompleteTextField */,
 				FEA68B621E11CD3C00483FA0 /* UserManagement */,
 				FEA68B611E11CD2300483FA0 /* Order */,
 				FEA68B601E11CD1300483FA0 /* Menu */,
@@ -244,9 +251,21 @@
 			path = FoToGoUITests;
 			sourceTree = "<group>";
 		};
+		FEA305EA1E257F09008BF153 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FEE7ED141E24564600ADC96E /* OrderDetailCell.swift */,
+				FEA305E81E257A35008BF153 /* PaymentMethodCell.swift */,
+				FEA305EB1E257F29008BF153 /* EstimateCostCell.swift */,
+				FEA305ED1E257F43008BF153 /* ExpectedTimeCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		FEA68B5F1E11CD0300483FA0 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				FEF106951E22E3E0003F8466 /* AutoCompleteTextField.swift */,
 				FEB732621DDC030D00720326 /* Manager.swift */,
 				FEF7E1721DF2938C004985BE /* OrderInfo.swift */,
 				FEB732681DDC2E6D00720326 /* Constants.swift */,
@@ -271,11 +290,12 @@
 		FEA68B611E11CD2300483FA0 /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				FEA305EA1E257F09008BF153 /* Cells */,
 				FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */,
 				FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */,
+				FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */,
 				FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */,
 				FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */,
-				FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */,
 				FEA195BA1E1DA38100A07FAD /* OrderTableViewCell.swift */,
 			);
 			name = Order;
@@ -413,7 +433,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE5D7D4D1DD0CE6200B14049 /* font-1.ttf in Resources */,
-				FED5E8EB1E21DBDC005499CB /* AutoCompleteTextField in Resources */,
 				FE5D7D4E1DD0CE6200B14049 /* font-2.ttf in Resources */,
 				FE5D7D4F1DD0CE6200B14049 /* font-3.ttf in Resources */,
 				FE3ECB111DD0487600084144 /* NanumPen.otf in Resources */,
@@ -586,6 +605,7 @@
 				FEF7E1711DF290AA004985BE /* OrderDetailViewController.swift in Sources */,
 				FE1035801DE0BCDA0053066D /* SignInViewController.swift in Sources */,
 				FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */,
+				FEF106961E22E3E0003F8466 /* AutoCompleteTextField.swift in Sources */,
 				FEB63A811DF7C36B000ECA94 /* TabBarViewController.swift in Sources */,
 				FE4EE7841DD02E4A0085468E /* StartViewController.swift in Sources */,
 				FE4EE7821DD02E4A0085468E /* AppDelegate.swift in Sources */,
@@ -602,10 +622,14 @@
 				FEA195BB1E1DA38100A07FAD /* OrderTableViewCell.swift in Sources */,
 				FE1035821DE0D0AF0053066D /* ResetPasswordViewController.swift in Sources */,
 				FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */,
+				FEA305E91E257A35008BF153 /* PaymentMethodCell.swift in Sources */,
+				FEE7ED151E24564600ADC96E /* OrderDetailCell.swift in Sources */,
+				FEA305EC1E257F29008BF153 /* EstimateCostCell.swift in Sources */,
 				FE2545181E1EDF11003CB7D9 /* NavigationViewController.swift in Sources */,
 				FE3ECB151DD054A500084144 /* PersonalInfoViewController.swift in Sources */,
 				FEB0DB011E0B370200EAB1E6 /* LeftMenuViewController.swift in Sources */,
 				FE7A75021E0DBD5B00234D1D /* AccountSettingsViewController.swift in Sources */,
+				FEA305EE1E257F43008BF153 /* ExpectedTimeCell.swift in Sources */,
 				FEF7E1731DF2938C004985BE /* OrderInfo.swift in Sources */,
 				FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */,
 				FEB732631DDC030D00720326 /* Manager.swift in Sources */,

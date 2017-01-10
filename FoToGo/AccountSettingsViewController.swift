@@ -43,6 +43,7 @@ class AccountSettingsViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segues.SignOut {
+            print("haha")
             Manager.sharedInstance.signOut()
         }
     }
