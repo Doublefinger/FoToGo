@@ -389,7 +389,7 @@
                                             <outlet property="detail" destination="ghY-Zi-xE9" id="R6N-1r-5TH"/>
                                             <outlet property="goDetail" destination="jWB-Ru-EnX" id="6fw-YN-DBF"/>
                                             <outlet property="title" destination="BRI-Xi-zag" id="KW6-Cx-cLv"/>
-                                            <segue destination="OXc-QW-tJq" kind="show" id="3cj-KK-PBq"/>
+                                            <segue destination="OXc-QW-tJq" kind="show" identifier="ShowOrderContent" id="3cj-KK-PBq"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="estimateCostCell" id="bNh-4j-WTu" customClass="EstimateCostCell" customModule="FoToGo" customModuleProvider="target">
@@ -440,7 +440,7 @@
                                             <outlet property="detail" destination="lj0-pa-0O4" id="lTt-l9-B6e"/>
                                             <outlet property="goDetail" destination="MnM-J7-yTm" id="iWP-0s-NtF"/>
                                             <outlet property="title" destination="uOw-f5-B7b" id="fAO-jd-YY1"/>
-                                            <segue destination="kvI-el-tsg" kind="show" id="bTi-yj-i3i"/>
+                                            <segue destination="kvI-el-tsg" kind="show" identifier="ShowEstimateCost" id="bTi-yj-i3i"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="paymentMethodCell" id="i6A-eW-Rs8" customClass="PaymentMethodCell" customModule="FoToGo" customModuleProvider="target">
@@ -522,7 +522,7 @@
                                             <outlet property="detail" destination="KJL-Jl-YEO" id="MNt-mS-3kP"/>
                                             <outlet property="goDetail" destination="lMI-ou-Z66" id="4DF-q2-47c"/>
                                             <outlet property="title" destination="VVd-Pm-212" id="ift-Jb-mqU"/>
-                                            <segue destination="xvG-9A-ma2" kind="show" id="zPv-uA-acB"/>
+                                            <segue destination="xvG-9A-ma2" kind="show" identifier="ShowExpectedTime" id="zPv-uA-acB"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -581,10 +581,10 @@
             </objects>
             <point key="canvasLocation" x="826.875" y="3222.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Estimate Cost View Controller-->
         <scene sceneID="JU8-c0-375">
             <objects>
-                <viewController id="kvI-el-tsg" sceneMemberID="viewController">
+                <viewController id="kvI-el-tsg" customClass="EstimateCostViewController" customModule="FoToGo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JZa-Zb-Yjc"/>
                         <viewControllerLayoutGuide type="bottom" id="eTg-zM-hML"/>
@@ -599,10 +599,10 @@
             </objects>
             <point key="canvasLocation" x="24" y="4288"/>
         </scene>
-        <!--View Controller-->
+        <!--Expected Time View Controller-->
         <scene sceneID="zkj-5b-7wy">
             <objects>
-                <viewController id="xvG-9A-ma2" sceneMemberID="viewController">
+                <viewController id="xvG-9A-ma2" customClass="ExpectedTimeViewController" customModule="FoToGo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cwK-rO-0kG"/>
                         <viewControllerLayoutGuide type="bottom" id="7re-th-Xlg"/>
@@ -617,10 +617,10 @@
             </objects>
             <point key="canvasLocation" x="827" y="4288"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Order Content Table View Controller-->
         <scene sceneID="29Z-l6-jfs">
             <objects>
-                <tableViewController id="OXc-QW-tJq" sceneMemberID="viewController">
+                <tableViewController id="OXc-QW-tJq" customClass="OrderContentTableViewController" customModule="FoToGo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Z1c-yp-v65">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="651"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -964,12 +964,12 @@
             </objects>
             <point key="canvasLocation" x="3264" y="2263"/>
         </scene>
-        <!--Item-->
+        <!--Roll-->
         <scene sceneID="Wp9-60-jxD">
             <objects>
-                <navigationController navigationBarHidden="YES" id="vce-nq-7yP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="Restaurant Filled-30" id="D26-Ez-a40"/>
-                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="AtR-T2-7tN">
+                <navigationController id="vce-nq-7yP" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Roll" image="Restaurant Filled-30" id="D26-Ez-a40"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AtR-T2-7tN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

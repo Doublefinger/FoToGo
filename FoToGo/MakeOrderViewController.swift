@@ -37,6 +37,10 @@ class MakeOrderViewController: UIViewController {
         endAutocompleteController.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     @IBAction func openWebsite(_ sender: Any) {
         if placeA != nil {
             if let url = placeA.website {
@@ -131,14 +135,32 @@ class MakeOrderViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = self.orderDetailTableView.indexPathForSelectedRow {
+//        let controller = segue.destination
+//        controller.navigationController?.setNavigationBarHidden(false, animated: false)
+//        controller.navigationItem.leftItemsSupplementBackButton = true
+//        if let identifier = segue.identifier {
+//            switch identifier {
+//            case Constants.Segues.ShowOrderContent:
+//                controller.navigationItem.title = "Order Item"
+//                break
+//            case Constants.Segues.ShowEstimateCost:
+//                controller.navigationItem.title = "Estimate Cost"
+//                break
+//            case Constants.Segues.ShowExpectedTime:
+//                controller.navigationItem.title = "Expected Deliver Time"
+//                break
+//            default:
+//                break
+//            }
+//        }
+        
 //            let orderInfo = self.orderInfos[indexPath.row]
 //            let controller = (segue.destination as! OrderDetailViewController)
 //            controller.detailItem = orderInfo
 //            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
 //            controller.navigationItem.leftItemsSupplementBackButton = true
 //            controller.navigationItem.title = orderInfo.restaurantName + " - " + orderInfo.destinationName
-        }
+        
     }
     /*
     // MARK: - Navigation

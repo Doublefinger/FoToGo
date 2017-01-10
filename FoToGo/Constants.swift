@@ -26,6 +26,9 @@ struct Constants {
         static let BeginSignIn = "BeginSignIn"
         static let ExitAccountSettings = "ExitAccountSettings"
         static let SignOut = "SignOut"
+        static let ShowOrderContent = "ShowOrderContent"
+        static let ShowEstimateCost = "ShowEstimateCost"
+        static let ShowExpectedTime = "ShowExpectedTime"
     }
     
     struct UserFields {
