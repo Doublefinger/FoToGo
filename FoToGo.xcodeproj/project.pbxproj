@@ -260,6 +260,7 @@
 		FEA305EA1E257F09008BF153 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				FEA195BA1E1DA38100A07FAD /* OrderTableViewCell.swift */,
 				FEE7ED141E24564600ADC96E /* OrderDetailCell.swift */,
 				FEA305E81E257A35008BF153 /* PaymentMethodCell.swift */,
 				FEA305EB1E257F29008BF153 /* EstimateCostCell.swift */,
@@ -302,7 +303,6 @@
 				FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */,
 				FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */,
 				FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */,
-				FEA195BA1E1DA38100A07FAD /* OrderTableViewCell.swift */,
 				FE2CE2FF1E259662007E1A28 /* OrderContentTableViewController.swift */,
 				FE2CE3011E2596BC007E1A28 /* EstimateCostViewController.swift */,
 				FE2CE3031E2596CC007E1A28 /* ExpectedTimeViewController.swift */,

@@ -8,12 +8,16 @@
 
 import UIKit
 
-class ExpectedTimeViewController: UIViewController {
+class ExpectedTimeViewController: UIViewController, UINavigationControllerDelegate {
 
+    @IBOutlet weak var expectedTimePicker: UIDatePicker!
+    var expectedTime: NSDate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationController?.delegate = self
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationItem.leftItemsSupplementBackButton = true
     }
@@ -23,7 +27,17 @@ class ExpectedTimeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        if let controller = viewController as? MakeOrderViewController {
+            controller.expectedTime = expectedTimePicker.date as NSDate
+        } else {
+            let minDate = Date()
+            let maxDate = Calendar.current.date(byAdding: .day, value: 1, to: minDate)
+            expectedTimePicker.minimumDate = minDate
+            expectedTimePicker.maximumDate = maxDate
+            expectedTimePicker.setDate(expectedTime as Date, animated: true)
+        }
+    }
     /*
     // MARK: - Navigation
 

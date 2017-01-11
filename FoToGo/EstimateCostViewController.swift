@@ -8,12 +8,16 @@
 
 import UIKit
 
-class EstimateCostViewController: UIViewController {
+class EstimateCostViewController: UIViewController, UINavigationControllerDelegate{
 
+    @IBOutlet weak var estimateCost: UITextField!
+    var estimateCostText: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationController?.delegate = self
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationItem.leftItemsSupplementBackButton = true
     }
@@ -23,6 +27,13 @@ class EstimateCostViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        if let controller = viewController as? MakeOrderViewController {
+            controller.estimateCost = estimateCost.text!
+        } else {
+            estimateCost.text = estimateCostText
+        }
+    }
 
     /*
     // MARK: - Navigation

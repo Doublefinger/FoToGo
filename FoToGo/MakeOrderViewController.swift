@@ -18,7 +18,20 @@ class MakeOrderViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var openStatus: UIButton!
     @IBOutlet weak var orderDetailTableView: UITableView!
-
+    
+    var orderDetail: String = "none"
+    var estimateCost: String = "0.00" {
+        didSet {
+            orderDetailTableView.reloadData()
+        }
+    }
+    var expectedTime = NSDate() {
+        didSet {
+            orderDetailTableView.reloadData()
+        }
+    }
+    var cashOnlyFlag = false
+    
     var postTaskAlert: UIAlertController!
 
     var startAutocompleteController, endAutocompleteController: GMSAutocompleteViewController!
@@ -39,6 +52,22 @@ class MakeOrderViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case Constants.Segues.ShowEstimateCost:
+                let controller = segue.destination as! EstimateCostViewController
+                controller.estimateCostText = estimateCost
+                break
+            case Constants.Segues.ShowExpectedTime:
+                let controller = segue.destination as! ExpectedTimeViewController
+                controller.expectedTime = expectedTime
+            default:
+                break
+            }
+        }
     }
     
     @IBAction func openWebsite(_ sender: Any) {
@@ -74,17 +103,16 @@ class MakeOrderViewController: UIViewController {
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     @IBAction func editPlaceA(_ sender: Any) {
         self.present(startAutocompleteController, animated: true, completion: nil)
     }
 
     @IBAction func editPlaceB(_ sender: Any) {
         self.present(endAutocompleteController, animated: true, completion: nil)
+    }
+    
+    @IBAction func changePaymentOption(_ sender: UISwitch) {
+        cashOnlyFlag = sender.isOn
     }
     
     @IBAction func post(_ sender: Any) {
@@ -133,35 +161,7 @@ class MakeOrderViewController: UIViewController {
             self.mapView.clear()
         })
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let controller = segue.destination
-//        controller.navigationController?.setNavigationBarHidden(false, animated: false)
-//        controller.navigationItem.leftItemsSupplementBackButton = true
-//        if let identifier = segue.identifier {
-//            switch identifier {
-//            case Constants.Segues.ShowOrderContent:
-//                controller.navigationItem.title = "Order Item"
-//                break
-//            case Constants.Segues.ShowEstimateCost:
-//                controller.navigationItem.title = "Estimate Cost"
-//                break
-//            case Constants.Segues.ShowExpectedTime:
-//                controller.navigationItem.title = "Expected Deliver Time"
-//                break
-//            default:
-//                break
-//            }
-//        }
-        
-//            let orderInfo = self.orderInfos[indexPath.row]
-//            let controller = (segue.destination as! OrderDetailViewController)
-//            controller.detailItem = orderInfo
-//            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
-//            controller.navigationItem.leftItemsSupplementBackButton = true
-//            controller.navigationItem.title = orderInfo.restaurantName + " - " + orderInfo.destinationName
-        
-    }
+
     /*
     // MARK: - Navigation
 
@@ -242,19 +242,21 @@ extension MakeOrderViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             let cell = self.orderDetailTableView.dequeueReusableCell(withIdentifier: "orderDetailCell") as! OrderDetailCell
             cell.title.text = "Order Detail"
-            cell.detail.text = "Roast Beef Sandwiches"
+            cell.detail.text = orderDetail
             cell.goDetail.image = image
             return cell
         case 1:
             let cell = self.orderDetailTableView.dequeueReusableCell(withIdentifier: "estimateCostCell") as! EstimateCostCell
             cell.title.text = "Estimate Cost"
-            cell.detail.text = "10.00"
+            cell.detail.text = estimateCost
             cell.goDetail.image = image
             return cell
         case 3:
             let cell = self.orderDetailTableView.dequeueReusableCell(withIdentifier: "expectedTimeCell") as! ExpectedTimeCell
-            cell.title.text = "Expected Time"
-            cell.detail.text = "Hello"
+            cell.title.text = "Deliver After"
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm"
+            cell.detail.text = formatter.string(from: expectedTime as Date)
             cell.goDetail.image = image
             return cell
         default:
@@ -263,5 +265,7 @@ extension MakeOrderViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
     }
+    
+    
 }
 
