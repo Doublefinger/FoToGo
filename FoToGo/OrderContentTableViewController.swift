@@ -10,9 +10,9 @@ import UIKit
 
 class OrderContentTableViewController: UITableViewController {
 
-    @IBOutlet var orderItemTableView: UITableView!
     var orderItems = [String]()
     var orderQuantities = [Int]()
+    var itemIndex = 0
     var newItemFlag = false
     
     override func viewDidLoad() {
@@ -50,8 +50,9 @@ class OrderContentTableViewController: UITableViewController {
         newItemFlag = true
         orderItems.append("Hit to add item")
         orderQuantities.append(1)
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.orderItemTableView.insertRows(at: [indexPath], with: .automatic)
+        itemIndex = orderItems.count - 1
+        let indexPath = IndexPath(row: itemIndex, section: 0)
+        self.tableView.insertRows(at: [indexPath], with: .automatic)
         performSegue(withIdentifier: Constants.Segues.ShowSearchFood, sender: self)
     }
 
@@ -59,6 +60,11 @@ class OrderContentTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
         cell.textLabel?.text = orderItems[indexPath.row]
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        itemIndex = indexPath.row
+        return indexPath
     }
 
     /*
@@ -98,12 +104,13 @@ class OrderContentTableViewController: UITableViewController {
 
     /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+     */
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        //pass index argument
+        let controller = segue.destination as! FoodSearchViewController
+        controller.orderItemIndex = itemIndex
     }
-    */
+ 
 
 }

@@ -8,10 +8,12 @@
 
 import UIKit
 
-class FoodSearchViewController: UITableViewController, UINavigationControllerDelegate, UISearchResultsUpdating {
+class FoodSearchViewController: UITableViewController, UINavigationControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     var foodList = [Food]()
     var filteredList = [Food]()
     let searchController = UISearchController(searchResultsController: nil)
+    var searchBarText: String!
+    var orderItemIndex: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +27,12 @@ class FoodSearchViewController: UITableViewController, UINavigationControllerDel
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.returnKeyType = .done
+        searchController.searchBar.delegate = self
         tableView.tableHeaderView = searchController.searchBar
+        
+        self.navigationController?.delegate = self
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,6 +40,9 @@ class FoodSearchViewController: UITableViewController, UINavigationControllerDel
         // Dispose of any resources that can be recreated.
     }
     
+    /*
+    // MARK: - TableView
+    */
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -57,6 +67,13 @@ class FoodSearchViewController: UITableViewController, UINavigationControllerDel
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let food = foodList[indexPath.row]
+        searchController.searchBar.text = food.name
+        searchController.dismiss(animated: false, completion: nil)
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         filteredList = foodList.filter({ (food) -> Bool in
             return food.name.lowercased().contains(searchText.lowercased())
@@ -66,6 +83,33 @@ class FoodSearchViewController: UITableViewController, UINavigationControllerDel
 
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
+    }
+    
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if searchBar.text == "" {
+            return
+        }
+        
+        searchController.dismiss(animated: false, completion: nil)
+        _ = self.navigationController?.popViewController(animated: true)
+        //TODO filter dirty words
+    }
+    
+    /*
+    // MARK: - Navigation
+    */
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        if let controller = viewController as? OrderContentTableViewController {
+            if searchController.searchBar.text != "" {
+                controller.itemIndex = orderItemIndex
+                controller.orderItems[orderItemIndex] = searchController.searchBar.text!
+                controller.tableView.reloadData()
+                controller.newItemFlag = false
+            }
+        } else {
+            searchController.searchBar.text = searchBarText
+        }
     }
     /*
     // MARK: - Navigation

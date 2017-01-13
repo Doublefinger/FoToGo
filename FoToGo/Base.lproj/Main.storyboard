@@ -117,7 +117,7 @@
                                 <rect key="frame" x="16" y="144" width="288" height="330"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ECV-F8-J3X">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="109.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="85"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmi-f9-eck">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="40"/>
@@ -141,7 +141,7 @@
                                                 </connections>
                                             </textField>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your school email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dE-RH-Jbe">
-                                                <rect key="frame" x="0.0" y="90" width="288" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="85" width="288" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -149,7 +149,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ezj-TO-8rs">
-                                        <rect key="frame" x="0.0" y="129" width="288" height="109.5"/>
+                                        <rect key="frame" x="0.0" y="129" width="288" height="85"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSM-QD-ePP">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="40"/>
@@ -173,7 +173,7 @@
                                                 </connections>
                                             </textField>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your school email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pxr-kk-6Yp">
-                                                <rect key="frame" x="0.0" y="90" width="288" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="85" width="288" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -673,6 +673,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.92382695150000005" green="0.92936366579999996" blue="0.90057970070000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <segue destination="lsg-pQ-NcN" kind="show" identifier="ShowSearchFood" id="adH-Ui-lVL"/>
                                 </connections>
@@ -683,9 +684,6 @@
                             <outlet property="delegate" destination="OXc-QW-tJq" id="FG5-Wv-oqH"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <outlet property="orderItemTableView" destination="Z1c-yp-v65" id="JsS-DS-ssa"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UkM-xX-wl5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1369,22 +1367,22 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="EAA-un-8Ja">
-                                                <rect key="frame" x="85" y="-3" width="86.5" height="82.5"/>
+                                                <rect key="frame" x="85" y="-4" width="87" height="84"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GO-ZJ-BZ7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="61.5" height="27.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="62" height="28"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mobile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ys-yS-CKT">
-                                                        <rect key="frame" x="0.0" y="27.5" width="39.5" height="27.5"/>
+                                                        <rect key="frame" x="0.0" y="28" width="40" height="28"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7W-al-2q2">
-                                                        <rect key="frame" x="0.0" y="55" width="86.5" height="27.5"/>
+                                                        <rect key="frame" x="0.0" y="56" width="87" height="28"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1409,16 +1407,16 @@
                                         <rect key="frame" x="0.0" y="84" width="320" height="191"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="L9k-Pb-H9h">
-                                                <rect key="frame" x="16" y="16" width="57" height="155"/>
+                                                <rect key="frame" x="16" y="16" width="57" height="156"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Favorites" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmT-wH-n0u">
-                                                        <rect key="frame" x="0.0" y="0.0" width="57" height="27.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="57" height="28"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profiles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WP7-1l-B32">
-                                                        <rect key="frame" x="0.0" y="127.5" width="57" height="27.5"/>
+                                                        <rect key="frame" x="0.0" y="128" width="57" height="28"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -1622,7 +1620,7 @@
                                         <rect key="frame" x="0.0" y="170" width="288" height="64"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvz-h8-NQb">
-                                                <rect key="frame" x="0.0" y="0.0" width="40.5" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="41" height="32"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="20"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -1789,10 +1787,10 @@
                                 <rect key="frame" x="16" y="80" width="288" height="392"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="FUd-WP-YXz">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="58.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="59"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6wK-iz-PUg">
-                                                <rect key="frame" x="0.0" y="0.0" width="141" height="58.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="141" height="59"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3hX-OY-9B6">
                                                         <rect key="frame" x="0.0" y="0.0" width="141" height="29"/>
@@ -1804,7 +1802,7 @@
                                                         </connections>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Please enter your first name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZ7-M8-GyU">
-                                                        <rect key="frame" x="0.0" y="29" width="141" height="29.5"/>
+                                                        <rect key="frame" x="0.0" y="29" width="141" height="30"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -1815,7 +1813,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="LTz-fT-xvP">
-                                                <rect key="frame" x="157" y="0.0" width="131" height="58.5"/>
+                                                <rect key="frame" x="157" y="0.0" width="131" height="59"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="as3-Y3-FpG">
                                                         <rect key="frame" x="0.0" y="0.0" width="131" height="29"/>
@@ -1827,7 +1825,7 @@
                                                         </connections>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Please enter your last name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5jX-wH-gRq">
-                                                        <rect key="frame" x="0.0" y="29" width="131" height="29.5"/>
+                                                        <rect key="frame" x="0.0" y="29" width="131" height="30"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -1840,7 +1838,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="grx-aG-bNA">
-                                        <rect key="frame" x="0.0" y="66.5" width="288" height="59"/>
+                                        <rect key="frame" x="0.0" y="67" width="288" height="58"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Rlw-k5-bUg">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="29"/>
@@ -1863,10 +1861,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Kb9-of-TZ8">
-                                                <rect key="frame" x="0.0" y="37" width="288" height="22"/>
+                                                <rect key="frame" x="0.0" y="37" width="288" height="21"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a valid phone numebr" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKg-XT-dm8">
-                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="22"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="21"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -1876,7 +1874,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mXy-Gy-JDE">
-                                        <rect key="frame" x="0.0" y="133.5" width="288" height="58.5"/>
+                                        <rect key="frame" x="0.0" y="133" width="288" height="59"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="your_school@xxx.edu" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qKf-hV-22p">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="39"/>
@@ -1888,7 +1886,7 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your school email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DC4-8Q-G9O">
-                                                <rect key="frame" x="0.0" y="39" width="288" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="39" width="288" height="20"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -1896,16 +1894,16 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="bIA-Ob-QES">
-                                        <rect key="frame" x="0.0" y="200" width="288" height="58.5"/>
+                                        <rect key="frame" x="0.0" y="200" width="288" height="59"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qQp-uU-jiX">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="29.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="29"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzx-jA-Pm1">
-                                                <rect key="frame" x="0.0" y="29.5" width="288" height="29"/>
+                                                <rect key="frame" x="0.0" y="29" width="288" height="30"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="4H0-RZ-EuX" id="X0t-gv-0lU"/>
                                                     <outlet property="delegate" destination="4H0-RZ-EuX" id="62V-f3-5Tl"/>
@@ -1914,10 +1912,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fgQ-J6-ktI">
-                                        <rect key="frame" x="0.0" y="266.5" width="288" height="59"/>
+                                        <rect key="frame" x="0.0" y="267" width="288" height="58"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bF6-Nj-K4d">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="39.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="38"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -1926,7 +1924,7 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKd-rh-tdp">
-                                                <rect key="frame" x="0.0" y="39.5" width="288" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="38" width="288" height="20"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="12"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1934,10 +1932,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Mgi-BU-pjq">
-                                        <rect key="frame" x="0.0" y="333.5" width="288" height="58.5"/>
+                                        <rect key="frame" x="0.0" y="333" width="288" height="59"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHg-fG-io8">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="29"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="18"/>
                                                 <state key="normal" title="Next">
@@ -1953,7 +1951,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" text="BY CONTINUING, YOU CONFIRM THAT YOU HAVE READ AND AGREE TO TERMS &amp;CONDITIONS AND PRIVACY POLICY" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbW-Ej-xmv">
-                                                <rect key="frame" x="0.0" y="29" width="288" height="29.5"/>
+                                                <rect key="frame" x="0.0" y="30" width="288" height="29"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="11"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
