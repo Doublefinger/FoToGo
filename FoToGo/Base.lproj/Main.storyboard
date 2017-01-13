@@ -19,7 +19,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kFl-U0-r0e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="vpt-0r-fG1"/>
@@ -342,7 +341,7 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EQd-6q-pOg">
                                 <rect key="frame" x="0.0" y="301" width="320" height="66"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.92382695150000005" green="0.92936366579999996" blue="0.90057970070000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="orderDetailCell" id="pLu-HO-D08" customClass="OrderDetailCell" customModule="FoToGo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
@@ -386,6 +385,7 @@
                                                 <constraint firstItem="jWB-Ru-EnX" firstAttribute="height" secondItem="65y-rH-8cG" secondAttribute="height" multiplier="0.5" id="v7d-dK-GM9"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.92382695150000005" green="0.92936366579999996" blue="0.90057970070000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="detail" destination="ghY-Zi-xE9" id="R6N-1r-5TH"/>
                                             <outlet property="goDetail" destination="jWB-Ru-EnX" id="6fw-YN-DBF"/>
@@ -434,6 +434,7 @@
                                                 <constraint firstItem="uOw-f5-B7b" firstAttribute="leading" secondItem="3Ab-5K-h4U" secondAttribute="leadingMargin" constant="8" id="ydf-uw-X9q"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.92382695150000005" green="0.92936366579999996" blue="0.90057970070000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="uOw-f5-B7b" firstAttribute="height" secondItem="bNh-4j-WTu" secondAttribute="height" multiplier="0.7" id="Ihw-dS-sfo"/>
                                         </constraints>
@@ -475,6 +476,7 @@
                                                 <constraint firstItem="Gjj-Ph-QbQ" firstAttribute="top" secondItem="gq8-Ry-h5S" secondAttribute="top" id="uuP-Qz-cfQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.92382695150000005" green="0.92936366579999996" blue="0.90057970070000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="paymentSwitch" destination="Gjj-Ph-QbQ" id="1hT-xm-KKx"/>
                                             <outlet property="title" destination="gq8-Ry-h5S" id="7Ii-EV-JlG"/>
@@ -522,6 +524,7 @@
                                                 <constraint firstItem="VVd-Pm-212" firstAttribute="leading" secondItem="icz-H2-Nqs" secondAttribute="leadingMargin" constant="8" id="sOI-TR-6Va"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.92382695150000005" green="0.92936366579999996" blue="0.90057970070000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="detail" destination="KJL-Jl-YEO" id="MNt-mS-3kP"/>
                                             <outlet property="goDetail" destination="lMI-ou-Z66" id="4DF-q2-47c"/>
@@ -537,18 +540,14 @@
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8W0-p1-HWr">
                                 <rect key="frame" x="8" y="383" width="304" height="40"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="17"/>
-                                <state key="normal" title="POST">
+                                <state key="normal" title="AutoFill">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="post:" destination="58y-be-sRs" eventType="touchUpInside" id="dVy-lH-3zb"/>
-                                    <action selector="saveChanges:" destination="tk4-Xt-kke" eventType="touchUpInside" id="xHV-fv-NTW"/>
-                                </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.92382695150000005" green="0.92936366579999996" blue="0.90057970070000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="EQd-6q-pOg" secondAttribute="trailing" id="4hi-Qw-Swl"/>
                             <constraint firstItem="y3T-4V-hBN" firstAttribute="top" secondItem="b7n-gg-q6v" secondAttribute="bottom" id="DgR-95-SGo"/>
@@ -665,15 +664,18 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Z1c-yp-v65">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.92382695150000005" green="0.92936366579999996" blue="0.90057970070000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemCell" id="6li-2p-654">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="itemCell" id="6li-2p-654">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6li-2p-654" id="BHa-7o-HsX">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="lsg-pQ-NcN" kind="show" identifier="ShowSearchFood" id="adH-Ui-lVL"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -681,10 +683,58 @@
                             <outlet property="delegate" destination="OXc-QW-tJq" id="FG5-Wv-oqH"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="orderItemTableView" destination="Z1c-yp-v65" id="JsS-DS-ssa"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UkM-xX-wl5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1637" y="3085"/>
+        </scene>
+        <!--Food Search View Controller-->
+        <scene sceneID="3I2-M7-GP7">
+            <objects>
+                <tableViewController id="lsg-pQ-NcN" customClass="FoodSearchViewController" customModule="FoToGo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Vzl-Bq-w81">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.92382695150000005" green="0.92936366579999996" blue="0.90057970070000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodItem" textLabel="CMl-jv-gvp" detailTextLabel="tTz-UN-Mfh" style="IBUITableViewCellStyleSubtitle" id="PZk-pV-gFe">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PZk-pV-gFe" id="1By-Db-SrV">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CMl-jv-gvp">
+                                            <rect key="frame" x="15" y="4" width="34" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tTz-UN-Mfh">
+                                            <rect key="frame" x="15" y="25" width="44" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.92382695150000005" green="0.92936366579999996" blue="0.90057970070000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="lsg-pQ-NcN" id="SCk-aw-KC4"/>
+                            <outlet property="delegate" destination="lsg-pQ-NcN" id="L4i-GY-tLj"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ljs-0Y-ybr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2443" y="3085"/>
         </scene>
         <!--Order Detail View Controller-->
         <scene sceneID="dZc-Gm-4hW">
@@ -1013,7 +1063,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AtR-T2-7tN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="58y-be-sRs" kind="relationship" relationship="rootViewController" id="cjb-Zm-VZ4"/>

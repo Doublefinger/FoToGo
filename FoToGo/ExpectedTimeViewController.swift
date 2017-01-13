@@ -18,7 +18,6 @@ class ExpectedTimeViewController: UIViewController, UINavigationControllerDelega
 
         // Do any additional setup after loading the view.
         self.navigationController?.delegate = self
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationItem.leftItemsSupplementBackButton = true
     }
 

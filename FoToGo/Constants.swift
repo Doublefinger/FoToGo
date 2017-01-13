@@ -29,6 +29,7 @@ struct Constants {
         static let ShowOrderContent = "ShowOrderContent"
         static let ShowEstimateCost = "ShowEstimateCost"
         static let ShowExpectedTime = "ShowExpectedTime"
+        static let ShowSearchFood = "ShowSearchFood"
     }
     
     struct UserFields {

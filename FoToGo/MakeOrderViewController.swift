@@ -48,10 +48,12 @@ class MakeOrderViewController: UIViewController {
         startAutocompleteController.delegate = self
         endAutocompleteController = GMSAutocompleteViewController()
         endAutocompleteController.delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        let postButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(post(_:)))
+        self.navigationItem.rightBarButtonItem = postButton
+        let clearButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(clear))
+        self.navigationItem.leftBarButtonItem = clearButton
+        self.navigationItem.title = "Make Your Order"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -115,7 +117,7 @@ class MakeOrderViewController: UIViewController {
         cashOnlyFlag = sender.isOn
     }
     
-    @IBAction func post(_ sender: Any) {
+    func post(_ sender: Any) {
         guard let startText = self.start.text else {
             return
         }
@@ -140,6 +142,12 @@ class MakeOrderViewController: UIViewController {
         self.present(postTaskAlert, animated: true, completion: nil)
     }
     
+    func clear() {
+        self.start.text = ""
+        self.end.text = ""
+        self.mapView.clear()
+    }
+    
     func sendTask(start: String, end: String) {
         self.tabBarController?.selectedIndex = 0
         var tData = [String: Any]()
@@ -156,9 +164,7 @@ class MakeOrderViewController: UIViewController {
         tData[Constants.OrderFields.restaurantId] = placeA.placeID
         tData[Constants.OrderFields.checked] = "no"
         self.ref.child("tasks").childByAutoId().setValue(tData, withCompletionBlock: { (error, ref) -> Void in
-            self.start.text = ""
-            self.end.text = ""
-            self.mapView.clear()
+            self.clear()
         })
     }
 

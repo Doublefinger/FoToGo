@@ -10,17 +10,20 @@ import UIKit
 
 class OrderContentTableViewController: UITableViewController {
 
+    @IBOutlet var orderItemTableView: UITableView!
+    var orderItems = [String]()
+    var orderQuantities = [Int]()
+    var newItemFlag = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationItem.leftItemsSupplementBackButton = true
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewItem(_:)))
+        self.navigationItem.rightBarButtonItem = addButton
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,23 +35,31 @@ class OrderContentTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return orderItems.count
+    }
+    
+    func insertNewItem(_ sender: Any) {
+        if newItemFlag {
+            return
+        }
+        newItemFlag = true
+        orderItems.append("Hit to add item")
+        orderQuantities.append(1)
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.orderItemTableView.insertRows(at: [indexPath], with: .automatic)
+        performSegue(withIdentifier: Constants.Segues.ShowSearchFood, sender: self)
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
+        cell.textLabel?.text = orderItems[indexPath.row]
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.

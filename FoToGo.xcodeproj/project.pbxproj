@@ -13,11 +13,13 @@
 		FE1035801DE0BCDA0053066D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE10357F1DE0BCDA0053066D /* SignInViewController.swift */; };
 		FE1035821DE0D0AF0053066D /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1035811DE0D0AF0053066D /* ResetPasswordViewController.swift */; };
 		FE2545181E1EDF11003CB7D9 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2545171E1EDF11003CB7D9 /* NavigationViewController.swift */; };
+		FE25805B1E283710006415BA /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE25805A1E283710006415BA /* Food.swift */; };
 		FE2CE3001E259662007E1A28 /* OrderContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2CE2FF1E259662007E1A28 /* OrderContentTableViewController.swift */; };
 		FE2CE3021E2596BC007E1A28 /* EstimateCostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2CE3011E2596BC007E1A28 /* EstimateCostViewController.swift */; };
 		FE2CE3041E2596CC007E1A28 /* ExpectedTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2CE3031E2596CC007E1A28 /* ExpectedTimeViewController.swift */; };
 		FE3302121DD1405600FB3923 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3302111DD1405600FB3923 /* Helper.swift */; };
 		FE3302141DD187A600FB3923 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3302131DD187A600FB3923 /* UserInfo.swift */; };
+		FE3BBD931E27473600BA9F7E /* FoodSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3BBD921E27473600BA9F7E /* FoodSearchViewController.swift */; };
 		FE3ECB111DD0487600084144 /* NanumPen.otf in Resources */ = {isa = PBXBuildFile; fileRef = FE3ECB101DD047ED00084144 /* NanumPen.otf */; };
 		FE3ECB151DD054A500084144 /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3ECB141DD054A500084144 /* PersonalInfoViewController.swift */; };
 		FE3ECB171DD0561300084144 /* PaymentInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */; };
@@ -86,11 +88,13 @@
 		FE10357F1DE0BCDA0053066D /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		FE1035811DE0D0AF0053066D /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		FE2545171E1EDF11003CB7D9 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		FE25805A1E283710006415BA /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		FE2CE2FF1E259662007E1A28 /* OrderContentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderContentTableViewController.swift; sourceTree = "<group>"; };
 		FE2CE3011E2596BC007E1A28 /* EstimateCostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateCostViewController.swift; sourceTree = "<group>"; };
 		FE2CE3031E2596CC007E1A28 /* ExpectedTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpectedTimeViewController.swift; sourceTree = "<group>"; };
 		FE3302111DD1405600FB3923 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		FE3302131DD187A600FB3923 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		FE3BBD921E27473600BA9F7E /* FoodSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodSearchViewController.swift; sourceTree = "<group>"; };
 		FE3ECB101DD047ED00084144 /* NanumPen.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumPen.otf; sourceTree = "<group>"; };
 		FE3ECB141DD054A500084144 /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentInfoViewController.swift; sourceTree = "<group>"; };
@@ -279,6 +283,7 @@
 				FE3302111DD1405600FB3923 /* Helper.swift */,
 				FE3302131DD187A600FB3923 /* UserInfo.swift */,
 				FEB732661DDC2D4500720326 /* AppState.swift */,
+				FE25805A1E283710006415BA /* Food.swift */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 				FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */,
 				FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */,
 				FE2CE2FF1E259662007E1A28 /* OrderContentTableViewController.swift */,
+				FE3BBD921E27473600BA9F7E /* FoodSearchViewController.swift */,
 				FE2CE3011E2596BC007E1A28 /* EstimateCostViewController.swift */,
 				FE2CE3031E2596CC007E1A28 /* ExpectedTimeViewController.swift */,
 			);
@@ -616,6 +622,7 @@
 				FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */,
 				FEF106961E22E3E0003F8466 /* AutoCompleteTextField.swift in Sources */,
 				FEB63A811DF7C36B000ECA94 /* TabBarViewController.swift in Sources */,
+				FE25805B1E283710006415BA /* Food.swift in Sources */,
 				FE4EE7841DD02E4A0085468E /* StartViewController.swift in Sources */,
 				FE4EE7821DD02E4A0085468E /* AppDelegate.swift in Sources */,
 				FEB732671DDC2D4500720326 /* AppState.swift in Sources */,
@@ -642,6 +649,7 @@
 				FE7A75021E0DBD5B00234D1D /* AccountSettingsViewController.swift in Sources */,
 				FEA305EE1E257F43008BF153 /* ExpectedTimeCell.swift in Sources */,
 				FEF7E1731DF2938C004985BE /* OrderInfo.swift in Sources */,
+				FE3BBD931E27473600BA9F7E /* FoodSearchViewController.swift in Sources */,
 				FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */,
 				FE2CE3001E259662007E1A28 /* OrderContentTableViewController.swift in Sources */,
 				FEB732631DDC030D00720326 /* Manager.swift in Sources */,
