@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import GMStepper
 
 class FoodItemTableViewCell: UITableViewCell {
 
     @IBOutlet weak var foodName: UILabel!
-    @IBOutlet weak var foodQuantity: UILabel!
+    @IBOutlet weak var foodCount: GMStepper!
+    
+    var index = -1
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,7 +26,4 @@ class FoodItemTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    @IBAction func changeQuantity(_ sender: Any) {
-    }
-
 }

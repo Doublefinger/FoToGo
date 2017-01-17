@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GMStepper
 
 class OrderContentTableViewController: UITableViewController, UINavigationControllerDelegate {
 
@@ -44,6 +45,18 @@ class OrderContentTableViewController: UITableViewController, UINavigationContro
         return orderItems.count
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! FoodItemTableViewCell
+        cell.foodName.text = orderItems[indexPath.row]
+        cell.foodCount.value = Double(orderQuantities[indexPath.row])
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        itemIndex = indexPath.row
+        return indexPath
+    }
+
     func insertNewItem(_ sender: Any) {
         if newItemFlag {
             return
@@ -56,18 +69,7 @@ class OrderContentTableViewController: UITableViewController, UINavigationContro
         self.tableView.insertRows(at: [indexPath], with: .automatic)
         performSegue(withIdentifier: Constants.Segues.ShowSearchFood, sender: self)
     }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! FoodItemTableViewCell
-        cell.foodName.text = orderItems[indexPath.row]
-        return cell
-    }
     
-    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        itemIndex = indexPath.row
-        return indexPath
-    }
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -111,12 +113,23 @@ class OrderContentTableViewController: UITableViewController, UINavigationContro
         //pass index argument
         let controller = segue.destination as! FoodSearchViewController
         controller.orderItemIndex = itemIndex
+        
+        for index in 0...orderItems.count - 1 {
+            let indexPath = IndexPath(row: index, section: 0)
+            let cell = tableView.cellForRow(at: indexPath) as! FoodItemTableViewCell
+            self.orderQuantities[index] = Int(cell.foodCount.value)
+        }
     }
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if let controller = viewController as? MakeOrderViewController {
             if self.orderItems.count > 0 {
                 controller.orderItems = self.orderItems
+                for index in 0...orderItems.count - 1 {
+                    let indexPath = IndexPath(row: index, section: 0)
+                    let cell = tableView.cellForRow(at: indexPath) as! FoodItemTableViewCell
+                    self.orderQuantities[index] = Int(cell.foodCount.value)
+                }
                 controller.orderQuantities = self.orderQuantities
                 controller.orderDetailTableView.reloadData()
             }

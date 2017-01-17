@@ -63,11 +63,11 @@ public class Helper{
         textField.layer.borderWidth = 0
     }
     
-    static func convertDate(_ date: NSDate) -> String {
+    static func convertDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         formatter.timeZone = TimeZone(identifier: "America/New_York")
-        return formatter.string(from: date as Date)
+        return formatter.string(from: date)
     }
     
     static func displayDateInLocal(_ string: String) -> String {

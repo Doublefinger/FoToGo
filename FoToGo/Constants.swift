@@ -43,7 +43,8 @@ struct Constants {
     struct OrderFields {
         static let account = "account"
         static let pickedBy = "pickedBy"
-        static let expectedTime = "expectedTime"
+        static let deliverAfter = "deliverAfter"
+        static let deliverBefore = "deliverBefore"
         static let madeTime = "madeTime"
         static let pickedTime = "pickedTime"
         static let orderContent = "orderContent"
@@ -57,6 +58,7 @@ struct Constants {
         static let destinationLatitude = "destLati"
         static let destinationLongitude = "destLong"
         static let checked = "checked"
+        static let cashOnly = "cashOnly"
     }
     
     struct OrderStates {

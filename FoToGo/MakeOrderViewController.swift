@@ -178,9 +178,19 @@ class MakeOrderViewController: UIViewController {
         tData[Constants.OrderFields.destinationLatitude] = placeB.coordinate.latitude
         tData[Constants.OrderFields.destinationLongitude] = placeB.coordinate.longitude
         tData[Constants.OrderFields.state] = Constants.OrderStates.wait
-        tData[Constants.OrderFields.madeTime] = Helper.convertDate(NSDate())
+        tData[Constants.OrderFields.madeTime] = Helper.convertDate(Date())
         tData[Constants.OrderFields.restaurantId] = placeA.placeID
         tData[Constants.OrderFields.checked] = "no"
+        var orderContent = [String: Int]()
+        for index in 0...orderItems.count - 1 {
+            orderContent[orderItems[index]] = orderQuantities[index]
+        }
+        tData[Constants.OrderFields.orderContent] = orderContent
+        tData[Constants.OrderFields.cashOnly] = cashOnlyFlag ? 1 : 0
+        tData[Constants.OrderFields.deliverAfter] = Helper.convertDate(deliverAfterTime)
+        tData[Constants.OrderFields.deliverBefore] = Helper.convertDate(deliverBeforeTime!)
+        tData[Constants.OrderFields.estimateCost] = estimateCost
+        
         self.ref.child("tasks").childByAutoId().setValue(tData, withCompletionBlock: { (error, ref) -> Void in
             self.clear()
         })
