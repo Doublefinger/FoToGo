@@ -28,7 +28,8 @@ struct Constants {
         static let SignOut = "SignOut"
         static let ShowOrderContent = "ShowOrderContent"
         static let ShowEstimateCost = "ShowEstimateCost"
-        static let ShowExpectedTime = "ShowExpectedTime"
+        static let ShowDeliverAfterTime = "ShowDeliverAfterTime"
+        static let ShowDeliverBeforeTime = "ShowDeliverBeforeTime"
         static let ShowSearchFood = "ShowSearchFood"
     }
     

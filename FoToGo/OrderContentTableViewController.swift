@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OrderContentTableViewController: UITableViewController {
+class OrderContentTableViewController: UITableViewController, UINavigationControllerDelegate {
 
     var orderItems = [String]()
     var orderQuantities = [Int]()
@@ -24,6 +24,7 @@ class OrderContentTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewItem(_:)))
         self.navigationItem.rightBarButtonItem = addButton
+        self.navigationController?.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,8 +58,8 @@ class OrderContentTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
-        cell.textLabel?.text = orderItems[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! FoodItemTableViewCell
+        cell.foodName.text = orderItems[indexPath.row]
         return cell
     }
     
@@ -111,6 +112,14 @@ class OrderContentTableViewController: UITableViewController {
         let controller = segue.destination as! FoodSearchViewController
         controller.orderItemIndex = itemIndex
     }
- 
-
+    
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        if let controller = viewController as? MakeOrderViewController {
+            if self.orderItems.count > 0 {
+                controller.orderItems = self.orderItems
+                controller.orderQuantities = self.orderQuantities
+                controller.orderDetailTableView.reloadData()
+            }
+        }
+    }
 }

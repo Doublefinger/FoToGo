@@ -10,13 +10,15 @@
 		2D0A51EA05B7A98BE070D261 /* Pods_FoToGoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E9F46DB68CBDA473FF3624 /* Pods_FoToGoTests.framework */; };
 		56AC007108FA97D237D6C93D /* Pods_FoToGoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099EFF27528778D3EA6F5B8B /* Pods_FoToGoUITests.framework */; };
 		75809C8D9C720EBAA55C8CF3 /* Pods_FoToGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1776D4A276C50AB2E74C7D10 /* Pods_FoToGo.framework */; };
+		FE0FF11C1E2E7B86005C47FE /* DeliverBeforeTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0FF11B1E2E7B86005C47FE /* DeliverBeforeTimeCell.swift */; };
+		FE0FF11E1E2E8470005C47FE /* DeliverBeforeTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0FF11D1E2E8470005C47FE /* DeliverBeforeTimeViewController.swift */; };
 		FE1035801DE0BCDA0053066D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE10357F1DE0BCDA0053066D /* SignInViewController.swift */; };
 		FE1035821DE0D0AF0053066D /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1035811DE0D0AF0053066D /* ResetPasswordViewController.swift */; };
 		FE2545181E1EDF11003CB7D9 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2545171E1EDF11003CB7D9 /* NavigationViewController.swift */; };
 		FE25805B1E283710006415BA /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE25805A1E283710006415BA /* Food.swift */; };
 		FE2CE3001E259662007E1A28 /* OrderContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2CE2FF1E259662007E1A28 /* OrderContentTableViewController.swift */; };
 		FE2CE3021E2596BC007E1A28 /* EstimateCostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2CE3011E2596BC007E1A28 /* EstimateCostViewController.swift */; };
-		FE2CE3041E2596CC007E1A28 /* ExpectedTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2CE3031E2596CC007E1A28 /* ExpectedTimeViewController.swift */; };
+		FE2CE3041E2596CC007E1A28 /* DeliverAfterTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2CE3031E2596CC007E1A28 /* DeliverAfterTimeViewController.swift */; };
 		FE3302121DD1405600FB3923 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3302111DD1405600FB3923 /* Helper.swift */; };
 		FE3302141DD187A600FB3923 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3302131DD187A600FB3923 /* UserInfo.swift */; };
 		FE3BBD931E27473600BA9F7E /* FoodSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3BBD921E27473600BA9F7E /* FoodSearchViewController.swift */; };
@@ -33,6 +35,7 @@
 		FE4EE79A1DD02E4A0085468E /* FoToGoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7991DD02E4A0085468E /* FoToGoTests.swift */; };
 		FE4EE7A51DD02E4A0085468E /* FoToGoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7A41DD02E4A0085468E /* FoToGoUITests.swift */; };
 		FE4EE7B31DD02F2D0085468E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE7B21DD02F2D0085468E /* GoogleService-Info.plist */; };
+		FE5C1B391E2BFB4500F4070F /* FoodItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5C1B381E2BFB4500F4070F /* FoodItemTableViewCell.swift */; };
 		FE5D7D4D1DD0CE6200B14049 /* font-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4C1DD0CE4600B14049 /* font-1.ttf */; };
 		FE5D7D4E1DD0CE6200B14049 /* font-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4B1DD0CE3600B14049 /* font-2.ttf */; };
 		FE5D7D4F1DD0CE6200B14049 /* font-3.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE5D7D4A1DD0CE1D00B14049 /* font-3.ttf */; };
@@ -44,7 +47,7 @@
 		FEA195BB1E1DA38100A07FAD /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA195BA1E1DA38100A07FAD /* OrderTableViewCell.swift */; };
 		FEA305E91E257A35008BF153 /* PaymentMethodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA305E81E257A35008BF153 /* PaymentMethodCell.swift */; };
 		FEA305EC1E257F29008BF153 /* EstimateCostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA305EB1E257F29008BF153 /* EstimateCostCell.swift */; };
-		FEA305EE1E257F43008BF153 /* ExpectedTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA305ED1E257F43008BF153 /* ExpectedTimeCell.swift */; };
+		FEA305EE1E257F43008BF153 /* DeliverAfterTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA305ED1E257F43008BF153 /* DeliverAfterTimeCell.swift */; };
 		FEB0DB011E0B370200EAB1E6 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */; };
 		FEB63A811DF7C36B000ECA94 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */; };
 		FEB732631DDC030D00720326 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732621DDC030D00720326 /* Manager.swift */; };
@@ -85,13 +88,15 @@
 		6B61BF9B0B8668FF05785001 /* Pods-FoToGoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoToGoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoToGoTests/Pods-FoToGoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C5AA04AFFEB387B040ED3EE5 /* Pods-FoToGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoToGo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoToGo/Pods-FoToGo.debug.xcconfig"; sourceTree = "<group>"; };
 		C7E9F46DB68CBDA473FF3624 /* Pods_FoToGoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoToGoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE0FF11B1E2E7B86005C47FE /* DeliverBeforeTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverBeforeTimeCell.swift; sourceTree = "<group>"; };
+		FE0FF11D1E2E8470005C47FE /* DeliverBeforeTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverBeforeTimeViewController.swift; sourceTree = "<group>"; };
 		FE10357F1DE0BCDA0053066D /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		FE1035811DE0D0AF0053066D /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		FE2545171E1EDF11003CB7D9 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		FE25805A1E283710006415BA /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		FE2CE2FF1E259662007E1A28 /* OrderContentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderContentTableViewController.swift; sourceTree = "<group>"; };
 		FE2CE3011E2596BC007E1A28 /* EstimateCostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateCostViewController.swift; sourceTree = "<group>"; };
-		FE2CE3031E2596CC007E1A28 /* ExpectedTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpectedTimeViewController.swift; sourceTree = "<group>"; };
+		FE2CE3031E2596CC007E1A28 /* DeliverAfterTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverAfterTimeViewController.swift; sourceTree = "<group>"; };
 		FE3302111DD1405600FB3923 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		FE3302131DD187A600FB3923 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		FE3BBD921E27473600BA9F7E /* FoodSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodSearchViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +119,7 @@
 		FE4EE7A41DD02E4A0085468E /* FoToGoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoToGoUITests.swift; sourceTree = "<group>"; };
 		FE4EE7A61DD02E4A0085468E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE4EE7B21DD02F2D0085468E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FE5C1B381E2BFB4500F4070F /* FoodItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodItemTableViewCell.swift; sourceTree = "<group>"; };
 		FE5D7D4A1DD0CE1D00B14049 /* font-3.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-3.ttf"; sourceTree = "<group>"; };
 		FE5D7D4B1DD0CE3600B14049 /* font-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-2.ttf"; sourceTree = "<group>"; };
 		FE5D7D4C1DD0CE4600B14049 /* font-1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-1.ttf"; sourceTree = "<group>"; };
@@ -125,7 +131,7 @@
 		FEA195BA1E1DA38100A07FAD /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
 		FEA305E81E257A35008BF153 /* PaymentMethodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodCell.swift; sourceTree = "<group>"; };
 		FEA305EB1E257F29008BF153 /* EstimateCostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateCostCell.swift; sourceTree = "<group>"; };
-		FEA305ED1E257F43008BF153 /* ExpectedTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpectedTimeCell.swift; sourceTree = "<group>"; };
+		FEA305ED1E257F43008BF153 /* DeliverAfterTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverAfterTimeCell.swift; sourceTree = "<group>"; };
 		FEB0DB001E0B370200EAB1E6 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		FEB63A801DF7C36B000ECA94 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		FEB732621DDC030D00720326 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
@@ -268,7 +274,9 @@
 				FEE7ED141E24564600ADC96E /* OrderDetailCell.swift */,
 				FEA305E81E257A35008BF153 /* PaymentMethodCell.swift */,
 				FEA305EB1E257F29008BF153 /* EstimateCostCell.swift */,
-				FEA305ED1E257F43008BF153 /* ExpectedTimeCell.swift */,
+				FEA305ED1E257F43008BF153 /* DeliverAfterTimeCell.swift */,
+				FE0FF11B1E2E7B86005C47FE /* DeliverBeforeTimeCell.swift */,
+				FE5C1B381E2BFB4500F4070F /* FoodItemTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -311,7 +319,8 @@
 				FE2CE2FF1E259662007E1A28 /* OrderContentTableViewController.swift */,
 				FE3BBD921E27473600BA9F7E /* FoodSearchViewController.swift */,
 				FE2CE3011E2596BC007E1A28 /* EstimateCostViewController.swift */,
-				FE2CE3031E2596CC007E1A28 /* ExpectedTimeViewController.swift */,
+				FE2CE3031E2596CC007E1A28 /* DeliverAfterTimeViewController.swift */,
+				FE0FF11D1E2E8470005C47FE /* DeliverBeforeTimeViewController.swift */,
 			);
 			name = Order;
 			sourceTree = "<group>";
@@ -618,6 +627,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEF7E1711DF290AA004985BE /* OrderDetailViewController.swift in Sources */,
+				FE5C1B391E2BFB4500F4070F /* FoodItemTableViewCell.swift in Sources */,
 				FE1035801DE0BCDA0053066D /* SignInViewController.swift in Sources */,
 				FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */,
 				FEF106961E22E3E0003F8466 /* AutoCompleteTextField.swift in Sources */,
@@ -625,10 +635,11 @@
 				FE25805B1E283710006415BA /* Food.swift in Sources */,
 				FE4EE7841DD02E4A0085468E /* StartViewController.swift in Sources */,
 				FE4EE7821DD02E4A0085468E /* AppDelegate.swift in Sources */,
+				FE0FF11C1E2E7B86005C47FE /* DeliverBeforeTimeCell.swift in Sources */,
 				FEB732671DDC2D4500720326 /* AppState.swift in Sources */,
 				FE2CE3021E2596BC007E1A28 /* EstimateCostViewController.swift in Sources */,
 				FE3302121DD1405600FB3923 /* Helper.swift in Sources */,
-				FE2CE3041E2596CC007E1A28 /* ExpectedTimeViewController.swift in Sources */,
+				FE2CE3041E2596CC007E1A28 /* DeliverAfterTimeViewController.swift in Sources */,
 				FE4EE78A1DD02E4A0085468E /* FoToGo.xcdatamodeld in Sources */,
 				FEB732691DDC2E6D00720326 /* Constants.swift in Sources */,
 				FE3ECB171DD0561300084144 /* PaymentInfoViewController.swift in Sources */,
@@ -647,10 +658,11 @@
 				FE3ECB151DD054A500084144 /* PersonalInfoViewController.swift in Sources */,
 				FEB0DB011E0B370200EAB1E6 /* LeftMenuViewController.swift in Sources */,
 				FE7A75021E0DBD5B00234D1D /* AccountSettingsViewController.swift in Sources */,
-				FEA305EE1E257F43008BF153 /* ExpectedTimeCell.swift in Sources */,
+				FEA305EE1E257F43008BF153 /* DeliverAfterTimeCell.swift in Sources */,
 				FEF7E1731DF2938C004985BE /* OrderInfo.swift in Sources */,
 				FE3BBD931E27473600BA9F7E /* FoodSearchViewController.swift in Sources */,
 				FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */,
+				FE0FF11E1E2E8470005C47FE /* DeliverBeforeTimeViewController.swift in Sources */,
 				FE2CE3001E259662007E1A28 /* OrderContentTableViewController.swift in Sources */,
 				FEB732631DDC030D00720326 /* Manager.swift in Sources */,
 			);

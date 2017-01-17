@@ -11,6 +11,12 @@ import UIKit
 
 public class Helper{
     
+    static func isNumericWithDot(text: String) -> Bool {
+        let scanner = Scanner(string: text)
+        scanner.locale = Locale.current
+        return scanner.scanDecimal(nil) && scanner.isAtEnd
+    }
+    
     static func isNumeric(text: String) -> Bool {
         let numbers = NSCharacterSet(charactersIn: "0123456789")
         if text.rangeOfCharacter(from: numbers.inverted) != nil {

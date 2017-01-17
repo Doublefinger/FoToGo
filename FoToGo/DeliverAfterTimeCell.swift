@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExpectedTimeCell: UITableViewCell {
+class DeliverAfterTimeCell: UITableViewCell {
 
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var detail: UILabel!

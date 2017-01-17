@@ -19,21 +19,16 @@ class MakeOrderViewController: UIViewController {
     @IBOutlet weak var openStatus: UIButton!
     @IBOutlet weak var orderDetailTableView: UITableView!
     
-    var orderDetail: String = "none"
-    var estimateCost: String = "0.00" {
-        didSet {
-            orderDetailTableView.reloadData()
-        }
-    }
-    var expectedTime = NSDate() {
-        didSet {
-            orderDetailTableView.reloadData()
-        }
-    }
+    var clearAlert: UIAlertController!
+    var orderItems = [String]()
+    var orderQuantities = [Int]()
+    
+    var estimateCost: String = "0.00"
+
+    var deliverAfterTime = Date()
+    var deliverBeforeTime = Calendar.current.date(byAdding: .minute, value: 30, to: Date())
     var cashOnlyFlag = false
     
-    var postTaskAlert: UIAlertController!
-
     var startAutocompleteController, endAutocompleteController: GMSAutocompleteViewController!
     var markerA, markerB: GMSMarker!
     var placeA, placeB: GMSPlace!
@@ -51,25 +46,21 @@ class MakeOrderViewController: UIViewController {
         
         let postButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(post(_:)))
         self.navigationItem.rightBarButtonItem = postButton
-        let clearButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(clear))
+        let clearButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(confirmClear))
         self.navigationItem.leftBarButtonItem = clearButton
         self.navigationItem.title = "Make Your Order"
+        self.configureClearAlert()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case Constants.Segues.ShowEstimateCost:
-                let controller = segue.destination as! EstimateCostViewController
-                controller.estimateCostText = estimateCost
-                break
-            case Constants.Segues.ShowExpectedTime:
-                let controller = segue.destination as! ExpectedTimeViewController
-                controller.expectedTime = expectedTime
-            default:
-                break
-            }
-        }
+    func configureClearAlert() {
+        clearAlert = UIAlertController(title: "Confirmation", message: "Refill your order?", preferredStyle: .alert)
+        clearAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+            self.clear()
+        }))
+        
+        clearAlert.addAction(UIAlertAction(title: "No", style: .default, handler: { (action) in
+            self.clearAlert.dismiss(animated: true, completion: nil)
+        }))
     }
     
     @IBAction func openWebsite(_ sender: Any) {
@@ -130,22 +121,49 @@ class MakeOrderViewController: UIViewController {
             return
         }
         
+        if orderItems.count <= 0 {
+            return
+        }
+        
+        //if the date is outdated
+        if deliverAfterTime > deliverBeforeTime! {
+            return
+        }
+        
+        if deliverBeforeTime! < Calendar.current.date(byAdding: .minute, value: 15, to: Date())! {
+            return
+        }
+        
         //generate task info
-        postTaskAlert = UIAlertController(title: "Confirmation", message: startText + " - " + endText, preferredStyle: .alert)
+        let postTaskAlert = UIAlertController(title: "Confirmation", message: startText + " - " + endText, preferredStyle: .alert)
         postTaskAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             self.sendTask(start: startText, end: endText)
         }))
         
         postTaskAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
-            self.postTaskAlert.dismiss(animated: true, completion: nil)
+            postTaskAlert.dismiss(animated: true, completion: nil)
         }))
         self.present(postTaskAlert, animated: true, completion: nil)
+    }
+    
+    func confirmClear() {
+        self.present(clearAlert, animated: true, completion: nil)
     }
     
     func clear() {
         self.start.text = ""
         self.end.text = ""
         self.mapView.clear()
+        self.orderItems = [String]()
+        self.orderQuantities = [Int]()
+        self.cashOnlyFlag = false
+        self.estimateCost = "0.00"
+        let currentTime = Date()
+        self.deliverAfterTime = currentTime
+        self.deliverBeforeTime = Calendar.current.date(byAdding: .minute, value: 30, to: currentTime)
+        self.orderDetailTableView.reloadData()
+        placeA = nil
+        placeB = nil
     }
     
     func sendTask(start: String, end: String) {
@@ -170,13 +188,33 @@ class MakeOrderViewController: UIViewController {
 
     /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case Constants.Segues.ShowEstimateCost:
+                let controller = segue.destination as! EstimateCostViewController
+                controller.estimateCostText = estimateCost
+                break
+            case Constants.Segues.ShowDeliverAfterTime:
+                let controller = segue.destination as! DeliverAfterTimeViewController
+                controller.expectedTime = deliverAfterTime
+                break
+            case Constants.Segues.ShowDeliverBeforeTime:
+                let controller = segue.destination as! DeliverBeforeTimeViewController
+                controller.expectedTime = deliverBeforeTime
+                break
+            case Constants.Segues.ShowOrderContent:
+                let controller = segue.destination as! OrderContentTableViewController
+                controller.orderItems = self.orderItems
+                controller.orderQuantities = self.orderQuantities
+                break
+            default:
+                break
+            }
+        }
+    }
 }
 
 extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
@@ -239,7 +277,7 @@ extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
 
 extension MakeOrderViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -248,7 +286,11 @@ extension MakeOrderViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             let cell = self.orderDetailTableView.dequeueReusableCell(withIdentifier: "orderDetailCell") as! OrderDetailCell
             cell.title.text = "Order Detail"
-            cell.detail.text = orderDetail
+            if orderItems.count > 0 {
+                cell.detail.text = orderItems[0] + "..."
+            } else {
+                cell.detail.text = "none"
+            }
             cell.goDetail.image = image
             return cell
         case 1:
@@ -258,11 +300,19 @@ extension MakeOrderViewController: UITableViewDelegate, UITableViewDataSource {
             cell.goDetail.image = image
             return cell
         case 3:
-            let cell = self.orderDetailTableView.dequeueReusableCell(withIdentifier: "expectedTimeCell") as! ExpectedTimeCell
+            let cell = self.orderDetailTableView.dequeueReusableCell(withIdentifier: "deliverAfterTimeCell") as! DeliverAfterTimeCell
             cell.title.text = "Deliver After"
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm"
-            cell.detail.text = formatter.string(from: expectedTime as Date)
+            cell.detail.text = formatter.string(from: deliverAfterTime)
+            cell.goDetail.image = image
+            return cell
+        case 4:
+            let cell = self.orderDetailTableView.dequeueReusableCell(withIdentifier: "deliverBeforeTimeCell") as! DeliverBeforeTimeCell
+            cell.title.text = "Deliver Before"
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm"
+            cell.detail.text = formatter.string(from: deliverBeforeTime!)
             cell.goDetail.image = image
             return cell
         default:

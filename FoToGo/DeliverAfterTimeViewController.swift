@@ -1,5 +1,5 @@
 //
-//  EstimateCostViewController.swift
+//  ExpectedTimeViewController.swift
 //  FoToGo
 //
 //  Created by Shitianyu Pan on 10/01/2017.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class EstimateCostViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate{
+class DeliverAfterTimeViewController: UIViewController, UINavigationControllerDelegate {
 
-    @IBOutlet weak var estimateCost: UITextField!
-    var estimateCostText: String!
+    @IBOutlet weak var expectedTimePicker: UIDatePicker!
+    var expectedTime: Date!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,34 +28,16 @@ class EstimateCostViewController: UIViewController, UITextFieldDelegate, UINavig
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if let controller = viewController as? MakeOrderViewController {
-            if estimateCost.text == "" {
-                controller.estimateCost = "0.00"
-            } else {
-                controller.estimateCost = String(format: "%.2f", Double(estimateCost.text!)!)
-            }
+            controller.deliverAfterTime = expectedTimePicker.date
             controller.orderDetailTableView.reloadData()
         } else {
-            estimateCost.text = estimateCostText
+            let minDate = Date()
+            let maxDate = Calendar.current.date(byAdding: .day, value: 1, to: minDate)
+            expectedTimePicker.minimumDate = minDate
+            expectedTimePicker.maximumDate = maxDate
+            expectedTimePicker.setDate(expectedTime, animated: true)
         }
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if string.characters.count == 0 {
-            return true
-        }
-        
-        let currentText = textField.text ?? "";
-        let prospectiveText = (currentText as NSString).replacingCharacters(in: range, with: string)
-        if Helper.isNumericWithDot(text: prospectiveText) && prospectiveText.characters.count <= 6 {
-            guard let result = Double(prospectiveText) else {
-                return false
-            }
-            return result > 0.0
-        }
-        
-        return false
-    }
-
     /*
     // MARK: - Navigation
 
@@ -65,4 +47,5 @@ class EstimateCostViewController: UIViewController, UITextFieldDelegate, UINavig
         // Pass the selected object to the new view controller.
     }
     */
+
 }

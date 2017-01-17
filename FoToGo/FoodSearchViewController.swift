@@ -11,7 +11,7 @@ import UIKit
 class FoodSearchViewController: UITableViewController, UINavigationControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     var foodList = [Food]()
     var filteredList = [Food]()
-    let searchController = UISearchController(searchResultsController: nil)
+    var searchController: UISearchController!
     var searchBarText: String!
     var orderItemIndex: Int!
     
@@ -25,6 +25,7 @@ class FoodSearchViewController: UITableViewController, UINavigationControllerDel
         foodList.append(Food(category: "Korean", name: "Bibimbap"))
         foodList.append(Food(category: "Mexican", name: "Burrito"))
         
+        searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.returnKeyType = .done
@@ -32,7 +33,6 @@ class FoodSearchViewController: UITableViewController, UINavigationControllerDel
         tableView.tableHeaderView = searchController.searchBar
         
         self.navigationController?.delegate = self
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -106,6 +106,7 @@ class FoodSearchViewController: UITableViewController, UINavigationControllerDel
                 controller.orderItems[orderItemIndex] = searchController.searchBar.text!
                 controller.tableView.reloadData()
                 controller.newItemFlag = false
+                controller.navigationController?.delegate = controller
             }
         } else {
             searchController.searchBar.text = searchBarText
@@ -120,5 +121,8 @@ class FoodSearchViewController: UITableViewController, UINavigationControllerDel
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    deinit {
+        self.searchController.loadViewIfNeeded()
+    }
 }
