@@ -147,7 +147,9 @@ class OrderTrackViewController: UITableViewController {
         let cell = self.orderTable.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderTableViewCell
         let orderInfo = self.orderInfos[indexPath.row]
         cell.textLabel!.text = orderInfo.restaurantName
-        cell.detailTextLabel!.text = Helper.displayDateInLocal(orderInfo.madeTime) + " last update"
+        let time = Helper.displayDateInLocal(orderInfo.madeTime)
+        let index = time.index(time.startIndex, offsetBy: 5)
+        cell.detailTextLabel!.text = time.substring(from: index)
         cell.imageView?.image = orderInfo.photo
         cell.orderState.text = orderInfo.state
         return cell

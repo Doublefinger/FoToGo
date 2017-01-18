@@ -44,7 +44,8 @@ class MakeOrderViewController: UIViewController {
         endAutocompleteController = GMSAutocompleteViewController()
         endAutocompleteController.delegate = self
         
-        let postButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(post(_:)))
+        let postButton = UIBarButtonItem(image: UIImage(named: "Sent-30"), style: UIBarButtonItemStyle.done, target: self, action: #selector(post(_:)))
+        //let postButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(post(_:)))
         self.navigationItem.rightBarButtonItem = postButton
         let clearButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(confirmClear))
         self.navigationItem.leftBarButtonItem = clearButton
@@ -182,6 +183,8 @@ class MakeOrderViewController: UIViewController {
         tData[Constants.OrderFields.restaurantId] = placeA.placeID
         tData[Constants.OrderFields.checked] = "no"
         var orderContent = [String: Int]()
+        
+        //orderItems.count is guaranteed to be at least 1
         for index in 0...orderItems.count - 1 {
             orderContent[orderItems[index]] = orderQuantities[index]
         }

@@ -48,7 +48,12 @@ class OrderContentTableViewController: UITableViewController, UINavigationContro
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! FoodItemTableViewCell
         cell.foodName.text = orderItems[indexPath.row]
-        cell.foodCount.value = Double(orderQuantities[indexPath.row])
+        if orderItems[indexPath.row] == "Hit to add food" {
+            cell.foodCount.isHidden = true
+        } else {
+            cell.foodCount.isHidden = false
+            cell.foodCount.value = Double(orderQuantities[indexPath.row])
+        }
         return cell
     }
     
@@ -62,7 +67,7 @@ class OrderContentTableViewController: UITableViewController, UINavigationContro
             return
         }
         newItemFlag = true
-        orderItems.append("Hit to add item")
+        orderItems.append("Hit to add food")
         orderQuantities.append(1)
         itemIndex = orderItems.count - 1
         let indexPath = IndexPath(row: itemIndex, section: 0)
@@ -107,7 +112,7 @@ class OrderContentTableViewController: UITableViewController, UINavigationContro
 
     /*
     // MARK: - Navigation
-     */
+    */
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //pass index argument
@@ -124,6 +129,13 @@ class OrderContentTableViewController: UITableViewController, UINavigationContro
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if let controller = viewController as? MakeOrderViewController {
             if self.orderItems.count > 0 {
+                if self.orderItems[orderItems.count - 1] == "Hit to add food" {
+                    self.orderItems.removeLast()
+                    self.orderQuantities.removeLast()
+                    if self.orderItems.count <= 0 {
+                        return
+                    }
+                }
                 controller.orderItems = self.orderItems
                 for index in 0...orderItems.count - 1 {
                     let indexPath = IndexPath(row: index, section: 0)

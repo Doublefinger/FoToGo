@@ -87,18 +87,6 @@ class OrderDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        cancelButton.layer.borderWidth = 1
-        cancelButton.layer.borderColor = UIColor.orange.cgColor
-        cancelButton.setTitleColor(UIColor.orange, for: .normal)
-        readyToGo.layer.borderWidth = 1
-        readyToGo.layer.borderColor = UIColor.orange.cgColor
-        readyToGo.setTitleColor(UIColor.orange, for: .normal)
-        arrived.layer.borderWidth = 1
-        arrived.layer.borderColor = UIColor.orange.cgColor
-        arrived.setTitleColor(UIColor.orange, for: .normal)
-        delivered.layer.borderWidth = 1
-        delivered.layer.borderColor = UIColor.orange.cgColor
-        delivered.setTitleColor(UIColor.orange, for: .normal)
         self.configureView()
     }
 
