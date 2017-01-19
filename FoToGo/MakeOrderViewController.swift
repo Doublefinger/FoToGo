@@ -174,13 +174,10 @@ class MakeOrderViewController: UIViewController {
         tData[Constants.OrderFields.pickedBy] = ""
         tData[Constants.OrderFields.restaurantName] = start
         tData[Constants.OrderFields.destinationName] = end
-        tData[Constants.OrderFields.restaurantLatitude] = placeA.coordinate.latitude
-        tData[Constants.OrderFields.restaurantLongitude] = placeA.coordinate.longitude
-        tData[Constants.OrderFields.destinationLatitude] = placeB.coordinate.latitude
-        tData[Constants.OrderFields.destinationLongitude] = placeB.coordinate.longitude
         tData[Constants.OrderFields.state] = Constants.OrderStates.wait
         tData[Constants.OrderFields.madeTime] = Helper.convertDate(Date())
         tData[Constants.OrderFields.restaurantId] = placeA.placeID
+        tData[Constants.OrderFields.destinationId] = placeB.placeID
         tData[Constants.OrderFields.checked] = "no"
         var orderContent = [String: Int]()
         

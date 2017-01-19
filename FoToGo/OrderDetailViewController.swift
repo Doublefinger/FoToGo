@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GooglePlaces
 
 class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -32,9 +33,7 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var orderItemTable: UITableView!
     
     var ref: FIRDatabaseReference!
-    var orderItems = [String]()
-    var orderQuantities = [Int]()
-    var estimateCost: String!
+    var restPhone, personalPhone: String!
     
     var detailItem: OrderInfo?  {
         didSet {
@@ -44,6 +43,7 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     func configureView() {
         if let detail = self.detailItem {
+            loadPlaceInfo(detail.restId, detail.destId)
             if let label = self.restName {
                 label.text = detail.restaurantName
             }
@@ -79,10 +79,32 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
             if let imageView = self.restImage {
                 imageView.image = detail.photo
             }
-            
-            self.estimateCost = detail.estimateCost
-            self.orderItems = detail.orderItems
-            self.orderQuantities = detail.orderQuantities
+        }
+    }
+    
+    func loadPlaceInfo(_ restId: String, _ destId: String){
+        GMSPlacesClient.shared().lookUpPlaceID(restId) { (place, error) in
+            if let error = error {
+                print("lookup place id query error: \(error.localizedDescription)")
+                return
+            }
+            if let place = place {
+                self.restPhone = place.phoneNumber
+            } else {
+                print("No place details for \(restId)")
+            }
+        }
+        
+        GMSPlacesClient.shared().lookUpPlaceID(destId) { (place, error) in
+            if let error = error {
+                print("lookup place id query error: \(error.localizedDescription)")
+                return
+            }
+            if let place = place {
+                self.restPhone = place.phoneNumber
+            } else {
+                print("No place details for \(restId)")
+            }
         }
     }
     
@@ -125,28 +147,48 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: - TableView
     */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.orderItems.count + 1
+        return detailItem!.orderItems.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "orderItem", for: indexPath)
-        if indexPath.row < orderItems.count {
-            cell.textLabel?.text = orderItems[indexPath.row]
+        if indexPath.row < (detailItem?.orderItems.count)! {
+            cell.textLabel?.text = detailItem?.orderItems[indexPath.row]
             cell.textLabel?.font = UIFont(name: "Noteworthy", size: 17.0)
-            cell.detailTextLabel?.text = String(orderQuantities[indexPath.row])
+            cell.detailTextLabel?.text = String((detailItem?.orderQuantities[indexPath.row])!)
         } else {
+            let font = UIFont(name: "Noteworthy-Bold", size: 18.0)
             cell.textLabel?.text = "Estimate Amount:"
-            cell.textLabel?.font = UIFont(name: "Noteworthy-Bold", size: 18.0)
-            cell.detailTextLabel?.text = estimateCost
-            cell.detailTextLabel?.font = UIFont(name: "Noteworthy-Bold", size: 18.0)
+            cell.textLabel?.font = font
+            cell.detailTextLabel?.text = detailItem?.estimateCost
+            cell.detailTextLabel?.font = font
         }
         return cell
     }
     
     @IBAction func callRestaurant(_ sender: Any) {
+        if let phoneNumber = restPhone {
+            call(phoneNumber)
+        }
     }
     
     @IBAction func callPerson(_ sender: Any) {
+        if let phoneNumber = personalPhone {
+            call(phoneNumber)
+        }
+    }
+    
+    func call(_ phoneNumber: String) {
+        let phone = String(phoneNumber.characters.filter{String($0).rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil })
+        let url = URL(string: "telprompt://" + phone)
+        if UIApplication.shared.canOpenURL(url!) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url!, completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+                UIApplication.shared.openURL(url!)
+            }
+        }
     }
     
     /*
