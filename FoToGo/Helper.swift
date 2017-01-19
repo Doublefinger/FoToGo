@@ -78,4 +78,14 @@ public class Helper{
         formatter.timeZone = NSTimeZone.local
         return formatter.string(from: date!)
     }
+    
+    static func displayDateInLocalInMins(_ string: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "America/New_York")
+        let date = formatter.date(from: string)
+        formatter.timeZone = NSTimeZone.local
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: date!)
+    }
 }

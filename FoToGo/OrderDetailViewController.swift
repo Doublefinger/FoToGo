@@ -9,23 +9,33 @@
 import UIKit
 import Firebase
 
-class OrderDetailViewController: UIViewController {
+class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var orderState: UILabel!
+    @IBOutlet weak var lastUpdate: UILabel!
     @IBOutlet weak var restName: UILabel!
     @IBOutlet weak var destName: UILabel!
     @IBOutlet weak var theOtherName: UILabel!
+    @IBOutlet weak var deliverBefore: UILabel!
+    @IBOutlet weak var deliverAfter: UILabel!
+    
     @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var orderState: UILabel!
     @IBOutlet weak var readyToGo: UIButton!
     @IBOutlet weak var arrived: UIButton!
     @IBOutlet weak var delivered: UIButton!
     @IBOutlet weak var distance: UIButton!
+    
     @IBOutlet weak var restImage: UIImageView!
     @IBOutlet weak var destImage: UIImageView!
     @IBOutlet weak var theOtherImage: UIImageView!
     
+    @IBOutlet weak var orderItemTable: UITableView!
+    
     var ref: FIRDatabaseReference!
-
+    var orderItems = [String]()
+    var orderQuantities = [Int]()
+    var estimateCost: String!
+    
     var detailItem: OrderInfo?  {
         didSet {
             self.configureView()
@@ -45,6 +55,14 @@ class OrderDetailViewController: UIViewController {
             if let label = self.orderState {
                 label.text = detail.state
             }
+            
+            if let label = self.deliverBefore {
+                label.text = "Deliver Before: " + Helper.displayDateInLocalInMins(detail.deliverBefore)
+            }
+            
+            if let label = self.deliverAfter {
+                label.text = "Deliver After: " + Helper.displayDateInLocalInMins(detail.deliverAfter)
+            }
 
 //            if detail.account == AppState.sharedInstance.uid {
 //                if let label = self.theOtherName {
@@ -60,9 +78,11 @@ class OrderDetailViewController: UIViewController {
             
             if let imageView = self.restImage {
                 imageView.image = detail.photo
-                imageView.layer.cornerRadius = imageView.frame.size.height/2
-                imageView.clipsToBounds = true
             }
+            
+            self.estimateCost = detail.estimateCost
+            self.orderItems = detail.orderItems
+            self.orderQuantities = detail.orderQuantities
         }
     }
     
@@ -89,6 +109,11 @@ class OrderDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.configureView()
     }
+    
+    override func viewDidLayoutSubviews() {
+        restImage.layer.cornerRadius = restImage.frame.size.height/2
+        restImage.clipsToBounds = true
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -96,6 +121,34 @@ class OrderDetailViewController: UIViewController {
     }
     
 
+    /*
+    // MARK: - TableView
+    */
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.orderItems.count + 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "orderItem", for: indexPath)
+        if indexPath.row < orderItems.count {
+            cell.textLabel?.text = orderItems[indexPath.row]
+            cell.textLabel?.font = UIFont(name: "Noteworthy", size: 17.0)
+            cell.detailTextLabel?.text = String(orderQuantities[indexPath.row])
+        } else {
+            cell.textLabel?.text = "Estimate Amount:"
+            cell.textLabel?.font = UIFont(name: "Noteworthy-Bold", size: 18.0)
+            cell.detailTextLabel?.text = estimateCost
+            cell.detailTextLabel?.font = UIFont(name: "Noteworthy-Bold", size: 18.0)
+        }
+        return cell
+    }
+    
+    @IBAction func callRestaurant(_ sender: Any) {
+    }
+    
+    @IBAction func callPerson(_ sender: Any) {
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -105,5 +158,4 @@ class OrderDetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }

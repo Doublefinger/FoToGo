@@ -106,7 +106,14 @@ class OrderTrackViewController: UITableViewController {
     }
     
     func buildTable(key: String, task: NSDictionary, photo: UIImage) {
-        let orderInfo = OrderInfo(id: key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, photo: photo, destinationName: task[Constants.OrderFields.destinationName] as! String, madeTime: task[Constants.OrderFields.madeTime] as! String)
+        let orderDetail = task[Constants.OrderFields.orderContent] as! NSDictionary
+        var orderItems = [String]()
+        var orderQuantities = [Int]()
+        for (item, count) in orderDetail {
+            orderItems.append(item as! String)
+            orderQuantities.append(count as! Int)
+        }
+        let orderInfo = OrderInfo(id: key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, photo: photo, destinationName: task[Constants.OrderFields.destinationName] as! String, lastUpdate: task[Constants.OrderFields.madeTime] as! String, deliverBefore: task[Constants.OrderFields.deliverBefore] as! String, deliverAfter: task[Constants.OrderFields.deliverAfter] as! String, orderItems: orderItems, orderQuantities: orderQuantities, estimateCost: task[Constants.OrderFields.estimateCost] as! String)
         self.orderInfos.append(orderInfo)
         self.orderTable.insertRows(at: [IndexPath(row: self.orderInfos.count-1, section: 0)], with: .automatic)
     }
@@ -147,7 +154,7 @@ class OrderTrackViewController: UITableViewController {
         let cell = self.orderTable.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderTableViewCell
         let orderInfo = self.orderInfos[indexPath.row]
         cell.textLabel!.text = orderInfo.restaurantName
-        let time = Helper.displayDateInLocal(orderInfo.madeTime)
+        let time = Helper.displayDateInLocal(orderInfo.lastUpdate)
         let index = time.index(time.startIndex, offsetBy: 5)
         cell.detailTextLabel!.text = time.substring(from: index)
         cell.imageView?.image = orderInfo.photo
