@@ -60,7 +60,7 @@ public class Manager{
         
         if hasImage {
             let imageData = UIImageJPEGRepresentation(userInfo.photo, 1.0)
-            let imagePath = AppState.sharedInstance.uid! + "_profile.jpg"
+            var imagePath = AppState.sharedInstance.uid! + "_profile.jpg"
             let metadata = FIRStorageMetadata()
             metadata.contentType = "image/jpeg"
             self.storageRef.child(imagePath).put(imageData!, metadata: metadata, completion: { (metadata, error) in
@@ -69,11 +69,12 @@ public class Manager{
                     viewController.finish()
                     return
                 }
-                changeRequest?.photoURL = URL(string: self.storageRef.child((metadata?.path)!).description)
-                self.commitChangeRequest(changeRequest!, userInfo: userInfo, newURL: true, viewController: viewController)
+                imagePath = self.storageRef.child((metadata?.path)!).description
+                changeRequest?.photoURL = URL(string: imagePath)
+                self.commitChangeRequest(changeRequest!, userInfo: userInfo, imagePath: imagePath, viewController: viewController)
             })
         } else {
-            self.commitChangeRequest(changeRequest!, userInfo: userInfo, newURL: false, viewController: viewController)
+            self.commitChangeRequest(changeRequest!, userInfo: userInfo, imagePath: "", viewController: viewController)
         }
     }
     
@@ -112,6 +113,7 @@ public class Manager{
         uData[Constants.UserFields.mobile] = userInfo.mobile
         uData[Constants.UserFields.year] = userInfo.major
         uData[Constants.UserFields.name] = userInfo.firstName
+        uData[Constants.UserFields.imagePath] = ""
         self.ref.child("users").child(id).setValue(uData) { (error, ref) in
             if let error = error {
                 viewController.message = error.localizedDescription
@@ -122,7 +124,7 @@ public class Manager{
         }
     }
     
-    private func commitChangeRequest(_ changeRequest: FIRUserProfileChangeRequest, userInfo: UserInfo, newURL: Bool, viewController: EditAccountViewController) {
+    private func commitChangeRequest(_ changeRequest: FIRUserProfileChangeRequest, userInfo: UserInfo, imagePath: String, viewController: EditAccountViewController) {
         changeRequest.commitChanges { (error) in
             if let error = error {
                 viewController.message = error.localizedDescription
@@ -130,26 +132,38 @@ public class Manager{
                 return
             }
             AppState.sharedInstance.displayName = changeRequest.displayName
-            if newURL {
+            if imagePath != "" {
                 AppState.sharedInstance.profileImage = userInfo.photo
             }
-            self.updateUserCustomTable(userInfo.mobile, userInfo.firstName, viewController: viewController)
+            self.updateUserCustomTable(userInfo.mobile, userInfo.firstName, imagePath, viewController: viewController)
         }
     }
 
-    private func updateUserCustomTable(_ mobile: String, _ name: String, viewController: EditAccountViewController) {
-        self.ref.child("users").child(AppState.sharedInstance.uid! + "/mobile").setValue(mobile) { (error, ref) in
+    private func updateUserCustomTable(_ mobile: String, _ name: String, _ imagePath: String, viewController: EditAccountViewController) {
+        let userRef = self.ref.child("users")
+        
+        userRef.child(AppState.sharedInstance.uid! + "/mobile").setValue(mobile) { (error, ref) in
             if let error = error {
                 viewController.message = error.localizedDescription
                 viewController.finish()
                 return
             }
             AppState.sharedInstance.mobile = mobile
-            self.ref.child("users").child(AppState.sharedInstance.uid! + "/name").setValue(name) { (error, ref) in
+            userRef.child(AppState.sharedInstance.uid! + "/name").setValue(name) { (error, ref) in
                 if let error = error {
                     viewController.message = error.localizedDescription
                     viewController.finish()
                     return
+                }
+                
+                if imagePath != "" {
+                    userRef.child(AppState.sharedInstance.uid! + "/imagePath").setValue(imagePath) { (error, ref) in
+                        if let error = error {
+                            viewController.message = error.localizedDescription
+                            viewController.finish()
+                            return
+                        }
+                    }
                 }
                 viewController.message = Constants.Messages.success
                 viewController.finish()
@@ -172,7 +186,6 @@ public class Manager{
     
     private func signedIn(_ user: FIRUser?, viewController: SignInViewController) {
         MeasurementHelper.sendLoginEvent()
-        
         AppState.sharedInstance.uid = user?.uid
         self.retrieveUserInfo()
         AppState.sharedInstance.displayName = user?.displayName

@@ -51,6 +51,27 @@ class MakeOrderViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = clearButton
         self.navigationItem.title = "Make Your Order"
         self.configureClearAlert()
+        self.displayCurrentLocation()
+    }
+    
+    func displayCurrentLocation() {
+        GMSPlacesClient.shared().currentPlace { (placeLikelihoodlist, error) in
+            if let error = error {
+                print("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            if let placeLikelihoodList = placeLikelihoodlist {
+                let place = placeLikelihoodList.likelihoods[0].place
+                self.markerB.map = nil
+                self.markerB = GMSMarker(position: place.coordinate)
+                self.markerB.title = place.name
+                self.markerB.map = self.mapView
+                self.markerB.icon = UIImage(named: "FF-30")
+                self.end.text = "Current Location"
+                self.placeB = place
+                self.mapView.camera = GMSCameraPosition.camera(withLatitude: place.coordinate.latitude, longitude: place.coordinate.longitude, zoom: 15)
+            }
+        }
     }
     
     func configureClearAlert() {
@@ -144,6 +165,7 @@ class MakeOrderViewController: UIViewController {
         postTaskAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
             postTaskAlert.dismiss(animated: true, completion: nil)
         }))
+        
         self.present(postTaskAlert, animated: true, completion: nil)
     }
     
@@ -165,6 +187,7 @@ class MakeOrderViewController: UIViewController {
         self.orderDetailTableView.reloadData()
         placeA = nil
         placeB = nil
+        self.displayCurrentLocation()
     }
     
     func sendTask(start: String, end: String) {
@@ -174,6 +197,10 @@ class MakeOrderViewController: UIViewController {
         tData[Constants.OrderFields.pickedBy] = ""
         tData[Constants.OrderFields.restaurantName] = start
         tData[Constants.OrderFields.destinationName] = end
+        tData[Constants.OrderFields.restaurantLatitude] = placeA.coordinate.latitude
+        tData[Constants.OrderFields.restaurantLongitude] = placeA.coordinate.longitude
+        tData[Constants.OrderFields.destinationLatitude] = placeB.coordinate.latitude
+        tData[Constants.OrderFields.destinationLongitude] = placeB.coordinate.longitude
         tData[Constants.OrderFields.state] = Constants.OrderStates.wait
         tData[Constants.OrderFields.madeTime] = Helper.convertDate(Date())
         tData[Constants.OrderFields.restaurantId] = placeA.placeID
@@ -230,16 +257,16 @@ class MakeOrderViewController: UIViewController {
 extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         if viewController == startAutocompleteController {
+            markerA.map = nil
             self.start.text = place.name
-            markerA = GMSMarker()
-            markerA.position = place.coordinate
+            markerA = GMSMarker(position: place.coordinate)
             markerA.title = place.name
             markerA.icon = UIImage(named: "Restaurant Pickup-30")
             markerA.map = mapView
             placeA = place
         } else {
-            markerB = GMSMarker()
-            markerB.position = place.coordinate
+            markerB.map = nil
+            markerB = GMSMarker(position: place.coordinate)
             markerB.title = place.name
             markerB.map = mapView
             markerB.icon = UIImage(named: "FF-30")
@@ -272,6 +299,15 @@ extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
     }
     
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        if viewController == startAutocompleteController {
+            markerA = nil
+            self.start.text = ""
+            placeA = nil
+        } else {
+            markerB = nil
+            self.end.text = ""
+            placeB = nil
+        }
         self.dismiss(animated: true, completion: nil)
     }
     

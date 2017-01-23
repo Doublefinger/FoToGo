@@ -32,7 +32,12 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet weak var orderItemTable: UITableView!
     
-    var ref: FIRDatabaseReference!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var personView: UIView!
+    @IBOutlet weak var placeInfoHeightConstraint: NSLayoutConstraint!
+    
+    var ref: FIRDatabaseReference = FIRDatabase.database().reference()
+
     var restPhone, personalPhone: String!
     
     var detailItem: OrderInfo?  {
@@ -43,7 +48,15 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     func configureView() {
         if let detail = self.detailItem {
-            loadPlaceInfo(detail.restId, detail.destId)
+            loadPlaces(detail.restId, detail.destId)
+            if detail.pickedBy != "" {
+                if detail.account == AppState.sharedInstance.uid {
+                    self.loadPerson(detail.pickedBy)
+                } else {
+                    self.loadPerson(detail.account)
+                }
+            }
+            
             if let label = self.restName {
                 label.text = detail.restaurantName
             }
@@ -82,30 +95,93 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func loadPlaceInfo(_ restId: String, _ destId: String){
+    func loadPerson(_ uid: String) {
+        self.ref.child("users").queryOrderedByKey().queryEqual(toValue: uid).observeSingleEvent(of: .childAdded, with: { (snapshot) in
+            let userData = snapshot.value as! NSDictionary
+            self.personalPhone = userData["mobile"] as? String
+            if let label = self.theOtherName {
+                label.text = userData["name"] as? String
+            }
+            let url = userData["imagePath"] as? String
+            if url != "" {
+                self.loadPersonImage(url!)
+            }
+        })
+    }
+    
+    func loadPersonImage(_ url: String) {
+        FIRStorage.storage().reference(forURL: url).data(withMaxSize: INT64_MAX, completion: { (data, error) in
+            if error == nil {
+                self.theOtherImage.image = UIImage(data: data!)
+            }
+        })
+    }
+    
+//    func loadRestaurantOnly(_ restId: String) {
+//        GMSPlacesClient.shared().lookUpPlaceID(restId) { (place, error) in
+//            if let error = error {
+//                print("lookup place id query error: \(error.localizedDescription)")
+//                return
+//            }
+//            if let placeA = place {
+//                self.restPhone = placeA.phoneNumber
+//            } else {
+//                print("No place details for \(restId)")
+//            }
+//        }
+//    }
+    
+    func loadPlaces(_ restId: String, _ destId: String){
         GMSPlacesClient.shared().lookUpPlaceID(restId) { (place, error) in
             if let error = error {
                 print("lookup place id query error: \(error.localizedDescription)")
                 return
             }
-            if let place = place {
-                self.restPhone = place.phoneNumber
+            if let placeA = place {
+                self.restPhone = placeA.phoneNumber
+                GMSPlacesClient.shared().lookUpPlaceID(destId) { (place, error) in
+                    if let error = error {
+                        print("lookup place id query error: \(error.localizedDescription)")
+                        return
+                    }
+                    if let placeB = place {
+                        let locationA = CLLocation(latitude: placeA.coordinate.latitude, longitude: placeA.coordinate.longitude)
+                        let locationB = CLLocation(latitude: placeB.coordinate.latitude, longitude: placeB.coordinate.longitude)
+                        if let distance = self.distance {
+                            distance.setTitle(String(format: "%.2f", locationA.distance(from: locationB) * 0.000621371) + " miles to restaurant", for: .normal)
+                        }
+                    } else {
+                        print("No place details for \(destId)")
+                    }
+                }
             } else {
                 print("No place details for \(restId)")
             }
         }
         
-        GMSPlacesClient.shared().lookUpPlaceID(destId) { (place, error) in
+        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: destId) { (photos, error) -> Void in
             if let error = error {
-                print("lookup place id query error: \(error.localizedDescription)")
-                return
-            }
-            if let place = place {
-                self.restPhone = place.phoneNumber
+                // TODO: handle the error.
+                print("Error: \(error.localizedDescription)")
             } else {
-                print("No place details for \(restId)")
+                guard let firstPhoto = photos?.results.first else {
+                    return
+                }
+                self.loadImageForMetadata(photoMetadata: firstPhoto)
             }
         }
+    }
+    
+    func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
+        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
+            (photo, error) -> Void in
+            if let error = error {
+                // TODO: handle the error.
+                print("Error: \(error.localizedDescription)")
+            } else {
+                self.destImage.image = photo
+            }
+        })
     }
     
     func configureDatabase(queryId: String) {
@@ -123,18 +199,29 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
 //                strongSelf.requestedBy.text = strongSelf.requestedBy.text! + (user[Constants.UserFields.name] as! String)
 //            }
 //        })
-
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.configureView()
+        guard let detail = detailItem else {
+            return
+        }
+        
+        if detail.pickedBy == "" {
+            personView.isHidden = true
+            let constraint = self.placeInfoHeightConstraint.constraintWithMultiplier(multiplier: 0.375)
+            self.contentView.removeConstraint(self.placeInfoHeightConstraint)
+            self.contentView.addConstraint(constraint)
+            self.contentView.setNeedsLayout()
+        }
     }
     
-    override func viewDidLayoutSubviews() {
+    override func viewWillLayoutSubviews() {
         restImage.layer.cornerRadius = restImage.frame.size.height/2
-        restImage.clipsToBounds = true
+        theOtherImage.layer.cornerRadius = theOtherImage.frame.size.height/2
+        destImage.layer.cornerRadius = destImage.frame.size.height/2
     }
 
     override func didReceiveMemoryWarning() {
@@ -142,7 +229,6 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - TableView
     */
@@ -200,4 +286,10 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
         // Pass the selected object to the new view controller.
     }
     */
+}
+
+extension NSLayoutConstraint {
+    func constraintWithMultiplier(multiplier: CGFloat) -> NSLayoutConstraint {
+        return NSLayoutConstraint(item: self.firstItem, attribute: self.firstAttribute, relatedBy: self.relation, toItem: self.secondItem, attribute: self.secondAttribute, multiplier: multiplier, constant: self.constant)
+    }
 }

@@ -56,7 +56,6 @@
 		FEB732691DDC2E6D00720326 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB732681DDC2E6D00720326 /* Constants.swift */; };
 		FEB9EA1A1E0AFC7F00B876BA /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB9EA191E0AFC7F00B876BA /* MenuViewController.swift */; };
 		FEE7ED151E24564600ADC96E /* OrderDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE7ED141E24564600ADC96E /* OrderDetailCell.swift */; };
-		FEF106961E22E3E0003F8466 /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF106951E22E3E0003F8466 /* AutoCompleteTextField.swift */; };
 		FEF7E1711DF290AA004985BE /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */; };
 		FEF7E1731DF2938C004985BE /* OrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF7E1721DF2938C004985BE /* OrderInfo.swift */; };
 /* End PBXBuildFile section */
@@ -140,7 +139,6 @@
 		FEB732681DDC2E6D00720326 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FEB9EA191E0AFC7F00B876BA /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		FEE7ED141E24564600ADC96E /* OrderDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailCell.swift; sourceTree = "<group>"; };
-		FEF106951E22E3E0003F8466 /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
 		FEF7E1701DF290AA004985BE /* OrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 		FEF7E1721DF2938C004985BE /* OrderInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -284,7 +282,6 @@
 		FEA68B5F1E11CD0300483FA0 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				FEF106951E22E3E0003F8466 /* AutoCompleteTextField.swift */,
 				FEB732621DDC030D00720326 /* Manager.swift */,
 				FEF7E1721DF2938C004985BE /* OrderInfo.swift */,
 				FEB732681DDC2E6D00720326 /* Constants.swift */,
@@ -329,8 +326,8 @@
 			isa = PBXGroup;
 			children = (
 				FE10357F1DE0BCDA0053066D /* SignInViewController.swift */,
-				FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */,
 				FE3ECB141DD054A500084144 /* PersonalInfoViewController.swift */,
+				FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */,
 				FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */,
 				FE1035811DE0D0AF0053066D /* ResetPasswordViewController.swift */,
 				FE2545171E1EDF11003CB7D9 /* NavigationViewController.swift */,
@@ -630,7 +627,6 @@
 				FE5C1B391E2BFB4500F4070F /* FoodItemTableViewCell.swift in Sources */,
 				FE1035801DE0BCDA0053066D /* SignInViewController.swift in Sources */,
 				FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */,
-				FEF106961E22E3E0003F8466 /* AutoCompleteTextField.swift in Sources */,
 				FEB63A811DF7C36B000ECA94 /* TabBarViewController.swift in Sources */,
 				FE25805B1E283710006415BA /* Food.swift in Sources */,
 				FE4EE7841DD02E4A0085468E /* StartViewController.swift in Sources */,

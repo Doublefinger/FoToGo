@@ -22,6 +22,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         GMSServices.provideAPIKey("AIzaSyBbKOd2jQ3MElrkKV0poAIAVABayzG1Y2M")
         GMSPlacesClient.provideAPIKey("AIzaSyBbKOd2jQ3MElrkKV0poAIAVABayzG1Y2M")
+        if FIRAuth.auth()?.currentUser != nil {
+            let user = FIRAuth.auth()?.currentUser
+            AppState.sharedInstance.uid = user?.uid
+            Manager.sharedInstance.retrieveUserInfo()
+            AppState.sharedInstance.displayName = user?.displayName
+            AppState.sharedInstance.email = user?.email
+            AppState.sharedInstance.signedIn = true
+            if let url = user?.photoURL {
+                FIRStorage.storage().reference(forURL: url.absoluteString).data(withMaxSize: INT64_MAX, completion: { (data, error) in
+                    if error != nil {
+                        AppState.sharedInstance.profileImage = UIImage(named: "user_default")
+                    } else {
+                        AppState.sharedInstance.profileImage = UIImage(data: data!)
+                    }
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyboard.instantiateViewController(withIdentifier: "mainPage")
+                    //self.present(viewController!, animated: true, completion: nil)
+                    self.window?.rootViewController = viewController
+                })
+            }
+        }
+
+        
         return true
     }
 

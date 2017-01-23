@@ -38,6 +38,7 @@ struct Constants {
         static let mobile = "mobile"
         static let year = "year"
         static let name = "name"
+        static let imagePath = "imagePath"
     }
     
     struct OrderFields {

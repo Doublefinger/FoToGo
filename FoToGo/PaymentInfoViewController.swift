@@ -27,28 +27,24 @@ class PaymentInfoViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toEmailCheck" {
-            let controller = segue.destination as! FinishRegistrationViewController
-            controller.emailAddress = userInfo.email
-        }
+        let controller = segue.destination as! FinishRegistrationViewController
+        controller.emailAddress = userInfo.email
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "toEmailCheck" {
-            if message == Constants.Messages.success {
-                return true
-            }
-            self.showAlert()
-            Manager.sharedInstance.register(userInfo: userInfo, viewController: self)
-            return false
+        if message == Constants.Messages.success {
+            return true
         }
-        return true
+        self.showAlert()
+        Manager.sharedInstance.register(userInfo: userInfo, viewController: self)
+        return false
+        
     }
     
     func finish(){
         if message == Constants.Messages.success {
             self.responseAlert.dismiss(animated: true, completion: {
-                self.performSegue(withIdentifier: "toEmailCheck", sender: self)
+                self.performSegue(withIdentifier: "ToEmailCheck", sender: self)
             })
         } else {
             //show warning

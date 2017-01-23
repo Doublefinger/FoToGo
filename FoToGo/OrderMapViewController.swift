@@ -27,17 +27,27 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            locationManager.requestWhenInUseAuthorization()
-//            locationManager.requestAlwaysAuthorization()
             getLocationUpdate()
         }
-        
         configureDatabase()
         configureAlert()
         prevRestMarker = nil
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let status = CLLocationManager.authorizationStatus()
+        if status == .denied {
+            DispatchQueue.main.async(execute: {
+                let alert = UIAlertController(title: "Warning!", message: "GPS access is restricted. To view the order map, please enable GPS in the Settigs app under Privacy, Location Services.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Go to settings now", style: .default, handler: { (alert: UIAlertAction!) in
+                    UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, completionHandler: nil)
+                }))
+                self.present(alert, animated: true, completion: nil)
+            })
+        }
     }
     
     override func didReceiveMemoryWarning() {
