@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 import UIKit
 
 class AppState: NSObject {
@@ -21,6 +22,7 @@ class AppState: NSObject {
     var displayName: String?
     var profileImage: UIImage?
     var uncheckedOrders: [String]?
+    var inProcessOrders = [FIRDataSnapshot]()
     
     func clear(){
         signedIn = false
@@ -31,5 +33,6 @@ class AppState: NSObject {
         displayName = nil
         profileImage = nil
         uncheckedOrders = nil
+        inProcessOrders = [FIRDataSnapshot]()
     }
 }

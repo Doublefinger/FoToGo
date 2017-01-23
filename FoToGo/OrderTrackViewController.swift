@@ -15,9 +15,6 @@ class OrderTrackViewController: UITableViewController {
     @IBOutlet var orderTable: UITableView!
     
     var detailViewController: OrderDetailViewController!
-    var ref: FIRDatabaseReference!
-    var trackOrderMadeBy, trackOrderPickedBy: FIRDatabaseQuery!
-    fileprivate var _refTrackOrderMadeHandle, _refTrackOrderPickedHandle: FIRDatabaseHandle!
 
     var orderInfos = [OrderInfo] ()
 //    var taskSnapshots = [FIRDataSnapshot] ()
@@ -26,8 +23,7 @@ class OrderTrackViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(OrderTrackViewController.removeTask(_:)), name: Notification.Name(rawValue: Constants.NotificationKeys.PickOrder), object: nil)
-
-        configureDatabase()
+        configureTableView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -47,33 +43,11 @@ class OrderTrackViewController: UITableViewController {
 //        self.orderInfos.append(orderInfo)
     }
     
-    func configureDatabase() {
-        self.ref = FIRDatabase.database().reference()
-        //personal orders
-        self.trackOrderMadeBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.account).queryEqual(toValue: AppState.sharedInstance.uid)
-        _refTrackOrderMadeHandle = self.trackOrderMadeBy.observe(.childAdded, with: { [weak self] (snapshot) -> Void in
-            guard let strongSelf = self else { return }
+    func configureTableView() {
+        for snapshot in AppState.sharedInstance.inProcessOrders {
             let task = snapshot.value as! NSDictionary
-            let state = task[Constants.OrderFields.state] as! String
-            if state != Constants.OrderStates.complete {
-                strongSelf.loadTable(placeID: task[Constants.OrderFields.restaurantId] as! String, key: snapshot.key, task: task)
-                let checked = task[Constants.OrderFields.checked] as! String
-                if state == Constants.OrderStates.pick && checked == "no" {
-                    AppState.sharedInstance.uncheckedOrders?.append(snapshot.key)
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.IncreaseBadge), object: nil)
-                }
-            }
-        })
-        
-        self.trackOrderPickedBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.pickedBy).queryEqual(toValue: AppState.sharedInstance.uid)
-        _refTrackOrderPickedHandle = self.trackOrderPickedBy.observe(.childAdded, with: { [weak self] (snapshot) -> Void in
-            guard let strongSelf = self else { return }
-            let task = snapshot.value as! NSDictionary
-            let state = task[Constants.OrderFields.state] as! String
-            if state == Constants.OrderStates.pick {
-                strongSelf.loadTable(placeID: task[Constants.OrderFields.restaurantId] as! String, key: snapshot.key, task: task)
-            }
-        })
+            self.loadTable(placeID: task[Constants.OrderFields.restaurantId] as! String, key: snapshot.key, task: task)
+        }
     }
     
     func loadTable(placeID: String, key: String, task: NSDictionary) {
@@ -81,10 +55,10 @@ class OrderTrackViewController: UITableViewController {
             if let error = error {
                 // TODO: handle the error.
                 print("Error: \(error.localizedDescription)")
-                self.buildTable(key: key, task: task, photo: UIImage(named: "NoImage Icons-70")!)
+                self.buildTable(key: key, task: task, photo: UIImage(named: "Building Filled-70")!)
             } else {
                 guard let firstPhoto = photos?.results.first else {
-                    self.buildTable(key: key, task: task, photo: UIImage(named: "NoImage Icons-70")!)
+                    self.buildTable(key: key, task: task, photo: UIImage(named: "Building Filled-70")!)
                     return
                 }
                 self.loadImageForMetadata(photoMetadata: firstPhoto, key: key, task: task)
@@ -98,7 +72,7 @@ class OrderTrackViewController: UITableViewController {
             if let error = error {
                 // TODO: handle the error.
                 print("Error: \(error.localizedDescription)")
-                self.buildTable(key: key, task: task, photo: UIImage(named: "NoImage Icons-70")!)
+                self.buildTable(key: key, task: task, photo: UIImage(named: "Building Filled-70")!)
             } else {
                 self.buildTable(key: key, task: task, photo: photo!)
 //                self.attributionTextView.attributedText = photoMetadata.attributions;
@@ -134,19 +108,6 @@ class OrderTrackViewController: UITableViewController {
 //        }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            if let indexPath = self.orderTable.indexPathForSelectedRow {
-                let orderInfo = self.orderInfos[indexPath.row]
-                let controller = (segue.destination as! OrderDetailViewController)
-                controller.detailItem = orderInfo
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
-                controller.navigationItem.title = orderInfo.restaurantName + " - " + orderInfo.destinationName
-            }
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.orderInfos.count
     }
@@ -165,12 +126,17 @@ class OrderTrackViewController: UITableViewController {
 
     /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
     */
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            if let indexPath = self.orderTable.indexPathForSelectedRow {
+                let orderInfo = self.orderInfos[indexPath.row]
+                let controller = (segue.destination as! OrderDetailViewController)
+                controller.detailItem = orderInfo
+                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+                controller.navigationItem.leftItemsSupplementBackButton = true
+                controller.navigationItem.title = orderInfo.restaurantName + " - " + orderInfo.destinationName
+            }
+        }
+    }
 }

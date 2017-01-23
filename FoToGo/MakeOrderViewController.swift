@@ -62,7 +62,9 @@ class MakeOrderViewController: UIViewController {
             }
             if let placeLikelihoodList = placeLikelihoodlist {
                 let place = placeLikelihoodList.likelihoods[0].place
-                self.markerB.map = nil
+                if self.markerB != nil {
+                    self.markerB.map = nil
+                }
                 self.markerB = GMSMarker(position: place.coordinate)
                 self.markerB.title = place.name
                 self.markerB.map = self.mapView
@@ -159,7 +161,7 @@ class MakeOrderViewController: UIViewController {
         //generate task info
         let postTaskAlert = UIAlertController(title: "Confirmation", message: startText + " - " + endText, preferredStyle: .alert)
         postTaskAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
-            self.sendTask(start: startText, end: endText)
+            self.sendTask()
         }))
         
         postTaskAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
@@ -190,13 +192,13 @@ class MakeOrderViewController: UIViewController {
         self.displayCurrentLocation()
     }
     
-    func sendTask(start: String, end: String) {
+    func sendTask() {
         self.tabBarController?.selectedIndex = 0
         var tData = [String: Any]()
         tData[Constants.OrderFields.account] = AppState.sharedInstance.uid
         tData[Constants.OrderFields.pickedBy] = ""
-        tData[Constants.OrderFields.restaurantName] = start
-        tData[Constants.OrderFields.destinationName] = end
+        tData[Constants.OrderFields.restaurantName] = placeA.name
+        tData[Constants.OrderFields.destinationName] = placeB.name
         tData[Constants.OrderFields.restaurantLatitude] = placeA.coordinate.latitude
         tData[Constants.OrderFields.restaurantLongitude] = placeA.coordinate.longitude
         tData[Constants.OrderFields.destinationLatitude] = placeB.coordinate.latitude
@@ -257,7 +259,9 @@ class MakeOrderViewController: UIViewController {
 extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         if viewController == startAutocompleteController {
-            markerA.map = nil
+            if self.markerA != nil {
+                self.markerA.map = nil
+            }
             self.start.text = place.name
             markerA = GMSMarker(position: place.coordinate)
             markerA.title = place.name
@@ -265,7 +269,9 @@ extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
             markerA.map = mapView
             placeA = place
         } else {
-            markerB.map = nil
+            if self.markerB != nil {
+                self.markerB.map = nil
+            }
             markerB = GMSMarker(position: place.coordinate)
             markerB.title = place.name
             markerB.map = mapView
@@ -300,10 +306,16 @@ extension MakeOrderViewController: GMSAutocompleteViewControllerDelegate {
     
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         if viewController == startAutocompleteController {
+            if markerA != nil {
+                markerA.map = nil
+            }
             markerA = nil
             self.start.text = ""
             placeA = nil
         } else {
+            if markerB != nil {
+                markerB.map = nil
+            }
             markerB = nil
             self.end.text = ""
             placeB = nil

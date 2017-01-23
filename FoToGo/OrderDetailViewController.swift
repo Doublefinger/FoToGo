@@ -20,7 +20,6 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var deliverBefore: UILabel!
     @IBOutlet weak var deliverAfter: UILabel!
     
-    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var readyToGo: UIButton!
     @IBOutlet weak var arrived: UIButton!
     @IBOutlet weak var delivered: UIButton!
@@ -76,18 +75,6 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
             if let label = self.deliverAfter {
                 label.text = "Deliver After: " + Helper.displayDateInLocalInMins(detail.deliverAfter)
             }
-
-//            if detail.account == AppState.sharedInstance.uid {
-//                if let label = self.theOtherName {
-//                    label.text = AppState.sharedInstance.displayName!
-//                    self.configureDatabase(queryId: detail.pickedBy);
-//                }
-//            } else {
-//                if let label = self.theOtherName {
-//                    label.text = label.text! + " " + AppState.sharedInstance.displayName!
-//                    self.configureDatabase(queryId: detail.account);
-//                }
-//            }
             
             if let imageView = self.restImage {
                 imageView.image = detail.photo
@@ -184,21 +171,20 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
         })
     }
     
-    func configureDatabase(queryId: String) {
-        self.ref = FIRDatabase.database().reference()
+    @IBAction func dropOrder(_ sender: Any) {
         
-//        self.ref.child("users").queryOrderedByKey().queryEqual(toValue: queryId).observeSingleEvent(of: .childAdded, with: {[weak self] (snapshot) -> Void in
-//            guard let strongSelf = self else {
-//                return
-//            }
-//            let user = snapshot.value as! NSDictionary
-//            strongSelf.mobile.text = strongSelf.mobile.text! + (user[Constants.UserFields.mobile] as! String)
-//            if strongSelf.detailItem?.account == AppState.sharedInstance.uid {
-//                strongSelf.pickedBy.text = strongSelf.pickedBy.text! + (user[Constants.UserFields.name] as! String)
-//            } else {
-//                strongSelf.requestedBy.text = strongSelf.requestedBy.text! + (user[Constants.UserFields.name] as! String)
-//            }
-//        })
+    }
+
+    @IBAction func readyToDeliver(_ sender: Any) {
+        
+    }
+    
+    @IBAction func arrive(_ sender: Any) {
+        
+    }
+
+    @IBAction func completeOrder(_ sender: Any) {
+        
     }
     
     override func viewDidLoad() {
@@ -276,16 +262,6 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
 
 extension NSLayoutConstraint {

@@ -131,13 +131,6 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
         } else {
             Helper.removeErrorIndicator(textField: lastName)
         }
-        
-//        if !Helper.isValidSchoolEmail(text: email.text!) {
-//            valid = false
-//            Helper.showErrorIndicator(textField: email)
-//        } else {
-//            Helper.removeErrorIndicator(textField: email)
-//        }
 
         var mobileText = mobile.text!
 
