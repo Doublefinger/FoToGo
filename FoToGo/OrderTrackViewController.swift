@@ -61,15 +61,8 @@ class OrderTrackViewController: UITableViewController {
         })
         
         self.trackOrderMadeBy.observe(.childChanged, with: { [weak self] (snapshot) -> Void in
-            print("change1 detected")
-            print(snapshot)
-//            guard let strongSelf = self else { return }
-//            let task = snapshot.value as! NSDictionary
-//            strongSelf.loadTable(placeID: task[Constants.OrderFields.restaurantId] as! String, key: snapshot.key, task: task)
-//            let checked = task[Constants.OrderFields.checked] as! String
-//            if checked == "no" {
-//                AppState.sharedInstance.uncheckedOrders?.append(snapshot.key)
-//            }
+            guard let strongSelf = self else { return }
+            strongSelf.updateOrderInfo(snapshot)
         })
         
         self.trackOrderPickedBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.pickedBy).queryEqual(toValue: AppState.sharedInstance.uid)
@@ -80,17 +73,20 @@ class OrderTrackViewController: UITableViewController {
         
         self.trackOrderPickedBy.observe(.childChanged, with: { [weak self] (snapshot) -> Void in
             guard let strongSelf = self else { return }
-            let task = snapshot.value as! NSDictionary
-            for index in 0...strongSelf.orderInfos.count-1 {
-                if strongSelf.orderInfos[index].id == snapshot.key {
-                    strongSelf.orderInfos[index].paidAmount = task[Constants.OrderFields.paidAmount] as! String
-                    strongSelf.orderInfos[index].state = task[Constants.OrderFields.state] as! Int
-                    strongSelf.tableView.reloadData()
-                    break
-                }
-            }
+            strongSelf.updateOrderInfo(snapshot)
         })
-
+    }
+    
+    func updateOrderInfo(_ snapshot: FIRDataSnapshot) {
+        let task = snapshot.value as! NSDictionary
+        for index in 0...self.orderInfos.count-1 {
+            if self.orderInfos[index].id == snapshot.key {
+                self.orderInfos[index].paidAmount = task[Constants.OrderFields.paidAmount] as! String
+                self.orderInfos[index].state = task[Constants.OrderFields.state] as! Int
+                self.tableView.reloadData()
+                break
+            }
+        }
     }
     
     func loadTable(placeID: String, key: String, task: NSDictionary) {
