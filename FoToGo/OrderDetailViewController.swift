@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import GooglePlaces
 
-class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var orderState: UILabel!
     @IBOutlet weak var lastUpdate: UILabel!
@@ -38,6 +38,9 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var ref: FIRDatabaseReference = FIRDatabase.database().reference()
 
     var restPhone, personalPhone: String!
+    var paidAmount: String!
+    var inputAmountAlert, arrivedAlert: UIAlertController!
+    var taskId: String!
     
     var detailItem: OrderInfo?  {
         didSet {
@@ -47,13 +50,29 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     func configureView() {
         if let detail = self.detailItem {
+            taskId = detail.id
+            paidAmount = detail.paidAmount
+            if paidAmount != "" {
+                self.switchToUploadButton()
+            }
+            
+            if detail.state >= Constants.OrderStates.arrived {
+                if let button = self.arrived {
+                    button.isHidden = true
+                }
+            }
+            
             loadPlaces(detail.restId, detail.destId)
             if detail.pickedBy != "" {
                 if detail.account == AppState.sharedInstance.uid {
+                    self.hideButtons()
                     self.loadPerson(detail.pickedBy)
                 } else {
+                    self.configuareAlert()
                     self.loadPerson(detail.account)
                 }
+            } else {
+                self.hideButtons()
             }
             
             if let label = self.restName {
@@ -65,7 +84,7 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
             }
 
             if let label = self.orderState {
-                label.text = detail.state
+                label.text = Helper.displayState(detail.state)
             }
             
             if let label = self.deliverBefore {
@@ -79,6 +98,16 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
             if let imageView = self.restImage {
                 imageView.image = detail.photo
             }
+        }
+    }
+    
+    func hideButtons() {
+        if let button = self.readyToGo {
+            button.isHidden = true
+        }
+        
+        if let button = self.arrived {
+            button.isHidden = true
         }
     }
     
@@ -103,20 +132,6 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
             }
         })
     }
-    
-//    func loadRestaurantOnly(_ restId: String) {
-//        GMSPlacesClient.shared().lookUpPlaceID(restId) { (place, error) in
-//            if let error = error {
-//                print("lookup place id query error: \(error.localizedDescription)")
-//                return
-//            }
-//            if let placeA = place {
-//                self.restPhone = placeA.phoneNumber
-//            } else {
-//                print("No place details for \(restId)")
-//            }
-//        }
-//    }
     
     func loadPlaces(_ restId: String, _ destId: String){
         GMSPlacesClient.shared().lookUpPlaceID(restId) { (place, error) in
@@ -171,20 +186,57 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
         })
     }
     
+    func call(_ phoneNumber: String) {
+        let phone = String(phoneNumber.characters.filter{String($0).rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil })
+        let url = URL(string: "telprompt://" + phone)
+        if UIApplication.shared.canOpenURL(url!) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url!, completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+                UIApplication.shared.openURL(url!)
+            }
+        }
+    }
+    
+    func switchToUploadButton() {
+        if let button = self.readyToGo {
+            button.setImage(UIImage(named: "Screenshot Filled-30"), for: .normal)
+        }
+    }
+    
+    @IBAction func callRestaurant(_ sender: Any) {
+        if let phoneNumber = restPhone {
+            call(phoneNumber)
+        }
+    }
+    
+    @IBAction func callPerson(_ sender: Any) {
+        if let phoneNumber = personalPhone {
+            call(phoneNumber)
+        }
+    }
+    
     @IBAction func dropOrder(_ sender: Any) {
         
     }
 
     @IBAction func readyToDeliver(_ sender: Any) {
-        
+        //input amount of the food
+        self.present(inputAmountAlert, animated: true, completion: nil)
     }
     
     @IBAction func arrive(_ sender: Any) {
-        
+        self.present(arrivedAlert, animated: true, completion: nil)
     }
 
     @IBAction func completeOrder(_ sender: Any) {
-        
+        if let detail = detailItem {
+            if detail.account == AppState.sharedInstance.uid {
+                //person who will pay want to complete the order
+                
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -215,6 +267,48 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
+    func configuareAlert() {
+        inputAmountAlert = UIAlertController(title: "Ready To Go?", message: "Input the amount you paid", preferredStyle: .alert)
+        inputAmountAlert.addTextField { (textfield) in
+            textfield.delegate = self
+            textfield.placeholder = "$"
+        }
+        inputAmountAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+            let textfield = self.inputAmountAlert.textFields![0]
+            if textfield.text != "" {
+                self.paidAmount = textfield.text
+                self.orderState.text = "Delivering"
+                self.updateOrder(Constants.OrderFields.paidAmount, self.paidAmount)
+                self.updateOrder(Constants.OrderFields.state, Constants.OrderStates.delivering)
+                self.orderItemTable.reloadData()
+                self.switchToUploadButton()
+            }
+        }))
+        
+        inputAmountAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
+            self.inputAmountAlert.dismiss(animated: true, completion: nil)
+        }))
+        
+        arrivedAlert = UIAlertController(title: "You arrived?", message: "Click yes to let the person know you have arrived", preferredStyle: .alert)
+        arrivedAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+            self.orderState.text = "Arrived"
+            self.updateOrder(Constants.OrderFields.state, Constants.OrderStates.arrived)
+            if let button = self.arrived {
+                button.isHidden = true
+            }
+        }))
+        
+        arrivedAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
+            self.arrivedAlert.dismiss(animated: true, completion: nil)
+        }))
+
+    }
+    
+    func updateOrder(_ key: String, _ value: Any) {
+        let path = "tasks/" + taskId + "/"
+        self.ref.child(path + key).setValue(value)
+    }
+    
     /*
     // MARK: - TableView
     */
@@ -230,37 +324,17 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
             cell.detailTextLabel?.text = String((detailItem?.orderQuantities[indexPath.row])!)
         } else {
             let font = UIFont(name: "Noteworthy-Bold", size: 18.0)
-            cell.textLabel?.text = "Estimate Amount:"
             cell.textLabel?.font = font
-            cell.detailTextLabel?.text = detailItem?.estimateCost
             cell.detailTextLabel?.font = font
-        }
-        return cell
-    }
-    
-    @IBAction func callRestaurant(_ sender: Any) {
-        if let phoneNumber = restPhone {
-            call(phoneNumber)
-        }
-    }
-    
-    @IBAction func callPerson(_ sender: Any) {
-        if let phoneNumber = personalPhone {
-            call(phoneNumber)
-        }
-    }
-    
-    func call(_ phoneNumber: String) {
-        let phone = String(phoneNumber.characters.filter{String($0).rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil })
-        let url = URL(string: "telprompt://" + phone)
-        if UIApplication.shared.canOpenURL(url!) {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url!, completionHandler: nil)
+            if self.paidAmount != "" {
+                cell.textLabel?.text = "Paid Amount"
+                cell.detailTextLabel?.text = paidAmount
             } else {
-                // Fallback on earlier versions
-                UIApplication.shared.openURL(url!)
+                cell.textLabel?.text = "Estimate Amount:"
+                cell.detailTextLabel?.text = detailItem?.estimateCost
             }
         }
+        return cell
     }
 }
 

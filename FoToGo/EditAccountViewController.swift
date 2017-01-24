@@ -152,9 +152,7 @@ class EditAccountViewController: UIViewController, UITextFieldDelegate, UIImageP
             && mobileText == AppState.sharedInstance.mobile && !photoChanged{
             return
         }
-        
-        print("ready")
-        
+                
         var userInfo = UserInfo(firstName: firstName.text!, lastName: lastName.text!, mobile: mobileText)
         if photoChanged {
             userInfo.photo = userProfileImage.image!

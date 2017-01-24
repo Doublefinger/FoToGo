@@ -219,6 +219,7 @@ class MakeOrderViewController: UIViewController {
         tData[Constants.OrderFields.deliverAfter] = Helper.convertDate(deliverAfterTime)
         tData[Constants.OrderFields.deliverBefore] = Helper.convertDate(deliverBeforeTime!)
         tData[Constants.OrderFields.estimateCost] = estimateCost
+        tData[Constants.OrderFields.paidAmount] = ""
         
         self.ref.child("tasks").childByAutoId().setValue(tData, withCompletionBlock: { (error, ref) -> Void in
             self.clear()

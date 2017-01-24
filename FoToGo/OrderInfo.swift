@@ -13,7 +13,7 @@ struct OrderInfo {
     var id = ""
     var account = ""
     var pickedBy = ""
-    var state = ""
+    var state: Int
     var restId = ""
     var restaurantName = ""
     var photo = UIImage()
@@ -25,8 +25,9 @@ struct OrderInfo {
     var orderItems: [String]
     var orderQuantities: [Int]
     var estimateCost = ""
+    var paidAmount = ""
     
-    init(id: String, account: String, pickedBy: String, state: String, restId: String, restaurantName: String, photo: UIImage, destId: String, destinationName: String, lastUpdate: String, deliverBefore: String, deliverAfter: String, orderItems: [String], orderQuantities: [Int], estimateCost: String) {
+    init(id: String, account: String, pickedBy: String, state: Int, restId: String, restaurantName: String, photo: UIImage, destId: String, destinationName: String, lastUpdate: String, deliverBefore: String, deliverAfter: String, orderItems: [String], orderQuantities: [Int], estimateCost: String, paidAmount: String) {
         self.id = id
         self.account = account
         self.pickedBy = pickedBy
@@ -42,5 +43,6 @@ struct OrderInfo {
         self.orderItems = orderItems
         self.orderQuantities = orderQuantities
         self.estimateCost = estimateCost
+        self.paidAmount = paidAmount
     }
 }

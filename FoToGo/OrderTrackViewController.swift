@@ -15,6 +15,9 @@ class OrderTrackViewController: UITableViewController {
     @IBOutlet var orderTable: UITableView!
     
     var detailViewController: OrderDetailViewController!
+    var ref: FIRDatabaseReference!
+    var trackOrderMadeBy, trackOrderPickedBy: FIRDatabaseQuery!
+    fileprivate var _refTrackOrderMadeHandle, _refTrackOrderPickedHandle: FIRDatabaseHandle!
 
     var orderInfos = [OrderInfo] ()
 //    var taskSnapshots = [FIRDataSnapshot] ()
@@ -23,7 +26,7 @@ class OrderTrackViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(OrderTrackViewController.removeTask(_:)), name: Notification.Name(rawValue: Constants.NotificationKeys.PickOrder), object: nil)
-        configureTableView()
+        configureDatabase()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -43,11 +46,51 @@ class OrderTrackViewController: UITableViewController {
 //        self.orderInfos.append(orderInfo)
     }
     
-    func configureTableView() {
-        for snapshot in AppState.sharedInstance.inProcessOrders {
+    func configureDatabase() {
+        self.ref = FIRDatabase.database().reference()
+        //personal orders
+        self.trackOrderMadeBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.account).queryEqual(toValue: AppState.sharedInstance.uid)
+        self.trackOrderMadeBy.observe(.childAdded, with: { [weak self] (snapshot) -> Void in
+            guard let strongSelf = self else { return }
+            let task = snapshot.value as! NSDictionary
+            strongSelf.loadTable(placeID: task[Constants.OrderFields.restaurantId] as! String, key: snapshot.key, task: task)
+            let checked = task[Constants.OrderFields.checked] as! String
+            if checked == "no" {
+                AppState.sharedInstance.uncheckedOrders?.append(snapshot.key)
+            }
+        })
+        
+        self.trackOrderMadeBy.observe(.childChanged, with: { [weak self] (snapshot) -> Void in
+            print("change1 detected")
+            print(snapshot)
+//            guard let strongSelf = self else { return }
+//            let task = snapshot.value as! NSDictionary
+//            strongSelf.loadTable(placeID: task[Constants.OrderFields.restaurantId] as! String, key: snapshot.key, task: task)
+//            let checked = task[Constants.OrderFields.checked] as! String
+//            if checked == "no" {
+//                AppState.sharedInstance.uncheckedOrders?.append(snapshot.key)
+//            }
+        })
+        
+        self.trackOrderPickedBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.pickedBy).queryEqual(toValue: AppState.sharedInstance.uid)
+        self.trackOrderPickedBy.observe(.childAdded, with: { (snapshot) -> Void in
             let task = snapshot.value as! NSDictionary
             self.loadTable(placeID: task[Constants.OrderFields.restaurantId] as! String, key: snapshot.key, task: task)
-        }
+        })
+        
+        self.trackOrderPickedBy.observe(.childChanged, with: { [weak self] (snapshot) -> Void in
+            guard let strongSelf = self else { return }
+            let task = snapshot.value as! NSDictionary
+            for index in 0...strongSelf.orderInfos.count-1 {
+                if strongSelf.orderInfos[index].id == snapshot.key {
+                    strongSelf.orderInfos[index].paidAmount = task[Constants.OrderFields.paidAmount] as! String
+                    strongSelf.orderInfos[index].state = task[Constants.OrderFields.state] as! Int
+                    strongSelf.tableView.reloadData()
+                    break
+                }
+            }
+        })
+
     }
     
     func loadTable(placeID: String, key: String, task: NSDictionary) {
@@ -88,7 +131,7 @@ class OrderTrackViewController: UITableViewController {
             orderItems.append(item as! String)
             orderQuantities.append(count as! Int)
         }
-        let orderInfo = OrderInfo(id: key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! String, restId: task[Constants.OrderFields.restaurantId] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, photo: photo, destId: task[Constants.OrderFields.destinationId] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String, lastUpdate: task[Constants.OrderFields.madeTime] as! String, deliverBefore: task[Constants.OrderFields.deliverBefore] as! String, deliverAfter: task[Constants.OrderFields.deliverAfter] as! String, orderItems: orderItems, orderQuantities: orderQuantities, estimateCost: task[Constants.OrderFields.estimateCost] as! String)
+        let orderInfo = OrderInfo(id: key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! Int, restId: task[Constants.OrderFields.restaurantId] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, photo: photo, destId: task[Constants.OrderFields.destinationId] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String, lastUpdate: task[Constants.OrderFields.madeTime] as! String, deliverBefore: task[Constants.OrderFields.deliverBefore] as! String, deliverAfter: task[Constants.OrderFields.deliverAfter] as! String, orderItems: orderItems, orderQuantities: orderQuantities, estimateCost: task[Constants.OrderFields.estimateCost] as! String, paidAmount: task[Constants.OrderFields.paidAmount] as! String)
         self.orderInfos.append(orderInfo)
         self.orderTable.insertRows(at: [IndexPath(row: self.orderInfos.count-1, section: 0)], with: .automatic)
     }
@@ -120,7 +163,7 @@ class OrderTrackViewController: UITableViewController {
         let index = time.index(time.startIndex, offsetBy: 5)
         cell.detailTextLabel!.text = time.substring(from: index)
         cell.imageView?.image = orderInfo.photo
-        cell.orderState.text = orderInfo.state
+        cell.orderState.text = Helper.displayStateAbbr(orderInfo.state)
         return cell
     }
 
@@ -137,6 +180,16 @@ class OrderTrackViewController: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 controller.navigationItem.title = orderInfo.restaurantName + " - " + orderInfo.destinationName
             }
+        }
+    }
+    
+    deinit {
+        if let ref = self.trackOrderMadeBy {
+            ref.removeAllObservers()
+        }
+        
+        if let ref = self.trackOrderPickedBy {
+            ref.removeAllObservers()
         }
     }
 }

@@ -88,4 +88,34 @@ public class Helper{
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: date!)
     }
+    
+    static func displayStateAbbr(_ state: Int) -> String {
+        switch state {
+        case 0:
+            return "W"
+        case 1:
+            return "P"
+        case 2:
+            return "D"
+        case 3:
+            return "A"
+        default:
+            return ""
+        }
+    }
+    
+    static func displayState(_ state: Int) -> String {
+        switch state {
+        case 0:
+            return "Waiting"
+        case 1:
+            return "Picked"
+        case 2:
+            return "Delivering"
+        case 3:
+            return "Arrived"
+        default:
+            return ""
+        }
+    }
 }

@@ -17,9 +17,6 @@ class TabBarViewController: UITabBarController{
     var ref: FIRDatabaseReference!
     var gesture: UITapGestureRecognizer!
     
-    var trackOrderMadeBy, trackOrderPickedBy: FIRDatabaseQuery!
-    fileprivate var _refTrackOrderMadeHandle, _refTrackOrderPickedHandle: FIRDatabaseHandle!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         AppState.sharedInstance.uncheckedOrders = [String]()
@@ -55,34 +52,5 @@ class TabBarViewController: UITabBarController{
     }
     
     func configureDatabase() {
-        self.ref = FIRDatabase.database().reference()
-        //personal orders
-        self.trackOrderMadeBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.account).queryEqual(toValue: AppState.sharedInstance.uid)
-        _refTrackOrderMadeHandle = self.trackOrderMadeBy.observe(.childAdded, with: { [weak self] (snapshot) -> Void in
-            guard let strongSelf = self else { return }
-            AppState.sharedInstance.inProcessOrders.append(snapshot)
-            let task = snapshot.value as! NSDictionary
-            let checked = task[Constants.OrderFields.checked] as! String
-            if checked == "no" {
-                AppState.sharedInstance.uncheckedOrders?.append(snapshot.key)
-                strongSelf.increaseBadgeCount()
-            }
-        })
-        
-        self.trackOrderPickedBy = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.pickedBy).queryEqual(toValue: AppState.sharedInstance.uid)
-        _refTrackOrderPickedHandle = self.trackOrderPickedBy.observe(.childAdded, with: { (snapshot) -> Void in
-            AppState.sharedInstance.inProcessOrders.append(snapshot)
-        })
     }
-    
-    deinit {
-        if let ref = self.trackOrderMadeBy {
-            ref.removeObserver(withHandle: _refTrackOrderMadeHandle)
-        }
-        
-        if let ref = self.trackOrderPickedBy {
-            ref.removeObserver(withHandle: _refTrackOrderPickedHandle)
-        }
-    }
-
 }

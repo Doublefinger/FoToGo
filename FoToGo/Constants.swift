@@ -49,6 +49,7 @@ struct Constants {
         static let madeTime = "madeTime"
         static let orderContent = "orderContent"
         static let estimateCost = "estimateCost"
+        static let paidAmount = "paidAmount"
         static let restaurantName = "restName"
         static let restaurantId = "restaurantId"
         static let destinationName = "destName"
@@ -63,9 +64,11 @@ struct Constants {
     }
     
     struct OrderStates {
-        static let wait = "waiting"
-        static let pick = "pick"
-        static let drop = "drop"
-        static let complete = "complete"
+        static let wait = 0
+        static let pick = 1
+        static let delivering = 2
+        static let arrived = 3
+        static let drop = 4
+        static let complete = 5
     }
 }

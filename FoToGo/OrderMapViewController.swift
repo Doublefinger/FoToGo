@@ -97,7 +97,7 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
                     return
                 }
                 let path = "tasks/" + taskId + "/"
-                self.ref.child(path + Constants.OrderFields.state).setValue("pick")
+                self.ref.child(path + Constants.OrderFields.state).setValue(Constants.OrderStates.pick)
                 self.ref.child(path + Constants.OrderFields.pickedBy).setValue(AppState.sharedInstance.uid)
                 break
             }
