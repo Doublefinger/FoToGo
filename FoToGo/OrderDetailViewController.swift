@@ -245,6 +245,9 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
                 completeAlert.addAction(UIAlertAction(title: "Pay", style: .default, handler: { (action) in
                     self.updateOrderField(Constants.OrderFields.state, Constants.OrderStates.attemptToPay)
                     //pay
+                    
+                    //rating
+                    
                 }))
                 completeAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
                     self.completeAlert.dismiss(animated: true, completion: nil)
@@ -253,13 +256,13 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
             }
         } else {
             if detail.paidAmount != "" {
-                errorAlert = UIAlertController(title: "One more step", message: "Please use the dollar button to input your paid amount first", preferredStyle: .alert)
+                errorAlert = UIAlertController(title: "Not yet", message: "Please use the dollar button to input your paid amount first", preferredStyle: .alert)
                 errorAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
                     self.errorAlert.dismiss(animated: true, completion: nil)
                 }))
                 self.present(errorAlert, animated: true, completion: nil)
             } else {
-                completeAlert = UIAlertController(title: "Request $" + detail.paidAmount + "?", message: "You will receive the payment in your wallet, once the buyer agrees to pay. We strongly recommend you finish the payment process in person!", preferredStyle: .alert)
+                completeAlert = UIAlertController(title: "Request $" + detail.paidAmount + "?", message: "You will receive the payment in your wallet, once the buyer agrees to pay.", preferredStyle: .alert)
                 completeAlert.addAction(UIAlertAction(title: "Pay", style: .default, handler: { (action) in
                     self.updateOrderField(Constants.OrderFields.state, Constants.OrderStates.paymentRequested)
                 }))
