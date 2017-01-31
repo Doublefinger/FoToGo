@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import GoogleMaps
 import GooglePlaces
+import GeoFire
 
 class MakeOrderViewController: UIViewController {
 
@@ -221,7 +222,9 @@ class MakeOrderViewController: UIViewController {
         tData[Constants.OrderFields.estimateCost] = estimateCost
         tData[Constants.OrderFields.paidAmount] = ""
         
+        let geoFire = GeoFire(firebaseRef: ref)
         self.ref.child("tasks").childByAutoId().setValue(tData, withCompletionBlock: { (error, ref) -> Void in
+            geoFire?.setLocation((CLLocation(latitude: self.placeB.coordinate.latitude, longitude: self.placeB.coordinate.longitude)), forKey: ref.key)
             self.clear()
         })
     }

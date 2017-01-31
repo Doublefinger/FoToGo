@@ -38,8 +38,7 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var ref: FIRDatabaseReference = FIRDatabase.database().reference()
 
     var restPhone, personalPhone: String!
-    var paidAmount: String!
-    var inputAmountAlert, arrivedAlert: UIAlertController!
+    var errorAlert, inputAmountAlert, amountConfirmAlert, arrivedAlert, completeAlert: UIAlertController!
     var taskId: String!
     
     var detailItem: OrderInfo?  {
@@ -51,8 +50,7 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     func configureView() {
         if let detail = self.detailItem {
             taskId = detail.id
-            paidAmount = detail.paidAmount
-            if paidAmount != "" {
+            if detail.paidAmount != "" {
                 self.switchToUploadButton()
             }
             
@@ -231,10 +229,44 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     @IBAction func completeOrder(_ sender: Any) {
-        if let detail = detailItem {
-            if detail.account == AppState.sharedInstance.uid {
-                //person who will pay want to complete the order
-                
+        guard let detail = detailItem else {
+            return
+        }
+        if detail.account == AppState.sharedInstance.uid {
+            //person who will pay want to complete the order
+            if detail.paidAmount != "" {
+                errorAlert = UIAlertController(title: "Not yet", message: "Your deliveryman has not confirm the paid amount", preferredStyle: .alert)
+                errorAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+                    self.errorAlert.dismiss(animated: true, completion: nil)
+                }))
+                self.present(errorAlert, animated: true, completion: nil)
+            } else {
+                completeAlert = UIAlertController(title: "Confirmation", message: "You agree to pay $" + detail.paidAmount, preferredStyle: .alert)
+                completeAlert.addAction(UIAlertAction(title: "Pay", style: .default, handler: { (action) in
+                    self.updateOrderField(Constants.OrderFields.state, Constants.OrderStates.attemptToPay)
+                    //pay
+                }))
+                completeAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                    self.completeAlert.dismiss(animated: true, completion: nil)
+                }))
+                self.present(completeAlert, animated: true, completion: nil)
+            }
+        } else {
+            if detail.paidAmount != "" {
+                errorAlert = UIAlertController(title: "One more step", message: "Please use the dollar button to input your paid amount first", preferredStyle: .alert)
+                errorAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+                    self.errorAlert.dismiss(animated: true, completion: nil)
+                }))
+                self.present(errorAlert, animated: true, completion: nil)
+            } else {
+                completeAlert = UIAlertController(title: "Request $" + detail.paidAmount + "?", message: "You will receive the payment in your wallet, once the buyer agrees to pay. We strongly recommend you finish the payment process in person!", preferredStyle: .alert)
+                completeAlert.addAction(UIAlertAction(title: "Pay", style: .default, handler: { (action) in
+                    self.updateOrderField(Constants.OrderFields.state, Constants.OrderStates.paymentRequested)
+                }))
+                completeAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                    self.completeAlert.dismiss(animated: true, completion: nil)
+                }))
+                self.present(completeAlert, animated: true, completion: nil)
             }
         }
     }
@@ -242,6 +274,7 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(OrderDetailViewController.updateDetailItem(notification:)), name: Notification.Name(rawValue: Constants.NotificationKeys.UpdateOrderDetail), object: nil)
         self.configureView()
         guard let detail = detailItem else {
             return
@@ -267,8 +300,30 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
+    func updateDetailItem (notification: Notification) {
+        self.detailItem = notification.object as? OrderInfo
+    }
+    
     func configuareAlert() {
-        inputAmountAlert = UIAlertController(title: "Ready To Go?", message: "Input the amount you paid", preferredStyle: .alert)
+        amountConfirmAlert = UIAlertController(title: "", message: "Please double check your paid amount", preferredStyle: .alert)
+        amountConfirmAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+            let amountText = self.amountConfirmAlert.title!
+            let amount = amountText.substring(from: amountText.index(after: amountText.startIndex))
+            self.detailItem?.paidAmount = amount
+            if let detail = self.detailItem {
+                let path = "tasks/" + detail.id + "/"
+                self.ref.updateChildValues([path + Constants.OrderFields.paidAmount : amount, path + Constants.OrderFields.state: Constants.OrderStates.delivering])
+                self.orderItemTable.reloadData()
+                self.switchToUploadButton()
+            }
+            
+        }))
+        
+        amountConfirmAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
+            self.amountConfirmAlert.dismiss(animated: true, completion: nil)
+        }))
+        
+        inputAmountAlert = UIAlertController(title: "Ready To Deliver?", message: "Input the amount you paid", preferredStyle: .alert)
         inputAmountAlert.addTextField { (textfield) in
             textfield.delegate = self
             textfield.placeholder = "$"
@@ -276,12 +331,8 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
         inputAmountAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             let textfield = self.inputAmountAlert.textFields![0]
             if textfield.text != "" {
-                self.paidAmount = textfield.text
-                self.orderState.text = "Delivering"
-                self.updateOrder(Constants.OrderFields.paidAmount, self.paidAmount)
-                self.updateOrder(Constants.OrderFields.state, Constants.OrderStates.delivering)
-                self.orderItemTable.reloadData()
-                self.switchToUploadButton()
+                self.amountConfirmAlert.title = "$" + textfield.text!
+                self.present(self.amountConfirmAlert, animated: true, completion: nil)
             }
         }))
         
@@ -292,19 +343,15 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
         arrivedAlert = UIAlertController(title: "You arrived?", message: "Click yes to let the person know you have arrived", preferredStyle: .alert)
         arrivedAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             self.orderState.text = "Arrived"
-            self.updateOrder(Constants.OrderFields.state, Constants.OrderStates.arrived)
-            if let button = self.arrived {
-                button.isHidden = true
-            }
+            self.updateOrderField(Constants.OrderFields.state, Constants.OrderStates.arrived)
         }))
         
         arrivedAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
             self.arrivedAlert.dismiss(animated: true, completion: nil)
         }))
-
     }
     
-    func updateOrder(_ key: String, _ value: Any) {
+    func updateOrderField(_ key: String, _ value: Any) {
         let path = "tasks/" + taskId + "/"
         self.ref.child(path + key).setValue(value)
     }
@@ -326,9 +373,9 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
             let font = UIFont(name: "Noteworthy-Bold", size: 18.0)
             cell.textLabel?.font = font
             cell.detailTextLabel?.font = font
-            if self.paidAmount != "" {
+            if self.detailItem?.paidAmount != "" {
                 cell.textLabel?.text = "Paid Amount"
-                cell.detailTextLabel?.text = paidAmount
+                cell.detailTextLabel?.text = self.detailItem?.paidAmount
             } else {
                 cell.textLabel?.text = "Estimate Amount:"
                 cell.detailTextLabel?.text = detailItem?.estimateCost

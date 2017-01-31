@@ -19,6 +19,7 @@ struct Constants {
         static let IncreaseBadge = "increaseBadge"
         static let RemoveBadge = "removeBadge"
         static let UpdateTrackOrder = "updateTrackOrder"
+        static let UpdateOrderDetail = "updateOrderDetail"
     }
     
     struct Segues {
@@ -64,11 +65,13 @@ struct Constants {
     }
     
     struct OrderStates {
+        static let drop = -1
         static let wait = 0
         static let pick = 1
         static let delivering = 2
         static let arrived = 3
-        static let drop = 4
-        static let complete = 5
+        static let attemptToPay = 4
+        static let paymentRequested = 5
+        static let complete = 6
     }
 }

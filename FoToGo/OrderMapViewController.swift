@@ -11,6 +11,7 @@ import Firebase
 import CoreLocation
 import GoogleMaps
 import GooglePlaces
+import GeoFire
 
 class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var mapView: GMSMapView!
@@ -20,10 +21,17 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     var acceptTaskAlert: UIAlertController!
     var messageAlert: UIAlertController!
     
-    var ref: FIRDatabaseReference!
-    var waitingTasks: FIRDatabaseQuery!
+    var ref: FIRDatabaseReference = FIRDatabase.database().reference()
+//    var waitingTasks: FIRDatabaseQuery!
     var tasks: [FIRDataSnapshot]! = []
     let locationManager = CLLocationManager()
+    var center: CLLocation! {
+        didSet {
+            configureDatabase()
+        }
+        
+    }
+    var query: GFCircleQuery!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,8 +105,9 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
                     return
                 }
                 let path = "tasks/" + taskId + "/"
-                self.ref.child(path + Constants.OrderFields.state).setValue(Constants.OrderStates.pick)
-                self.ref.child(path + Constants.OrderFields.pickedBy).setValue(AppState.sharedInstance.uid)
+                self.ref.updateChildValues([path + Constants.OrderFields.state : Constants.OrderStates.pick, path + Constants.OrderFields.pickedBy: AppState.sharedInstance.uid as Any])
+                let geoFire = GeoFire(firebaseRef: ref)
+                geoFire?.removeKey(taskId)
                 break
             }
         }
@@ -190,11 +199,25 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func configureDatabase() {
-        self.ref = FIRDatabase.database().reference()
-        //waiting orders 
-        //TODO for a certain zone
-        self.waitingTasks = self.ref.child("tasks").queryOrdered(byChild: Constants.OrderFields.state).queryEqual(toValue: Constants.OrderStates.wait)
-        self.waitingTasks.observe(.childAdded, with: { [weak self] (snapshot) in
+        //waiting orders
+        let geoFire = GeoFire(firebaseRef: ref)
+        if query != nil {
+            query.removeAllObservers()
+        }
+        
+        query = (geoFire?.query(at: center, withRadius: 8.1))!
+        
+        query.observe(.keyEntered, with: { (key, location) in
+            self.getTaskWithKey(key!)
+        })
+
+        query.observe(.keyExited) { (key, location) in
+            self.removeTask(key!)
+        }
+    }
+    
+    func getTaskWithKey(_ key: String) {
+        self.ref.child("tasks/"+key).observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
             guard let strongSelf = self else {
                 return
             }
@@ -202,18 +225,11 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
             strongSelf.tasks.append(snapshot)
             strongSelf.displayTask(task, taskId: snapshot.key)
         })
-        
-        self.waitingTasks.observe(.childRemoved, with: { [weak self] (snapshot) in
-            guard let strongSelf = self else {
-                return
-            }
-            strongSelf.removeTask(snapshot.key)
-        })
     }
     
     deinit {
-        if let ref = self.waitingTasks {
-            ref.removeAllObservers()
+        if let query = self.query {
+            query.removeAllObservers()
         }
     }
 }
@@ -228,6 +244,7 @@ extension OrderMapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let userLocation = locations.first {
+            center = userLocation
             mapView.camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 15)
             self.locationManager.stopUpdatingLocation()
         }

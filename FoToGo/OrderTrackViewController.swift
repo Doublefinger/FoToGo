@@ -79,10 +79,12 @@ class OrderTrackViewController: UITableViewController {
     
     func updateOrderInfo(_ snapshot: FIRDataSnapshot) {
         let task = snapshot.value as! NSDictionary
-        for index in 0...self.orderInfos.count-1 {
+        for index in 0...self.orderInfos.count - 1 {
             if self.orderInfos[index].id == snapshot.key {
                 self.orderInfos[index].paidAmount = task[Constants.OrderFields.paidAmount] as! String
                 self.orderInfos[index].state = task[Constants.OrderFields.state] as! Int
+                let notificationName = Notification.Name(rawValue: Constants.NotificationKeys.UpdateOrderDetail)
+                NotificationCenter.default.post(name: notificationName, object: self.orderInfos[index])
                 self.tableView.reloadData()
                 break
             }

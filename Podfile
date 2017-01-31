@@ -15,7 +15,8 @@ target 'FoToGo' do
   pod 'GoogleMaps'
   pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
   pod 'SlideMenuControllerSwift'
-  pod 'GMStepper' 
+  pod 'GMStepper'
+  pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git' 
  
   target 'FoToGoTests' do
     inherit! :search_paths
