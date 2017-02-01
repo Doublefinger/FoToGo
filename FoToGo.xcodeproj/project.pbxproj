@@ -25,6 +25,7 @@
 		FE3ECB111DD0487600084144 /* NanumPen.otf in Resources */ = {isa = PBXBuildFile; fileRef = FE3ECB101DD047ED00084144 /* NanumPen.otf */; };
 		FE3ECB151DD054A500084144 /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3ECB141DD054A500084144 /* PersonalInfoViewController.swift */; };
 		FE3ECB171DD0561300084144 /* PaymentInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */; };
+		FE439A7E1E427B4400579956 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE439A7D1E427B4400579956 /* Address.swift */; };
 		FE4C36D91DF2067100812447 /* OrderTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */; };
 		FE4EE7821DD02E4A0085468E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7811DD02E4A0085468E /* AppDelegate.swift */; };
 		FE4EE7841DD02E4A0085468E /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7831DD02E4A0085468E /* StartViewController.swift */; };
@@ -42,6 +43,7 @@
 		FE7252621DD2A3680009BD0E /* OrderMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */; };
 		FE7A75021E0DBD5B00234D1D /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7A75011E0DBD5B00234D1D /* AccountSettingsViewController.swift */; };
 		FE8174A91DEC7D98004DB03A /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */; };
+		FE85961E1E406D7C00BDF9D9 /* EvaluateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE85961D1E406D7C00BDF9D9 /* EvaluateViewController.swift */; };
 		FE8740731E118788009DA025 /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8740721E118788009DA025 /* EditAccountViewController.swift */; };
 		FE9086381DE3DA1F0027DF09 /* MakeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */; };
 		FEA195BB1E1DA38100A07FAD /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA195BA1E1DA38100A07FAD /* OrderTableViewCell.swift */; };
@@ -102,6 +104,7 @@
 		FE3ECB101DD047ED00084144 /* NanumPen.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumPen.otf; sourceTree = "<group>"; };
 		FE3ECB141DD054A500084144 /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		FE3ECB161DD0561300084144 /* PaymentInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentInfoViewController.swift; sourceTree = "<group>"; };
+		FE439A7D1E427B4400579956 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		FE4C36D81DF2067100812447 /* OrderTrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTrackViewController.swift; sourceTree = "<group>"; };
 		FE4EE77E1DD02E4A0085468E /* FoToGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoToGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE4EE7811DD02E4A0085468E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +128,7 @@
 		FE7252611DD2A3680009BD0E /* OrderMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMapViewController.swift; sourceTree = "<group>"; };
 		FE7A75011E0DBD5B00234D1D /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		FE8174A81DEC7D98004DB03A /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
+		FE85961D1E406D7C00BDF9D9 /* EvaluateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvaluateViewController.swift; sourceTree = "<group>"; };
 		FE8740721E118788009DA025 /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 		FE9086371DE3DA1F0027DF09 /* MakeOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOrderViewController.swift; sourceTree = "<group>"; };
 		FEA195BA1E1DA38100A07FAD /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -231,6 +235,7 @@
 		FE4EE7801DD02E4A0085468E /* FoToGo */ = {
 			isa = PBXGroup;
 			children = (
+				FE85961C1E406D5400BDF9D9 /* Rating */,
 				FEA68B621E11CD3C00483FA0 /* UserManagement */,
 				FEA68B611E11CD2300483FA0 /* Order */,
 				FEA68B601E11CD1300483FA0 /* Menu */,
@@ -265,6 +270,14 @@
 			path = FoToGoUITests;
 			sourceTree = "<group>";
 		};
+		FE85961C1E406D5400BDF9D9 /* Rating */ = {
+			isa = PBXGroup;
+			children = (
+				FE85961D1E406D7C00BDF9D9 /* EvaluateViewController.swift */,
+			);
+			name = Rating;
+			sourceTree = "<group>";
+		};
 		FEA305EA1E257F09008BF153 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +302,7 @@
 				FE3302131DD187A600FB3923 /* UserInfo.swift */,
 				FEB732661DDC2D4500720326 /* AppState.swift */,
 				FE25805A1E283710006415BA /* Food.swift */,
+				FE439A7D1E427B4400579956 /* Address.swift */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -633,9 +647,11 @@
 				FE4EE7821DD02E4A0085468E /* AppDelegate.swift in Sources */,
 				FE0FF11C1E2E7B86005C47FE /* DeliverBeforeTimeCell.swift in Sources */,
 				FEB732671DDC2D4500720326 /* AppState.swift in Sources */,
+				FE85961E1E406D7C00BDF9D9 /* EvaluateViewController.swift in Sources */,
 				FE2CE3021E2596BC007E1A28 /* EstimateCostViewController.swift in Sources */,
 				FE3302121DD1405600FB3923 /* Helper.swift in Sources */,
 				FE2CE3041E2596CC007E1A28 /* DeliverAfterTimeViewController.swift in Sources */,
+				FE439A7E1E427B4400579956 /* Address.swift in Sources */,
 				FE4EE78A1DD02E4A0085468E /* FoToGo.xcdatamodeld in Sources */,
 				FEB732691DDC2E6D00720326 /* Constants.swift in Sources */,
 				FE3ECB171DD0561300084144 /* PaymentInfoViewController.swift in Sources */,

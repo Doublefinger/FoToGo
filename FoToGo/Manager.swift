@@ -11,6 +11,7 @@
 import Foundation
 import UIKit
 import Firebase
+import CoreLocation
 
 public class Manager{
     static let sharedInstance = Manager()
@@ -51,6 +52,24 @@ public class Manager{
             let userData = snapshot.value as! NSDictionary
             AppState.sharedInstance.mobile = userData["mobile"] as? String
             AppState.sharedInstance.year = userData["year"] as? String
+            if let home = userData["homeAddress"] {
+                let info = home as! NSDictionary
+                print(home)
+                let coodinate = CLLocation(latitude: info["latitude"] as! CLLocationDegrees, longitude: info["longitude"] as! CLLocationDegrees)
+                AppState.sharedInstance.home = Address(name: info["name"] as! String, location: coodinate)
+            }
+            
+            if let classroom = userData["classroomAddress"] {
+                let info = classroom as! NSDictionary
+                let coodinate = CLLocation(latitude: info["latitude"] as! CLLocationDegrees, longitude: info["longitude"] as! CLLocationDegrees)
+                AppState.sharedInstance.classroom = Address(name: info["name"] as! String, location: coodinate)
+            }
+            
+            if let library = userData["libraryAddress"] {
+                let info = library as! NSDictionary
+                let coodinate = CLLocation(latitude: info["latitude"] as! CLLocationDegrees, longitude: info["longitude"] as! CLLocationDegrees)
+                AppState.sharedInstance.library = Address(name: info["name"] as! String, location: coodinate)
+            }
         })
     }
     
