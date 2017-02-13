@@ -10,24 +10,25 @@ import Foundation
 import UIKit
 
 struct OrderInfo {
-    var id = ""
-    var account = ""
-    var pickedBy = ""
+    var id: String
+    var account: String
+    var pickedBy: String
     var state: Int
-    var restId = ""
-    var restaurantName = ""
+    var restId: String
+    var restAddress: Address
     var photo = UIImage()
-    var destId = ""
-    var destinationName = ""
-    var lastUpdate = ""
-    var deliverBefore = ""
-    var deliverAfter = ""
+    var destId: String
+    var destAddress: Address
+    var lastUpdate: String
+    var deliverBefore: String
+    var deliverAfter: String
     var orderItems: [String]
     var orderQuantities: [Int]
-    var estimateCost = ""
-    var paidAmount = ""
+    var estimateCost: String
+    var paidAmount: String
+    var paymentLocationVerified: Int
     
-    init(id: String, account: String, pickedBy: String, state: Int, restId: String, restaurantName: String, photo: UIImage, destId: String, destinationName: String, lastUpdate: String, deliverBefore: String, deliverAfter: String, orderItems: [String], orderQuantities: [Int], estimateCost: String, paidAmount: String) {
+    init(id: String, account: String, pickedBy: String, state: Int, restId: String, restAddress: Address, photo: UIImage, destId: String, destAddress: Address, lastUpdate: String, deliverBefore: String, deliverAfter: String, orderItems: [String], orderQuantities: [Int], estimateCost: String, paidAmount: String, paymentLocationVerified: Int) {
         self.id = id
         self.account = account
         self.pickedBy = pickedBy
@@ -36,13 +37,14 @@ struct OrderInfo {
         self.deliverAfter = deliverAfter
         self.state = state
         self.restId = restId
-        self.restaurantName = restaurantName
+        self.restAddress = restAddress
         self.destId = destId
-        self.destinationName = destinationName
+        self.destAddress = destAddress
         self.photo = photo
         self.orderItems = orderItems
         self.orderQuantities = orderQuantities
         self.estimateCost = estimateCost
         self.paidAmount = paidAmount
+        self.paymentLocationVerified = paymentLocationVerified
     }
 }

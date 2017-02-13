@@ -107,7 +107,6 @@ class MakeOrderViewController: UIViewController {
         if placeA != nil {
             if let phoneNumber = placeA.phoneNumber {
                 let phone = String(phoneNumber.characters.filter{String($0).rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil })
-                print(phone)
                 let url = URL(string: "telprompt://" + phone)
                 if UIApplication.shared.canOpenURL(url!) {
                     if #available(iOS 10.0, *) {
@@ -122,10 +121,14 @@ class MakeOrderViewController: UIViewController {
     }
     
     @IBAction func editPlaceA(_ sender: Any) {
+        let visibleRegion = mapView.projection.visibleRegion()
+        startAutocompleteController.autocompleteBounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.farRight)
         self.present(startAutocompleteController, animated: true, completion: nil)
     }
 
     @IBAction func editPlaceB(_ sender: Any) {
+        let visibleRegion = mapView.projection.visibleRegion()
+        endAutocompleteController.autocompleteBounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.farRight)
         self.present(endAutocompleteController, animated: true, completion: nil)
     }
     
@@ -221,6 +224,7 @@ class MakeOrderViewController: UIViewController {
         tData[Constants.OrderFields.deliverBefore] = Helper.convertDate(deliverBeforeTime!)
         tData[Constants.OrderFields.estimateCost] = estimateCost
         tData[Constants.OrderFields.paidAmount] = ""
+        tData[Constants.OrderFields.paymentLocationVerified] = 0
         
         let geoFire = GeoFire(firebaseRef: ref)
         self.ref.child("tasks").childByAutoId().setValue(tData, withCompletionBlock: { (error, ref) -> Void in

@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import CoreLocation
 import UIKit
 
 class AppState: NSObject {
@@ -25,6 +26,8 @@ class AppState: NSObject {
     var home: Address?
     var classroom: Address?
     var library: Address?
+    var location: CLLocation?
+    var locationManager: CLLocationManager?
     
     func clear(){
         signedIn = false

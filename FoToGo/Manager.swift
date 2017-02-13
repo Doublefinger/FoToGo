@@ -54,7 +54,6 @@ public class Manager{
             AppState.sharedInstance.year = userData["year"] as? String
             if let home = userData["homeAddress"] {
                 let info = home as! NSDictionary
-                print(home)
                 let coodinate = CLLocation(latitude: info["latitude"] as! CLLocationDegrees, longitude: info["longitude"] as! CLLocationDegrees)
                 AppState.sharedInstance.home = Address(name: info["name"] as! String, location: coodinate)
             }

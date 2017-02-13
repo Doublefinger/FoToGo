@@ -24,17 +24,19 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     var ref: FIRDatabaseReference = FIRDatabase.database().reference()
 //    var waitingTasks: FIRDatabaseQuery!
     var tasks: [FIRDataSnapshot]! = []
-    let locationManager = CLLocationManager()
+    var locationManager: CLLocationManager!
     var center: CLLocation! {
         didSet {
+            AppState.sharedInstance.location = center
             configureDatabase()
         }
-        
     }
     var query: GFCircleQuery!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppState.sharedInstance.locationManager = CLLocationManager()
+        locationManager = AppState.sharedInstance.locationManager
         locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -67,12 +69,6 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
         self.slideMenuController()?.openLeft()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "signOut" {
-            Manager.sharedInstance.signOut()
-        }
-    }
-    
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         if (!(marker.userData is String)) {
             if self.prevRestMarker?.map == nil {
@@ -101,7 +97,6 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
                 let task = snapshot.value as! NSDictionary
                 if (task[Constants.OrderFields.account] as! String) == AppState.sharedInstance.uid {
                     self.present(messageAlert, animated: true, completion: nil)
-                    print("cannot pick own task")
                     return
                 }
                 let path = "tasks/" + taskId + "/"
@@ -178,6 +173,7 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
     
     func getLocationUpdate() {
         locationManager.startUpdatingLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         mapView.delegate = self
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
@@ -205,7 +201,7 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
             query.removeAllObservers()
         }
         
-        query = (geoFire?.query(at: center, withRadius: 8.1))!
+        query = (geoFire?.query(at: center, withRadius: 4.82803))!
         
         query.observe(.keyEntered, with: { (key, location) in
             self.getTaskWithKey(key!)
@@ -237,7 +233,7 @@ class OrderMapViewController: UIViewController, GMSMapViewDelegate {
 
 extension OrderMapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == CLAuthorizationStatus.authorizedWhenInUse {
+        if status == CLAuthorizationStatus.authorizedWhenInUse || status == .authorizedAlways {
             self.getLocationUpdate()
         }
     }

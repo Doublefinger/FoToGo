@@ -20,6 +20,7 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var deliverBefore: UILabel!
     @IBOutlet weak var deliverAfter: UILabel!
     
+    @IBOutlet weak var locationVerified: UIButton!
     @IBOutlet weak var readyToGo: UIButton!
     @IBOutlet weak var arrived: UIButton!
     @IBOutlet weak var delivered: UIButton!
@@ -38,8 +39,9 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var ref: FIRDatabaseReference = FIRDatabase.database().reference()
 
     var restPhone, personalPhone: String!
-    var errorAlert, inputAmountAlert, amountConfirmAlert, arrivedAlert, completeAlert: UIAlertController!
+    var inputAmountAlert, amountConfirmAlert, arrivedAlert, completeAlert: UIAlertController!
     var taskId: String!
+    var inRestaurant = 0
     
     var detailItem: OrderInfo?  {
         didSet {
@@ -60,6 +62,10 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
                 }
             }
             
+            if detail.paymentLocationVerified == 1 {
+                locationVerified.isHidden = false
+            }
+            
             loadPlaces(detail.restId, detail.destId)
             if detail.pickedBy != "" {
                 if detail.account == AppState.sharedInstance.uid {
@@ -74,11 +80,11 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
             }
             
             if let label = self.restName {
-                label.text = detail.restaurantName
+                label.text = detail.restAddress.name
             }
             
             if let label = self.destName {
-                label.text = detail.destinationName
+                label.text = detail.destAddress.name
             }
 
             if let label = self.orderState {
@@ -220,12 +226,66 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     @IBAction func readyToDeliver(_ sender: Any) {
-        //input amount of the food
-        self.present(inputAmountAlert, animated: true, completion: nil)
+        guard let location = AppState.sharedInstance.location else {
+            let alert = UIAlertController(title: "Warning!", message: "GPS access is restricted. To confirm your paid amount, please enable GPS in the Settigs app under Privacy, Location Services.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Go to settings now", style: .default, handler: { (alert: UIAlertAction!) in
+                UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, completionHandler: nil)
+            }))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        guard let place = self.detailItem?.restAddress.location else {
+            return
+        }
+        
+        if place.distance(from: location) > 50 {
+            inRestaurant = 0
+            let alert = UIAlertController(title: "Warning!", message: "System cannot detect your arrival at " + (detailItem?.restAddress.name)!, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Wait", style: .cancel, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "Ignore", style: .default, handler: { (action) in
+                self.present(self.inputAmountAlert, animated: true, completion: nil)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            //input amount of the food
+            inRestaurant = 1
+            self.present(inputAmountAlert, animated: true, completion: nil)
+        }
+        
     }
     
     @IBAction func arrive(_ sender: Any) {
-        self.present(arrivedAlert, animated: true, completion: nil)
+        guard let detail = detailItem else {
+            return
+        }
+        
+        guard let location = AppState.sharedInstance.location else {
+            let alert = UIAlertController(title: "Warning!", message: "GPS access is restricted. To confirm your paid amount, please enable GPS in the Settigs app under Privacy, Location Services.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Go to settings now", style: .default, handler: { (alert: UIAlertAction!) in
+                UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, completionHandler: nil)
+            }))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        if detail.destAddress.location.distance(from: location) > 500 {
+            let alert = UIAlertController(title: "Sorry", message: "Our system has not detacted your arrival, please try it later.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Try Later", style: .cancel, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert, animated: true, completion: nil)        }
+        if detail.paidAmount == "" {
+            let alert = UIAlertController(title: "Not yet", message: "Please use the dollar button to input your paid amount first", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            self.present(arrivedAlert, animated: true, completion: nil)
+        }
     }
 
     @IBAction func completeOrder(_ sender: Any) {
@@ -234,12 +294,12 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
         }
         if detail.account == AppState.sharedInstance.uid {
             //person who will pay want to complete the order
-            if detail.paidAmount != "" {
-                errorAlert = UIAlertController(title: "Not yet", message: "Your deliveryman has not confirm the paid amount", preferredStyle: .alert)
-                errorAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
-                    self.errorAlert.dismiss(animated: true, completion: nil)
+            if detail.paidAmount == "" {
+                let alert = UIAlertController(title: "Not yet", message: "Your deliveryman has not confirm the paid amount", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+                    alert.dismiss(animated: true, completion: nil)
                 }))
-                self.present(errorAlert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
             } else {
                 completeAlert = UIAlertController(title: "Confirmation", message: "You agree to pay $" + detail.paidAmount, preferredStyle: .alert)
                 completeAlert.addAction(UIAlertAction(title: "Pay", style: .default, handler: { (action) in
@@ -256,11 +316,11 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
             }
         } else {
             if detail.paidAmount != "" {
-                errorAlert = UIAlertController(title: "Not yet", message: "Please use the dollar button to input your paid amount first", preferredStyle: .alert)
-                errorAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
-                    self.errorAlert.dismiss(animated: true, completion: nil)
+                let alert = UIAlertController(title: "Not yet", message: "Please use the dollar button to input your paid amount first", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+                    alert.dismiss(animated: true, completion: nil)
                 }))
-                self.present(errorAlert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
             } else {
                 completeAlert = UIAlertController(title: "Request $" + detail.paidAmount + "?", message: "You will receive the payment in your wallet, once the buyer agrees to pay.", preferredStyle: .alert)
                 completeAlert.addAction(UIAlertAction(title: "Pay", style: .default, handler: { (action) in
@@ -272,6 +332,16 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
                 self.present(completeAlert, animated: true, completion: nil)
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if detailItem?.pickedBy == AppState.sharedInstance.uid {
+            AppState.sharedInstance.locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        AppState.sharedInstance.locationManager?.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
     
     override func viewDidLoad() {
@@ -315,11 +385,10 @@ class OrderDetailViewController: UIViewController, UITableViewDelegate, UITableV
             self.detailItem?.paidAmount = amount
             if let detail = self.detailItem {
                 let path = "tasks/" + detail.id + "/"
-                self.ref.updateChildValues([path + Constants.OrderFields.paidAmount : amount, path + Constants.OrderFields.state: Constants.OrderStates.delivering])
+                self.ref.updateChildValues([path + Constants.OrderFields.paidAmount : amount, path + Constants.OrderFields.state: Constants.OrderStates.delivering, path + Constants.OrderFields.paymentLocationVerified: self.inRestaurant])
                 self.orderItemTable.reloadData()
                 self.switchToUploadButton()
             }
-            
         }))
         
         amountConfirmAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in

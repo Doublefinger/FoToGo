@@ -39,13 +39,6 @@ class OrderTrackViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func updateTrackOrder() {
-//        print("enter updatetrack")
-//        print(orderInfos.count)
-//        let orderInfo = notification.object as! OrderInfo
-//        self.orderInfos.append(orderInfo)
-    }
-    
     func configureDatabase() {
         self.ref = FIRDatabase.database().reference()
         //personal orders
@@ -129,7 +122,11 @@ class OrderTrackViewController: UITableViewController {
             orderItems.append(item as! String)
             orderQuantities.append(count as! Int)
         }
-        let orderInfo = OrderInfo(id: key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! Int, restId: task[Constants.OrderFields.restaurantId] as! String, restaurantName: task[Constants.OrderFields.restaurantName] as! String, photo: photo, destId: task[Constants.OrderFields.destinationId] as! String, destinationName: task[Constants.OrderFields.destinationName] as! String, lastUpdate: task[Constants.OrderFields.madeTime] as! String, deliverBefore: task[Constants.OrderFields.deliverBefore] as! String, deliverAfter: task[Constants.OrderFields.deliverAfter] as! String, orderItems: orderItems, orderQuantities: orderQuantities, estimateCost: task[Constants.OrderFields.estimateCost] as! String, paidAmount: task[Constants.OrderFields.paidAmount] as! String)
+        
+        let restAddress = Address(name: task[Constants.OrderFields.restaurantName] as! String, location: CLLocation(latitude: task[Constants.OrderFields.restaurantLatitude] as! CLLocationDegrees, longitude: task[Constants.OrderFields.restaurantLongitude] as! CLLocationDegrees))
+        let destAddress = Address(name: task[Constants.OrderFields.destinationName] as! String, location: CLLocation(latitude: task[Constants.OrderFields.destinationLatitude] as! CLLocationDegrees, longitude: task[Constants.OrderFields.destinationLongitude] as! CLLocationDegrees))
+
+        let orderInfo = OrderInfo(id: key, account: task[Constants.OrderFields.account] as! String, pickedBy: task[Constants.OrderFields.pickedBy] as! String, state: task[Constants.OrderFields.state] as! Int, restId: task[Constants.OrderFields.restaurantId] as! String, restAddress: restAddress, photo: photo, destId: task[Constants.OrderFields.destinationId] as! String, destAddress: destAddress, lastUpdate: task[Constants.OrderFields.madeTime] as! String, deliverBefore: task[Constants.OrderFields.deliverBefore] as! String, deliverAfter: task[Constants.OrderFields.deliverAfter] as! String, orderItems: orderItems, orderQuantities: orderQuantities, estimateCost: task[Constants.OrderFields.estimateCost] as! String, paidAmount: task[Constants.OrderFields.paidAmount] as! String, paymentLocationVerified: task[Constants.OrderFields.paymentLocationVerified] as! Int)
         self.orderInfos.append(orderInfo)
         self.orderTable.insertRows(at: [IndexPath(row: self.orderInfos.count-1, section: 0)], with: .automatic)
     }
@@ -156,7 +153,7 @@ class OrderTrackViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.orderTable.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderTableViewCell
         let orderInfo = self.orderInfos[indexPath.row]
-        cell.textLabel!.text = orderInfo.restaurantName
+        cell.textLabel!.text = orderInfo.restAddress.name
         let time = Helper.displayDateInLocal(orderInfo.lastUpdate)
         let index = time.index(time.startIndex, offsetBy: 5)
         cell.detailTextLabel!.text = time.substring(from: index)
@@ -176,7 +173,7 @@ class OrderTrackViewController: UITableViewController {
                 controller.detailItem = orderInfo
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
-                controller.navigationItem.title = orderInfo.restaurantName + " - " + orderInfo.destinationName
+                controller.navigationItem.title = orderInfo.restAddress.name + " - " + orderInfo.destAddress.name
             }
         }
     }
